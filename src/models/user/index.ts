@@ -13,6 +13,12 @@ export interface IUser extends Document {
   dp: string;
   profilePic?: string | never[];
   bio: string;
+  heading?: string;
+  website?: string;
+  facebook?: string;
+  twitter?: string;
+  youtube?: string;
+  LinkedIn?: string;
 }
 
 const userSchema: Schema<IUser> = new Schema<IUser>(
@@ -57,6 +63,30 @@ const userSchema: Schema<IUser> = new Schema<IUser>(
       type: String,
       required: false,
       default: "",
+    },
+    heading: {
+      type: String,
+      required: false,
+    },
+    website: {
+      type: String,
+      required: false,
+    },
+    facebook: {
+      type: String,
+      required: false,
+    },
+    twitter: {
+      type: String,
+      required: false,
+    },
+    LinkedIn: {
+      type: String,
+      required: false,
+    },
+    youtube: {
+      type: String,
+      required: false,
     },
   },
   { timestamps: true }

@@ -66,6 +66,30 @@ const userSchema = new mongoose_1.Schema({
         required: false,
         default: "",
     },
+    heading: {
+        type: String,
+        required: false,
+    },
+    website: {
+        type: String,
+        required: false,
+    },
+    facebook: {
+        type: String,
+        required: false,
+    },
+    twitter: {
+        type: String,
+        required: false,
+    },
+    LinkedIn: {
+        type: String,
+        required: false,
+    },
+    youtube: {
+        type: String,
+        required: false,
+    },
 }, { timestamps: true });
 const UserModel = mongoose_1.default.model("User", userSchema);
 exports.UserModel = UserModel;
