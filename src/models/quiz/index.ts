@@ -1,0 +1,51 @@
+import mongoose, { Document, Schema } from "mongoose";
+
+interface IQuiz extends Document {
+  title: string;
+  description: string;
+  courseSection: Schema.Types.ObjectId;
+  disable?: boolean;
+  questions: [
+    {
+      question: string;
+      options: [string];
+      correctAnswer: number;
+      point: number;
+    },
+  ];
+}
+
+const quizSchema: Schema<IQuiz> = new Schema<IQuiz>(
+  {
+    title: {
+      type: String,
+      required: false,
+    },
+    description: {
+      type: String,
+      required: false,
+    },
+
+    disable: {
+      type: Boolean,
+      default: false,
+    },
+    courseSection: {
+      type: Schema.Types.ObjectId,
+      ref: "CourseSection",
+      required: true,
+    },
+    questions: [
+      {
+        question: { type: String, required: true },
+        options: { type: [String], required: true },
+        correctAnswer: { type: Number, required: true },
+        point: { type: Number, required: true },
+      },
+    ],
+  },
+  { timestamps: true }
+);
+
+const QuizModel = mongoose.model<IQuiz>("Quiz", quizSchema);
+export { QuizModel };

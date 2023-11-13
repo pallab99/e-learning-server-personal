@@ -1,0 +1,36 @@
+import express from "express";
+import assignmentRouter from "./assignment";
+import authRouter from "./auth/index";
+import cartRouter from "./cart";
+import categoryRouter from "./category";
+import courseRouter from "./course";
+import courseContentRouter from "./course-content";
+import courseSectionRouter from "./course_section";
+import purchaseHistory from "./purchase-history";
+import qnaRouter from "./qna";
+import quizRouter from "./quiz";
+import quizSubmissionRouter from "./quiz-submit";
+import reviewRatingRouter from "./review-rating";
+import subscriptionRouter from "./subscription";
+import userRouter from "./user";
+import wishlistRouter from "./wishlist";
+
+const router = express.Router();
+
+router.use("/auth", authRouter);
+router.use("/user", userRouter);
+router.use("/course", courseRouter);
+router.use("/course-section", courseSectionRouter);
+router.use("/course-content", courseContentRouter);
+router.use("/cart", cartRouter);
+router.use("/wishlist", wishlistRouter);
+router.use("/assignment", assignmentRouter);
+router.use("/subscription", subscriptionRouter);
+router.use("/purchase-history", purchaseHistory);
+router.use("/category", categoryRouter);
+router.use("/review-rating", reviewRatingRouter);
+router.use("/quiz", quizRouter);
+router.use("/quiz-submit", quizSubmissionRouter);
+router.use("/qna", qnaRouter);
+
+export default router;
