@@ -9,6 +9,7 @@ import UserService from "../../services/user";
 import { databaseLogger } from "../../utils/dbLogger";
 import { sendResponse } from "../../utils/response";
 import { sendValidationError } from "../../utils/sendValidationError";
+import mongoose from "mongoose";
 const bucketName = process.env.S3_BUCKET_NAME;
 class CourseControllerClass {
   async createCourse(req: Request, res: Response) {
@@ -290,6 +291,44 @@ class CourseControllerClass {
         HTTP_STATUS.OK,
         RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
         courseByInstructor.data
+      );
+    } catch (error: any) {
+      console.log(error);
+      databaseLogger(error.message);
+      return sendResponse(
+        res,
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  async acceptCourseRequest(req: Request, res: Response) {
+    try {
+      const { courseId } = req.params;
+      const {type}=req.query
+      if(type==="reject"){
+        return sendResponse(
+          res,
+          HTTP_STATUS.OK,
+          RESPONSE_MESSAGE.REJECT_COURSE_REQUEST
+        );
+      }
+      const result = await CourseModel.updateOne(
+        { _id: new mongoose.Types.ObjectId(courseId) },
+        { $set: { verified: true } }
+      );
+      if (!result) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.BAD_REQUEST,
+          RESPONSE_MESSAGE.SOMETHING_WENT_WRONG
+        );
+      }
+      return sendResponse(
+        res,
+        HTTP_STATUS.OK,
+        RESPONSE_MESSAGE.ACCEPT_COURSE_REQUEST
       );
     } catch (error: any) {
       console.log(error);

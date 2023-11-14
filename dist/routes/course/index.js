@@ -16,6 +16,7 @@ router
     file_1.upload.array("file_to_upload"),
     ...validator_1.validator.createCourse,
 ], course_1.default.createCourse)
+    .post("/publish-request/:courseId", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isAdmin], course_1.default.acceptCourseRequest)
     .get("/all", course_1.default.getAllCourse)
     .get("/all/instructor", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isInstructor], course_1.default.getCourseByInstructor)
     .get("/getCourseById/:courseId", course_1.default.getCourseById)

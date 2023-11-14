@@ -7370,3 +7370,255 @@ Course validation failed: undefined: Cannot read properties of undefined (readin
 
 /api/subscription/all  ( Time -> November 14, 2023 4:56 PM)
 
+/api/auth/sign-in  ( Time -> November 14, 2023 8:06 PM)
+
+/api/user/me  ( Time -> November 14, 2023 8:06 PM)
+
+/api/user/students/all  ( Time -> November 14, 2023 8:06 PM)
+
+/api/course/all  ( Time -> November 14, 2023 8:06 PM)
+
+/api/course/all?type=verified&value=true  ( Time -> November 14, 2023 8:06 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 8:06 PM)
+
+/api/course/all?type=disable  ( Time -> November 14, 2023 8:06 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:07 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:09 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:10 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:10 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:13 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:13 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:13 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:13 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:13 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:14 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:14 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:18 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:19 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:20 PM)
+
+/api/subscription/accept-subscription/655340ca13062cf73f13aa7a/654da4827b12deff2ede074f  ( Time -> November 14, 2023 8:21 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:21 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:22 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:22 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:22 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:22 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:23 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:23 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:23 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:25 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:25 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:25 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:26 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:26 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:26 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:26 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:27 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:27 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:27 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:29 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:31 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:32 PM)
+
+/api/subscription/reject-subscription/655340ca13062cf73f13aa7a/654ba8a5850e83d93d9a4495  ( Time -> November 14, 2023 8:32 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:32 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:33 PM)
+
+/api/subscription/reject-subscription/655340ca13062cf73f13aa7a/654ba8a5850e83d93d9a4495  ( Time -> November 14, 2023 8:34 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:35 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:36 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:39 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:40 PM)
+
+/api/subscription/accept-subscription/655340ca13062cf73f13aa7a/654ba8a5850e83d93d9a4495  ( Time -> November 14, 2023 8:42 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:42 PM)
+
+/api/subscription/reject-subscription/6553346713062cf73f13aa12/654da4827b12deff2ede074f  ( Time -> November 14, 2023 8:43 PM)
+
+/api/subscription/accept-subscription/6553346713062cf73f13aa12/654da4827b12deff2ede074f  ( Time -> November 14, 2023 8:44 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:44 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 8:44 PM)
+
+/api/subscription/all  ( Time -> November 14, 2023 9:12 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:12 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:12 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:15 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:19 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:20 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:20 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:20 PM)
+
+/api/course/all?type=verified&value=all  ( Time -> November 14, 2023 9:20 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:20 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:23 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:23 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:24 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:24 PM)
+
+/api/course/all?type=verified&value=all  ( Time -> November 14, 2023 9:24 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:25 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:25 PM)
+
+/api/course/all?type=disable  ( Time -> November 14, 2023 9:25 PM)
+
+/api/course/all?type=verified&value=true  ( Time -> November 14, 2023 9:25 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:26 PM)
+
+/api/course/all?type=verified&value=true  ( Time -> November 14, 2023 9:26 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:26 PM)
+
+/api/course/all?type=disable  ( Time -> November 14, 2023 9:26 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:27 PM)
+
+/api/course/all?type=disable  ( Time -> November 14, 2023 9:27 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:27 PM)
+
+/api/course/all?type=verified&value=true  ( Time -> November 14, 2023 9:27 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:28 PM)
+
+/api/course/all?type=verified&value=true  ( Time -> November 14, 2023 9:28 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:28 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:28 PM)
+
+/api/course/all?type=verified&value=true  ( Time -> November 14, 2023 9:29 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:29 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:39 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:40 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:40 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:40 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:40 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:47 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:47 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:47 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:47 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:47 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:48 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:49 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:53 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:53 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:53 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:53 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:53 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:53 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:54 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:54 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:54 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:54 PM)
+
+/api/course/all  ( Time -> November 14, 2023 9:55 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:55 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:56 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:56 PM)
+
+/api/course/all?type=verified&value=true  ( Time -> November 14, 2023 9:56 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:56 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:56 PM)
+
+/api/course/all?type=disable  ( Time -> November 14, 2023 9:56 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:56 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:56 PM)
+
+/api/course/all?type=verified&value=all  ( Time -> November 14, 2023 9:56 PM)
+
+/api/course/all?type=verified&value=true  ( Time -> November 14, 2023 9:56 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 14, 2023 9:56 PM)
+
+/api/course/all?type=disable  ( Time -> November 14, 2023 9:56 PM)
+

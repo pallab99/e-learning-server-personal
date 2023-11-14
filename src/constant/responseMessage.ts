@@ -90,5 +90,7 @@ export const RESPONSE_MESSAGE = {
   QNA_UPDATE_SUCCESS:"Question updated successfully",
   QNA_UPDATE_FAILED:"Question failed to update",
   REPLY_DELETE_SUCCESS:"Reply deleted successfully",
+  ACCEPT_COURSE_REQUEST:"Course publish request accepted successfully",
+  REJECT_COURSE_REQUEST:"Course publish request is rejected"
 
 };

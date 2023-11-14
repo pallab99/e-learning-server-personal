@@ -22,6 +22,7 @@ const user_1 = __importDefault(require("../../services/user"));
 const dbLogger_1 = require("../../utils/dbLogger");
 const response_1 = require("../../utils/response");
 const sendValidationError_1 = require("../../utils/sendValidationError");
+const mongoose_1 = __importDefault(require("mongoose"));
 const bucketName = process.env.S3_BUCKET_NAME;
 class CourseControllerClass {
     createCourse(req, res) {
@@ -171,6 +172,27 @@ class CourseControllerClass {
                     return yield (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.NO_DATA, []);
                 }
                 return yield (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, courseByInstructor.data);
+            }
+            catch (error) {
+                console.log(error);
+                (0, dbLogger_1.databaseLogger)(error.message);
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.INTERNAL_SERVER_ERROR, responseMessage_1.RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR);
+            }
+        });
+    }
+    acceptCourseRequest(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { courseId } = req.params;
+                const { type } = req.query;
+                if (type === "reject") {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.REJECT_COURSE_REQUEST);
+                }
+                const result = yield course_1.default.updateOne({ _id: new mongoose_1.default.Types.ObjectId(courseId) }, { $set: { verified: true } });
+                if (!result) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
+                }
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.ACCEPT_COURSE_REQUEST);
             }
             catch (error) {
                 console.log(error);

@@ -2,6 +2,7 @@ import express from "express";
 import { upload } from "../../configs/file";
 import CourseController from "../../controllers/course";
 import {
+  isAdmin,
   isInstructor,
   tokenAuthorization,
 } from "../../middlewares/tokenValidator";
@@ -18,6 +19,11 @@ router
       ...validator.createCourse,
     ],
     CourseController.createCourse
+  )
+  .post(
+    "/publish-request/:courseId",
+    [tokenAuthorization, isAdmin],
+    CourseController.acceptCourseRequest
   )
   .get("/all", CourseController.getAllCourse)
   .get(
