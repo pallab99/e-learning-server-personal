@@ -4,10 +4,10 @@ import { RESPONSE_MESSAGE } from "../../constant/responseMessage";
 import { HTTP_STATUS } from "../../constant/statusCode";
 import CartService from "../../services/cart";
 import CourseService from "../../services/course";
+import PurchaseHistoryService from "../../services/purchase-history";
 import SubscriptionService from "../../services/subscription";
 import { databaseLogger } from "../../utils/dbLogger";
 import { sendResponse } from "../../utils/response";
-import PurchaseHistoryService from "../../services/purchase-history";
 const { promisify } = require("util");
 const ejs = require("ejs");
 const ejsRenderFile = promisify(ejs.renderFile);
@@ -165,7 +165,6 @@ class SubscriptionControllerClass {
           RESPONSE_MESSAGE.NO_DATA
         );
       }
-      console.log("subscription", subscription.data);
 
       const course = await CourseService.findById(courseId);
 
@@ -179,9 +178,10 @@ class SubscriptionControllerClass {
 
       const addUserToEnrollmentList =
         await CourseService.addUserToEnrollmentList(
-          course.data,
+          courseId,
           subscription.data.user._id
         );
+
       if (!addUserToEnrollmentList.success) {
         return sendResponse(
           res,

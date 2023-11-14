@@ -77,8 +77,11 @@ class CourseServiceClass {
   }
 
   async addUserToEnrollmentList(course: any, userId: string) {
-    course.students.push(userId);
-    const result = await course.save();
+    // course.students.push(userId);
+    // console.log({ course, userId });
+    // const result = await course.save();
+    // console.log({ result });
+    const result = CourseRepository.addToEnrollment(course, userId);
     if (result) {
       return { success: true, data: result as any };
     }

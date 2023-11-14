@@ -15,7 +15,7 @@ router
   .use(
     "/validate-reset-password/:resetToken/:userId",
     AuthController.validateResetPassword
-  );
-// .post("/verify-account",Auth)
+  )
+  .post("/reset-password", AuthController.resetPassword);
 
 export default router;

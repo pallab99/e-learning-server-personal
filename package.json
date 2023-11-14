@@ -15,6 +15,7 @@
     "@aws-sdk/client-s3": "^3.438.0",
     "@aws-sdk/lib-storage": "^3.441.0",
     "@aws-sdk/s3-request-presigner": "^3.438.0",
+    "@types/bcrypt": "^5.0.2",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "concurrently": "^8.2.2",

@@ -100,11 +100,79 @@ class CourseControllerClass {
         filterCategory,
         filterLevel,
         filterTotalHours,
+        type,
+        value,
       } = req.query;
 
       const query: any = {};
 
       // Pagination
+      if (type || value) {
+        console.log({ type, value });
+
+        if (type === "disable") {
+          const result = await CourseModel.find({ disable: true });
+
+          if (!result) {
+            return sendResponse(
+              res,
+              HTTP_STATUS.OK,
+              RESPONSE_MESSAGE.NO_DATA,
+              []
+            );
+          }
+          return sendResponse(
+            res,
+            HTTP_STATUS.OK,
+            RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
+            {
+              courses: result,
+            }
+          );
+        }
+        if (type === "verified" && value === "true") {
+          const result = await CourseModel.find({ verified: true });
+
+          if (!result) {
+            return sendResponse(
+              res,
+              HTTP_STATUS.OK,
+              RESPONSE_MESSAGE.NO_DATA,
+              []
+            );
+          }
+          return sendResponse(
+            res,
+            HTTP_STATUS.OK,
+            RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
+            {
+              courses: result,
+            }
+          );
+        }
+        if (type === "verified" && value === "false") {
+          console.log("hello");
+
+          const result = await CourseModel.find({ verified: "false" });
+
+          if (!result) {
+            return sendResponse(
+              res,
+              HTTP_STATUS.OK,
+              RESPONSE_MESSAGE.NO_DATA,
+              []
+            );
+          }
+          return sendResponse(
+            res,
+            HTTP_STATUS.OK,
+            RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
+            {
+              courses: result,
+            }
+          );
+        }
+      }
       const pageNumber = parseInt(page as string) || 1;
       const pageSize = parseInt(limit as string) || 10;
       const skip = (pageNumber - 1) * pageSize;

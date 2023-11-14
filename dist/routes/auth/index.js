@@ -13,6 +13,6 @@ router
     .use("/verify-account/:resetToken/:userId", auth_1.AuthController.verifyAccount)
     .post("/refreshToken", auth_1.AuthController.refreshToken)
     .post("/sendEmailForResetPassword", auth_1.AuthController.sendEmailForPassWordReset)
-    .use("/validate-reset-password/:resetToken/:userId", auth_1.AuthController.validateResetPassword);
-// .post("/verify-account",Auth)
+    .use("/validate-reset-password/:resetToken/:userId", auth_1.AuthController.validateResetPassword)
+    .post("/reset-password", auth_1.AuthController.resetPassword);
 exports.default = router;

@@ -17,7 +17,7 @@ interface ICourse extends Document {
   numberOfContent?: number;
   totalHours?: number;
   course_section?: mongoose.Types.ObjectId[];
-  QNA?: mongoose.Types.ObjectId[];
+  QNA?: mongoose.Types.ObjectId;
   disable?: boolean;
   verified?: boolean;
   status?: boolean;
@@ -107,17 +107,17 @@ const courseSchema: Schema<ICourse> = new Schema<ICourse>(
     disable: {
       type: Boolean,
       required: false,
-      default: 0,
+      default: false,
     },
     verified: {
       type: Boolean,
       required: false,
-      default: 0,
+      default: false,
     },
     status: {
       type: Boolean,
       required: false,
-      default: 0,
+      default: false,
     },
   },
   { timestamps: true }

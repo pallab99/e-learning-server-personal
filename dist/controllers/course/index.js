@@ -73,9 +73,40 @@ class CourseControllerClass {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
-                const { page, limit, search, instructors, category, filterCategory, filterLevel, filterTotalHours, } = req.query;
+                const { page, limit, search, instructors, category, filterCategory, filterLevel, filterTotalHours, type, value, } = req.query;
                 const query = {};
                 // Pagination
+                if (type || value) {
+                    console.log({ type, value });
+                    if (type === "disable") {
+                        const result = yield course_1.default.find({ disable: true });
+                        if (!result) {
+                            return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.NO_DATA, []);
+                        }
+                        return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, {
+                            courses: result,
+                        });
+                    }
+                    if (type === "verified" && value === "true") {
+                        const result = yield course_1.default.find({ verified: true });
+                        if (!result) {
+                            return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.NO_DATA, []);
+                        }
+                        return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, {
+                            courses: result,
+                        });
+                    }
+                    if (type === "verified" && value === "false") {
+                        console.log("hello");
+                        const result = yield course_1.default.find({ verified: "false" });
+                        if (!result) {
+                            return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.NO_DATA, []);
+                        }
+                        return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, {
+                            courses: result,
+                        });
+                    }
+                }
                 const pageNumber = parseInt(page) || 1;
                 const pageSize = parseInt(limit) || 10;
                 const skip = (pageNumber - 1) * pageSize;

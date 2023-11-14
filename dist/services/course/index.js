@@ -89,8 +89,11 @@ class CourseServiceClass {
     }
     addUserToEnrollmentList(course, userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            course.students.push(userId);
-            const result = yield course.save();
+            // course.students.push(userId);
+            // console.log({ course, userId });
+            // const result = await course.save();
+            // console.log({ result });
+            const result = course_1.default.addToEnrollment(course, userId);
             if (result) {
                 return { success: true, data: result };
             }

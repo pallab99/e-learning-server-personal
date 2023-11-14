@@ -1,10 +1,13 @@
+import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import { transporter } from "../../configs/mail";
 import { RESPONSE_MESSAGE } from "../../constant/responseMessage";
 import { HTTP_STATUS } from "../../constant/statusCode";
+import { AuthModel } from "../../models/auth";
 import AuthService from "../../services/auth";
 import UserService from "../../services/user";
 import { ILogin, ILoginResponse, IRegistration } from "../../types/authTypes";
+import { hashPasswordUsingBcrypt } from "../../utils/bcrypt";
 import { databaseLogger } from "../../utils/dbLogger";
 import { sendResponse } from "../../utils/response";
 import {
@@ -410,56 +413,63 @@ class AuthControllerClass {
     }
   }
 
-  // async resetPassword(req: Request, res: Response) {
-  //   try {
-  //     let { password, confirmPassword, resetToken, userId } = req.body;
-  //     const auth = await authModel.findOne({ _id: userId });
-  //     if (resetToken != auth.resetPasswordToken || !auth) {
-  //       return sendResponse(
-  //         res,
-  //         HTTP_STATUS.BAD_REQUEST,
-  //         "Something went wrong",
-  //         []
-  //       );
-  //     }
-  //     if (password !== confirmPassword) {
-  //       return sendResponse(
-  //         res,
-  //         HTTP_STATUS.BAD_REQUEST,
-  //         "Password and confirm password need to be same",
-  //         []
-  //       );
-  //     }
+  async resetPassword(req: Request, res: Response) {
+    try {
+      let { password, confirmPassword, resetToken, userId } = req.body;
+      const auth = await AuthModel.findOne({ _id: userId });
+      if (!auth) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.NOT_FOUND,
+          RESPONSE_MESSAGE.NO_DATA
+        );
+      }
+      if (resetToken != auth.resetPasswordToken || !auth) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.BAD_REQUEST,
+          "Something went wrong",
+          []
+        );
+      }
+      if (password !== confirmPassword) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.BAD_REQUEST,
+          "Password and confirm password need to be same",
+          []
+        );
+      }
 
-  //     if (await bcrypt.compare(password, auth.password)) {
-  //       return sendResponse(
-  //         res,
-  //         HTTP_STATUS.BAD_REQUEST,
-  //         "Your new password and previous password can not be same",
-  //         []
-  //       );
-  //     }
-  //     const hashedPassword = await hashPasswordUsingBcrypt(password);
-  //     auth.password = hashedPassword;
-  //     (auth.resetPasswordToken = null), (auth.resetPasswordExpired = null);
-  //     auth.resetPassword = null;
-  //     await auth.save();
-  //     return sendResponse(
-  //       res,
-  //       HTTP_STATUS.OK,
-  //       "Reset password successfully",
-  //       []
-  //     );
-  //   } catch (error: any) {
-  //     console.log(error);
-  //     databaseLogger(error);
-  //     return sendResponse(
-  //       res,
-  //       HTTP_STATUS.INTERNAL_SERVER_ERROR,
-  //       "Internal server error"
-  //     );
-  //   }
-  // }
+      if (await bcrypt.compare(password, auth.password)) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.BAD_REQUEST,
+          "Your new password and previous password can not be same",
+          []
+        );
+      }
+      const hashedPassword = await hashPasswordUsingBcrypt(password);
+      auth.password = hashedPassword;
+      (auth.resetPasswordToken = null), (auth.resetPasswordExpired = null);
+      auth.resetPassword = null;
+      await auth.save();
+      return sendResponse(
+        res,
+        HTTP_STATUS.OK,
+        "Reset password successfully",
+        []
+      );
+    } catch (error: any) {
+      console.log(error);
+      databaseLogger(error);
+      return sendResponse(
+        res,
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        "Internal server error"
+      );
+    }
+  }
 }
 const AuthController = new AuthControllerClass();
 export { AuthController };

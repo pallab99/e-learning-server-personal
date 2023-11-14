@@ -107,17 +107,17 @@ const courseSchema = new mongoose_1.Schema({
     disable: {
         type: Boolean,
         required: false,
-        default: 0,
+        default: false,
     },
     verified: {
         type: Boolean,
         required: false,
-        default: 0,
+        default: false,
     },
     status: {
         type: Boolean,
         required: false,
-        default: 0,
+        default: false,
     },
 }, { timestamps: true });
 const CourseModel = mongoose_1.default.model("Course", courseSchema);

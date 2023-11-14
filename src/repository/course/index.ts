@@ -23,6 +23,13 @@ class CourseRepositoryClass {
   async getCourseByInstructor(instructorId: string) {
     return await CourseModel.find({ instructors: { $in: [instructorId] } });
   }
+
+  async addToEnrollment(courseId: string, userId: string) {
+    return await CourseModel.updateOne(
+      { _id: new mongoose.Types.ObjectId(courseId) },
+      { $push: { students: userId } }
+    );
+  }
 }
 
 const CourseRepository = new CourseRepositoryClass();

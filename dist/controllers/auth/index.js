@@ -13,11 +13,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const mail_1 = require("../../configs/mail");
 const responseMessage_1 = require("../../constant/responseMessage");
 const statusCode_1 = require("../../constant/statusCode");
-const auth_1 = __importDefault(require("../../services/auth"));
+const auth_1 = require("../../models/auth");
+const auth_2 = __importDefault(require("../../services/auth"));
 const user_1 = __importDefault(require("../../services/user"));
+const bcrypt_2 = require("../../utils/bcrypt");
 const dbLogger_1 = require("../../utils/dbLogger");
 const response_1 = require("../../utils/response");
 const tokenGenerator_1 = require("../../utils/tokenGenerator");
@@ -33,10 +36,10 @@ class AuthControllerClass {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { email, password, confirmPassword, name, phoneNumber, notificationSetting, rank, } = req.body;
-                const emailExistsInAuth = yield auth_1.default.findByEmail(email);
+                const emailExistsInAuth = yield auth_2.default.findByEmail(email);
                 const emailExistsInUser = yield user_1.default.findByEmail(email);
-                const samePassword = yield auth_1.default.samePassword(password, confirmPassword);
-                const hashedPassword = yield auth_1.default.hashPassword(password);
+                const samePassword = yield auth_2.default.samePassword(password, confirmPassword);
+                const hashedPassword = yield auth_2.default.hashPassword(password);
                 if (emailExistsInAuth || emailExistsInUser) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.UNPROCESSABLE_ENTITY, responseMessage_1.RESPONSE_MESSAGE.EMAIL_EXISTS);
                 }
@@ -47,7 +50,7 @@ class AuthControllerClass {
                 if (!createUserInUser) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
                 }
-                const createNewUserInAuth = yield auth_1.default.createUserInAuth(email, hashedPassword, rank, createUserInUser._id);
+                const createNewUserInAuth = yield auth_2.default.createUserInAuth(email, hashedPassword, rank, createUserInUser._id);
                 if (!createNewUserInAuth) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
                 }
@@ -79,20 +82,20 @@ class AuthControllerClass {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { email, password } = req.body;
-                const emailFoundInAuth = yield auth_1.default.findByEmail(email);
+                const emailFoundInAuth = yield auth_2.default.findByEmail(email);
                 const emailFoundInUser = yield user_1.default.findByEmail(email);
                 if (!emailFoundInAuth || !emailFoundInUser) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.EMAIL_NOT_EXISTS);
                 }
-                const comparePassword = yield auth_1.default.comparePassword(password, emailFoundInAuth.password);
+                const comparePassword = yield auth_2.default.comparePassword(password, emailFoundInAuth.password);
                 if (!comparePassword) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.WRONG_CREDENTIAL);
                 }
-                const isEmailVerified = yield auth_1.default.isEmailVerified(emailFoundInAuth._id);
+                const isEmailVerified = yield auth_2.default.isEmailVerified(emailFoundInAuth._id);
                 if (!isEmailVerified) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.VERIFY_EMAIL);
                 }
-                const userDisabled = yield auth_1.default.userDisabled(email);
+                const userDisabled = yield auth_2.default.userDisabled(email);
                 if (userDisabled) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.USER_RESTRICTED);
                 }
@@ -122,7 +125,7 @@ class AuthControllerClass {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { resetToken, userId } = req.params;
-                const auth = yield auth_1.default.findById(userId);
+                const auth = yield auth_2.default.findById(userId);
                 const wrongURL = "http://localhost:5173/something-went-wrong";
                 if (!auth || auth.isVerified) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
@@ -140,12 +143,12 @@ class AuthControllerClass {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { resetToken, userId } = req.params;
-                const auth = yield auth_1.default.findById(userId);
+                const auth = yield auth_2.default.findById(userId);
                 if (!auth || auth.isVerified) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
                 }
                 auth.isVerified = true;
-                yield auth_1.default.save(auth);
+                yield auth_2.default.save(auth);
                 return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.EMAIL_VERIFIED);
             }
             catch (error) {
@@ -192,7 +195,7 @@ class AuthControllerClass {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { email } = req.body;
-                const auth = yield auth_1.default.findByEmail(email);
+                const auth = yield auth_2.default.findByEmail(email);
                 const user = yield user_1.default.findByEmail(email);
                 if (!auth || !user) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
@@ -202,7 +205,7 @@ class AuthControllerClass {
                 auth.resetPasswordToken = resetToken;
                 auth.resetPassword = true;
                 auth.resetPasswordExpired = Date.now() + 60 * 60 * 1000;
-                yield auth_1.default.save(auth);
+                yield auth_2.default.save(auth);
                 const htmlBody = yield ejsRenderFile(path.join(__dirname, "..", "..", "..", "src", "views", "forget-password.ejs"), {
                     name: user.name,
                     resetURL,
@@ -229,7 +232,7 @@ class AuthControllerClass {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { resetToken, userId } = req.params;
-                const auth = yield auth_1.default.findById(userId);
+                const auth = yield auth_2.default.findById(userId);
                 const wrongURL = "http://localhost:5173/something-went-wrong";
                 if (!auth ||
                     !auth.resetPasswordToken ||
@@ -242,6 +245,37 @@ class AuthControllerClass {
                     return;
                 }
                 res.redirect(`http://localhost:5173/forget-password/${resetToken}/${userId}`);
+            }
+            catch (error) {
+                console.log(error);
+                (0, dbLogger_1.databaseLogger)(error);
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.INTERNAL_SERVER_ERROR, "Internal server error");
+            }
+        });
+    }
+    resetPassword(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let { password, confirmPassword, resetToken, userId } = req.body;
+                const auth = yield auth_1.AuthModel.findOne({ _id: userId });
+                if (!auth) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
+                }
+                if (resetToken != auth.resetPasswordToken || !auth) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, "Something went wrong", []);
+                }
+                if (password !== confirmPassword) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, "Password and confirm password need to be same", []);
+                }
+                if (yield bcrypt_1.default.compare(password, auth.password)) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, "Your new password and previous password can not be same", []);
+                }
+                const hashedPassword = yield (0, bcrypt_2.hashPasswordUsingBcrypt)(password);
+                auth.password = hashedPassword;
+                (auth.resetPasswordToken = null), (auth.resetPasswordExpired = null);
+                auth.resetPassword = null;
+                yield auth.save();
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, "Reset password successfully", []);
             }
             catch (error) {
                 console.log(error);
