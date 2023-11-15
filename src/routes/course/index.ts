@@ -12,13 +12,8 @@ const router = express.Router();
 router
   .post(
     "/create",
-    [
-      tokenAuthorization,
-      isInstructor,
-      upload.array("file_to_upload"),
-      ...validator.createCourse,
-    ],
-    CourseController.createCourse
+    [tokenAuthorization, isInstructor],
+    CourseController.createCourse 
   )
   .post(
     "/publish-request/:courseId",
@@ -36,6 +31,11 @@ router
     "/update/:courseId",
     [tokenAuthorization, isInstructor, upload.array("file_to_upload")],
     CourseController.updateCourse
+  )
+  .patch(
+    "/upload/demoVideo/:courseId",
+    upload.single("file_to_upload"),
+    CourseController.uploadDemoVideo
   );
 
 export default router;

@@ -23,6 +23,8 @@ const user_1 = __importDefault(require("../../services/user"));
 const dbLogger_1 = require("../../utils/dbLogger");
 const response_1 = require("../../utils/response");
 const sendValidationError_1 = require("../../utils/sendValidationError");
+const user_2 = require("../../constant/user");
+const generateFileName_1 = require("../../helper/generateFileName");
 const bucketName = process.env.S3_BUCKET_NAME;
 class CourseControllerClass {
     createCourse(req, res) {
@@ -33,16 +35,21 @@ class CourseControllerClass {
                 if (validation.length) {
                     return (0, sendValidationError_1.sendValidationError)(res, validation);
                 }
-                const files = req.files;
                 const body = req.body;
+                const { email } = req.user;
                 const findByTitle = yield course_2.default.findByTitle(body.title);
                 if (findByTitle.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.CONFLICT, responseMessage_1.RESPONSE_MESSAGE.COURSE_TITLE);
                 }
+                const instructor = yield user_1.default.findByEmail(email);
+                if (!instructor) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
+                }
+                let instructorId = [];
+                instructorId.push(instructor._id);
+                // const courseData = { ...body, instructorId };
+                console.log(body);
                 const newCourse = yield course_1.default.create(body);
-                const result = yield course_2.default.saveFilesOnServer(files, body, newCourse);
-                console.log("s3 server", result);
-                yield course_2.default.save(newCourse);
                 return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.CREATED, responseMessage_1.RESPONSE_MESSAGE.COURSE_CREATED, newCourse);
             }
             catch (error) {
@@ -193,6 +200,37 @@ class CourseControllerClass {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
                 }
                 return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.ACCEPT_COURSE_REQUEST);
+            }
+            catch (error) {
+                console.log(error);
+                (0, dbLogger_1.databaseLogger)(error.message);
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.INTERNAL_SERVER_ERROR, responseMessage_1.RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR);
+            }
+        });
+    }
+    uploadDemoVideo(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { courseId } = req.params;
+                const course = yield course_2.default.findById(courseId);
+                if (!course.success) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
+                }
+                const file = req.file;
+                if (!req.file) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.UPLOAD_FAILED);
+                }
+                const S3_Bucket_path = `user/dp`;
+                const fileName = (0, generateFileName_1.generateFileName)(S3_Bucket_path, course.data.title, file.originalname);
+                console.log(fileName, user_2.publicURL);
+                const saveFileOnServer = yield user_1.default.saveDpOnServer(file, fileName, course.data.title);
+                if (saveFileOnServer.success) {
+                    const uploadDemoVideo = yield course_1.default.findOneAndUpdate({ _id: new mongoose_1.default.Types.ObjectId(courseId) }, { demoVideo: user_2.publicURL + fileName });
+                    if (uploadDemoVideo) {
+                        return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA);
+                    }
+                }
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
             }
             catch (error) {
                 console.log(error);

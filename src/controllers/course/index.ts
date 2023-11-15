@@ -10,6 +10,8 @@ import UserService from "../../services/user";
 import { databaseLogger } from "../../utils/dbLogger";
 import { sendResponse } from "../../utils/response";
 import { sendValidationError } from "../../utils/sendValidationError";
+import { publicURL } from "../../constant/user";
+import { generateFileName } from "../../helper/generateFileName";
 const bucketName = process.env.S3_BUCKET_NAME;
 class CourseControllerClass {
   async createCourse(req: Request, res: Response) {
@@ -19,8 +21,9 @@ class CourseControllerClass {
       if (validation.length) {
         return sendValidationError(res, validation);
       }
-      const files = req.files;
+    
       const body = req.body;
+      const { email } = req.user;
       const findByTitle = await CourseService.findByTitle(body.title);
 
       if (findByTitle.success) {
@@ -30,15 +33,21 @@ class CourseControllerClass {
           RESPONSE_MESSAGE.COURSE_TITLE
         );
       }
+      const instructor = await UserService.findByEmail(email);
+      if (!instructor) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.NOT_FOUND,
+          RESPONSE_MESSAGE.NO_DATA
+        );
+      }
+      let instructorId = [];
+      instructorId.push(instructor._id);
+      // const courseData = { ...body, instructorId };
+      console.log(body);
+      
       const newCourse = await CourseModel.create(body);
-      const result = await CourseService.saveFilesOnServer(
-        files,
-        body,
-        newCourse
-      );
-      console.log("s3 server", result);
-
-      await CourseService.save(newCourse);
+      
       return sendResponse(
         res,
         HTTP_STATUS.CREATED,
@@ -334,6 +343,61 @@ class CourseControllerClass {
         HTTP_STATUS.OK,
         RESPONSE_MESSAGE.ACCEPT_COURSE_REQUEST
       );
+    } catch (error: any) {
+      console.log(error);
+      databaseLogger(error.message);
+      return sendResponse(
+        res,
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  async uploadDemoVideo(req: Request, res: Response) {
+    try {
+      const { courseId } = req.params;
+      const course = await CourseService.findById(courseId);
+      if (!course.success) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.NOT_FOUND,
+          RESPONSE_MESSAGE.NO_DATA
+        );
+      }
+      const file = req.file;
+      if (!req.file) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.BAD_REQUEST,
+          RESPONSE_MESSAGE.UPLOAD_FAILED
+        );
+      }
+      const S3_Bucket_path = `user/dp`;
+      const fileName = generateFileName(
+        S3_Bucket_path,
+        course.data.title,
+        file.originalname
+      );
+      console.log(fileName, publicURL);
+
+      const saveFileOnServer = await UserService.saveDpOnServer(
+        file,
+        fileName,
+        course.data.title
+      );
+      if (saveFileOnServer.success) {
+
+        const uploadDemoVideo =await CourseModel.findOneAndUpdate(
+          { _id: new mongoose.Types.ObjectId(courseId) },
+          { demoVideo: publicURL + fileName }
+        );
+        if(uploadDemoVideo){
+          return sendResponse(res,HTTP_STATUS.OK,RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA)
+        }
+      }
+      return sendResponse(res,HTTP_STATUS.BAD_REQUEST,RESPONSE_MESSAGE.SOMETHING_WENT_WRONG)
+
     } catch (error: any) {
       console.log(error);
       databaseLogger(error.message);

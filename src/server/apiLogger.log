@@ -8106,3 +8106,85 @@ Cannot populate path `instructors` because it is not in your schema. Set the `st
 
 /api/course/all/instructor  ( Time -> November 15, 2023 4:25 PM)
 
+/api/course/all  ( Time -> November 15, 2023 7:50 PM)
+
+/api/user/me  ( Time -> November 15, 2023 7:50 PM)
+
+/api/auth/sign-in  ( Time -> November 15, 2023 7:51 PM)
+
+/api/auth/sign-in  ( Time -> November 15, 2023 7:51 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 7:51 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 7:53 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 7:56 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 7:58 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 7:59 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 7:59 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 8:00 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 8:13 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 8:21 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 8:22 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 8:22 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 8:22 PM)
+
+/api/course/create  ( Time -> November 15, 2023 9:21 PM)
+
+/api/course/create  ( Time -> November 15, 2023 9:24 PM)
+
+/api/course/create  ( Time -> November 15, 2023 9:31 PM)
+
+/api/course/create  ( Time -> November 15, 2023 9:33 PM)
+
+/api/course/create  ( Time -> November 15, 2023 9:35 PM)
+
+/api/course/create  ( Time -> November 15, 2023 9:43 PM)
+
+Socket connection timeout  ( Time -> November 15, 2023 9:43 PM)
+
+/api/course/create  ( Time -> November 15, 2023 9:44 PM)
+
+Socket connection timeout  ( Time -> November 15, 2023 9:44 PM)
+
+/api/course/create  ( Time -> November 15, 2023 9:48 PM)
+
+/api/course/create  ( Time -> November 15, 2023 9:48 PM)
+
+Your socket connection to the server was not read from or written to within the timeout period. Idle connections will be closed.  ( Time -> November 15, 2023 9:50 PM)
+
+/api/auth/sign-in  ( Time -> November 15, 2023 10:17 PM)
+
+/api/course/create  ( Time -> November 15, 2023 10:18 PM)
+
+/api/course/create  ( Time -> November 15, 2023 10:19 PM)
+
+Course validation failed: level: Path `level` is required., category: Path `category` is required., description: Path `description` is required., title: Path `title` is required.  ( Time -> November 15, 2023 10:19 PM)
+
+/api/course/create  ( Time -> November 15, 2023 10:20 PM)
+
+Course validation failed: level: Path `level` is required., category: Path `category` is required., description: Path `description` is required., title: Path `title` is required.  ( Time -> November 15, 2023 10:20 PM)
+
+/api/course/create  ( Time -> November 15, 2023 10:20 PM)
+
+Course validation failed: level: Path `level` is required., category: Path `category` is required., description: Path `description` is required., title: Path `title` is required.  ( Time -> November 15, 2023 10:20 PM)
+
+/api/course/create  ( Time -> November 15, 2023 10:21 PM)
+
+Course validation failed: level: Path `level` is required., category: Path `category` is required., description: Path `description` is required., title: Path `title` is required.  ( Time -> November 15, 2023 10:21 PM)
+
+/api/course/create  ( Time -> November 15, 2023 10:24 PM)
+
+Socket connection timeout  ( Time -> November 15, 2023 11:06 PM)
+
+Socket connection timeout  ( Time -> November 15, 2023 11:08 PM)
+
