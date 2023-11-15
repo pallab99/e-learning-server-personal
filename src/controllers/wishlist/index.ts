@@ -1,21 +1,28 @@
 import { Request, Response } from "express";
+import { RESPONSE_MESSAGE } from "../../constant/responseMessage";
+import { HTTP_STATUS } from "../../constant/statusCode";
+import UserService from "../../services/user";
+import WishlistService from "../../services/wishlist";
 import { databaseLogger } from "../../utils/dbLogger";
 import { sendResponse } from "../../utils/response";
-import { HTTP_STATUS } from "../../constant/statusCode";
-import { RESPONSE_MESSAGE } from "../../constant/responseMessage";
-import WishlistService from "../../services/wishlist";
 class WishlistControllerClass {
   async addToWishlist(req: Request, res: Response) {
     try {
       databaseLogger(req.originalUrl);
       const { courseId } = req.body;
-      const { id } = req.user;
-      let wishlist = await WishlistService.getWishlistByUserId(id);
-      if (wishlist.success) {
-        const courseExistsInWishlist = await WishlistService.courseExistsInWishlist(
-          courseId,
-          wishlist.data
+      const { email } = req.user;
+      const user = await UserService.findByEmail(email);
+      if (!user) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.NOT_FOUND,
+          RESPONSE_MESSAGE.NO_DATA
         );
+      }
+      let wishlist = await WishlistService.getWishlistByUserId(user?._id);
+      if (wishlist.success) {
+        const courseExistsInWishlist =
+          await WishlistService.courseExistsInWishlist(courseId, wishlist.data);
         if (courseExistsInWishlist.success) {
           return sendResponse(
             res,
@@ -23,10 +30,11 @@ class WishlistControllerClass {
             RESPONSE_MESSAGE.COURSE_ALREADY_IN_WISHLIST
           );
         } else {
-          const addToWishlist = await WishlistService.addCourseToWishlistInExistingWishlist(
-            courseId,
-            wishlist.data
-          );
+          const addToWishlist =
+            await WishlistService.addCourseToWishlistInExistingWishlist(
+              courseId,
+              wishlist.data
+            );
           if (!addToWishlist.success) {
             return sendResponse(
               res,
@@ -36,7 +44,10 @@ class WishlistControllerClass {
           }
         }
       } else {
-        wishlist = await WishlistService.addCourseToWishlistInNewWishlist(id, courseId);
+        wishlist = await WishlistService.addCourseToWishlistInNewWishlist(
+          user?._id,
+          courseId
+        );
         if (!wishlist.success) {
           return sendResponse(
             res,
@@ -66,25 +77,32 @@ class WishlistControllerClass {
   async getWishlistByUserId(req: Request, res: Response) {
     try {
       databaseLogger(req.originalUrl);
-      const { id } = req.user;
-      let wishlist = await WishlistService.getWishlistByUserIdPopulated(id);
-      if (!wishlist.success) {
-        return sendResponse(res, HTTP_STATUS.OK, RESPONSE_MESSAGE.NO_WISHLIST, []);
-      }
-
-      const data = await WishlistService.getThumbnailFromServer(wishlist.data);
-      if (!data.success) {
+      const { email } = req.user;
+      const user = await UserService.findByEmail(email);
+      if (!user) {
         return sendResponse(
           res,
-          HTTP_STATUS.BAD_REQUEST,
-          RESPONSE_MESSAGE.SOMETHING_WENT_WRONG
+          HTTP_STATUS.NOT_FOUND,
+          RESPONSE_MESSAGE.NO_DATA
         );
       }
+      let wishlist = await WishlistService.getWishlistByUserIdPopulated(
+        user?._id
+      );
+      if (!wishlist.success) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.OK,
+          RESPONSE_MESSAGE.NO_WISHLIST,
+          []
+        );
+      }
+
       return sendResponse(
         res,
         HTTP_STATUS.OK,
         RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
-        data.data
+        wishlist.data
       );
     } catch (error: any) {
       console.log(error);
@@ -101,10 +119,23 @@ class WishlistControllerClass {
     try {
       databaseLogger(req.originalUrl);
       const { courseId } = req.body;
-      const { id } = req.user;
-      const wishlist = await WishlistService.getWishlistByUserId(id);
+      const { email } = req.user;
+      const user = await UserService.findByEmail(email);
+      if (!user) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.NOT_FOUND,
+          RESPONSE_MESSAGE.NO_DATA
+        );
+      }
+      const wishlist = await WishlistService.getWishlistByUserId(user?._id);
       if (!wishlist.success) {
-        return sendResponse(res, HTTP_STATUS.OK, RESPONSE_MESSAGE.NO_WISHLIST, []);
+        return sendResponse(
+          res,
+          HTTP_STATUS.OK,
+          RESPONSE_MESSAGE.NO_WISHLIST,
+          []
+        );
       }
 
       const updatedWishlist = await WishlistService.removeCourseFromWishlist(

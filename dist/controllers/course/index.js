@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_validator_1 = require("express-validator");
+const mongoose_1 = __importDefault(require("mongoose"));
 const responseMessage_1 = require("../../constant/responseMessage");
 const statusCode_1 = require("../../constant/statusCode");
 const allcoursePipelinebuilder_1 = require("../../helper/allcoursePipelinebuilder");
@@ -22,7 +23,6 @@ const user_1 = __importDefault(require("../../services/user"));
 const dbLogger_1 = require("../../utils/dbLogger");
 const response_1 = require("../../utils/response");
 const sendValidationError_1 = require("../../utils/sendValidationError");
-const mongoose_1 = __importDefault(require("mongoose"));
 const bucketName = process.env.S3_BUCKET_NAME;
 class CourseControllerClass {
     createCourse(req, res) {
@@ -42,7 +42,7 @@ class CourseControllerClass {
                 const newCourse = yield course_1.default.create(body);
                 const result = yield course_2.default.saveFilesOnServer(files, body, newCourse);
                 console.log("s3 server", result);
-                course_2.default.save(newCourse);
+                yield course_2.default.save(newCourse);
                 return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.CREATED, responseMessage_1.RESPONSE_MESSAGE.COURSE_CREATED, newCourse);
             }
             catch (error) {
@@ -144,7 +144,7 @@ class CourseControllerClass {
                 if (findByTitle.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.CONFLICT, responseMessage_1.RESPONSE_MESSAGE.COURSE_TITLE);
                 }
-                const newCourse = yield course_1.default.findByIdAndUpdate(courseId, body, {
+                const newCourse = yield course_1.default.findOneAndUpdate({ _id: courseId }, body, {
                     new: true,
                 });
                 const result = yield course_2.default.saveFilesOnServer(files, body, newCourse);

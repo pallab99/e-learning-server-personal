@@ -115,14 +115,24 @@ class CartControllerClass {
     try {
       databaseLogger(req.originalUrl);
       const { courseId } = req.body;
-      const { id } = req.user;
-      const cart = await CartService.getCartByUserId(id);
+      console.log({ courseId });
+
+      const { email } = req.user;
+      const user = await UserService.findByEmail(email);
+      if (!user) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.NOT_FOUND,
+          RESPONSE_MESSAGE.NO_DATA
+        );
+      }
+      const cart = await CartService.getCartByUserId(user?._id);
       if (!cart.success) {
         return sendResponse(res, HTTP_STATUS.OK, RESPONSE_MESSAGE.NO_CART, []);
       }
 
       const updatedCart = await CartService.removeCourseFromCart(
-        cart.data,
+        cart?.data?._id,
         courseId
       );
       if (!updatedCart.success) {

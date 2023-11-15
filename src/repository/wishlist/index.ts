@@ -10,7 +10,12 @@ class WishlistRepositoryClass {
   async findWishlistByUserIdPopulated(userID: string) {
     return await WishlistModel.findOne({
       user: new mongoose.Types.ObjectId(userID),
-    }).populate("courses")
+    }).populate({
+      path: "courses",
+      populate: {
+        path: "instructors",
+      },
+    });
   }
 
   async createNewWishlist(userId: string, courseId: string) {

@@ -12,19 +12,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const responseMessage_1 = require("../../constant/responseMessage");
+const statusCode_1 = require("../../constant/statusCode");
+const user_1 = __importDefault(require("../../services/user"));
+const wishlist_1 = __importDefault(require("../../services/wishlist"));
 const dbLogger_1 = require("../../utils/dbLogger");
 const response_1 = require("../../utils/response");
-const statusCode_1 = require("../../constant/statusCode");
-const responseMessage_1 = require("../../constant/responseMessage");
-const wishlist_1 = __importDefault(require("../../services/wishlist"));
 class WishlistControllerClass {
     addToWishlist(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { courseId } = req.body;
-                const { id } = req.user;
-                let wishlist = yield wishlist_1.default.getWishlistByUserId(id);
+                const { email } = req.user;
+                const user = yield user_1.default.findByEmail(email);
+                if (!user) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
+                }
+                let wishlist = yield wishlist_1.default.getWishlistByUserId(user === null || user === void 0 ? void 0 : user._id);
                 if (wishlist.success) {
                     const courseExistsInWishlist = yield wishlist_1.default.courseExistsInWishlist(courseId, wishlist.data);
                     if (courseExistsInWishlist.success) {
@@ -38,7 +43,7 @@ class WishlistControllerClass {
                     }
                 }
                 else {
-                    wishlist = yield wishlist_1.default.addCourseToWishlistInNewWishlist(id, courseId);
+                    wishlist = yield wishlist_1.default.addCourseToWishlistInNewWishlist(user === null || user === void 0 ? void 0 : user._id, courseId);
                     if (!wishlist.success) {
                         return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
                     }
@@ -56,16 +61,16 @@ class WishlistControllerClass {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
-                const { id } = req.user;
-                let wishlist = yield wishlist_1.default.getWishlistByUserIdPopulated(id);
+                const { email } = req.user;
+                const user = yield user_1.default.findByEmail(email);
+                if (!user) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
+                }
+                let wishlist = yield wishlist_1.default.getWishlistByUserIdPopulated(user === null || user === void 0 ? void 0 : user._id);
                 if (!wishlist.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.NO_WISHLIST, []);
                 }
-                const data = yield wishlist_1.default.getThumbnailFromServer(wishlist.data);
-                if (!data.success) {
-                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
-                }
-                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, data.data);
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, wishlist.data);
             }
             catch (error) {
                 console.log(error);
@@ -79,8 +84,12 @@ class WishlistControllerClass {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { courseId } = req.body;
-                const { id } = req.user;
-                const wishlist = yield wishlist_1.default.getWishlistByUserId(id);
+                const { email } = req.user;
+                const user = yield user_1.default.findByEmail(email);
+                if (!user) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
+                }
+                const wishlist = yield wishlist_1.default.getWishlistByUserId(user === null || user === void 0 ? void 0 : user._id);
                 if (!wishlist.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.NO_WISHLIST, []);
                 }

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
+import mongoose from "mongoose";
 import { RESPONSE_MESSAGE } from "../../constant/responseMessage";
 import { HTTP_STATUS } from "../../constant/statusCode";
 import { buildMatchStage } from "../../helper/allcoursePipelinebuilder";
@@ -9,7 +10,6 @@ import UserService from "../../services/user";
 import { databaseLogger } from "../../utils/dbLogger";
 import { sendResponse } from "../../utils/response";
 import { sendValidationError } from "../../utils/sendValidationError";
-import mongoose from "mongoose";
 const bucketName = process.env.S3_BUCKET_NAME;
 class CourseControllerClass {
   async createCourse(req: Request, res: Response) {
@@ -38,7 +38,7 @@ class CourseControllerClass {
       );
       console.log("s3 server", result);
 
-      CourseService.save(newCourse);
+      await CourseService.save(newCourse);
       return sendResponse(
         res,
         HTTP_STATUS.CREATED,
@@ -234,9 +234,13 @@ class CourseControllerClass {
           RESPONSE_MESSAGE.COURSE_TITLE
         );
       }
-      const newCourse = await CourseModel.findByIdAndUpdate(courseId, body, {
-        new: true,
-      });
+      const newCourse = await CourseModel.findOneAndUpdate(
+        { _id: courseId },
+        body,
+        {
+          new: true,
+        }
+      );
       const result = await CourseService.saveFilesOnServer(
         files,
         body,
@@ -306,8 +310,8 @@ class CourseControllerClass {
   async acceptCourseRequest(req: Request, res: Response) {
     try {
       const { courseId } = req.params;
-      const {type}=req.query
-      if(type==="reject"){
+      const { type } = req.query;
+      if (type === "reject") {
         return sendResponse(
           res,
           HTTP_STATUS.OK,

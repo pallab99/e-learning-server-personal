@@ -26,7 +26,12 @@ class CartRepositoryClass {
         return __awaiter(this, void 0, void 0, function* () {
             return yield cart_1.CartModel.findOne({
                 user: new mongoose_1.default.Types.ObjectId(userID),
-            }).populate("courses");
+            }).populate({
+                path: "courses",
+                populate: {
+                    path: "instructors",
+                },
+            });
         });
     }
     createNewCart(userId, courseId) {
@@ -46,6 +51,11 @@ class CartRepositoryClass {
     removeCart(cartId) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield cart_1.CartModel.findByIdAndDelete(cartId, { new: true });
+        });
+    }
+    removeCourseFromCart(cartId, courseId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield cart_1.CartModel.findOneAndUpdate({ _id: new mongoose_1.default.Types.ObjectId(cartId) }, { $pull: { courses: courseId } });
         });
     }
 }

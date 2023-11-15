@@ -37,7 +37,7 @@ exports.RESPONSE_MESSAGE = {
     DELETE_FAILED: "Can not delete right now.Try again later",
     COURSE_ALREADY_IN_CART: "The course is already exists in the cart",
     COURSE_ADDED_TO_CART: "Course added to cart successfully",
-    NO_CART: "Cart cart found for the user",
+    NO_CART: "No  cart found for the user",
     CART_UPDATED: "Course successfully removed from cart",
     COURSE_ALREADY_IN_WISHLIST: "The course is already exists in the wishlist",
     COURSE_ADDED_TO_WISHLIST: "Course added to wishlist successfully",
@@ -89,5 +89,5 @@ exports.RESPONSE_MESSAGE = {
     QNA_UPDATE_FAILED: "Question failed to update",
     REPLY_DELETE_SUCCESS: "Reply deleted successfully",
     ACCEPT_COURSE_REQUEST: "Course publish request accepted successfully",
-    REJECT_COURSE_REQUEST: "Course publish request is rejected"
+    REJECT_COURSE_REQUEST: "Course publish request is rejected",
 };

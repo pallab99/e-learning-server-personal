@@ -84,16 +84,22 @@ class CartControllerClass {
         });
     }
     updateCart(req, res) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { courseId } = req.body;
-                const { id } = req.user;
-                const cart = yield cart_1.default.getCartByUserId(id);
+                console.log({ courseId });
+                const { email } = req.user;
+                const user = yield user_1.default.findByEmail(email);
+                if (!user) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
+                }
+                const cart = yield cart_1.default.getCartByUserId(user === null || user === void 0 ? void 0 : user._id);
                 if (!cart.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.NO_CART, []);
                 }
-                const updatedCart = yield cart_1.default.removeCourseFromCart(cart.data, courseId);
+                const updatedCart = yield cart_1.default.removeCourseFromCart((_a = cart === null || cart === void 0 ? void 0 : cart.data) === null || _a === void 0 ? void 0 : _a._id, courseId);
                 if (!updatedCart.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
                 }

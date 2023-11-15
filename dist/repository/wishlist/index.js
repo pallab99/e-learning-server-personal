@@ -26,7 +26,12 @@ class WishlistRepositoryClass {
         return __awaiter(this, void 0, void 0, function* () {
             return yield wishlist_1.WishlistModel.findOne({
                 user: new mongoose_1.default.Types.ObjectId(userID),
-            }).populate("courses");
+            }).populate({
+                path: "courses",
+                populate: {
+                    path: "instructors",
+                },
+            });
         });
     }
     createNewWishlist(userId, courseId) {

@@ -93,19 +93,12 @@ class CartServiceClass {
             };
         });
     }
-    removeCourseFromCart(cart, courseId) {
+    removeCourseFromCart(cartId, courseId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const index = cart.courses.findIndex((ele) => {
-                return String(ele) === courseId;
-            });
-            if (index != -1) {
-                cart.courses.splice(index, 1);
-                cart.totalCourses -= 1;
-                yield cart.save();
-            }
+            const result = yield cart_1.default.removeCourseFromCart(cartId, courseId);
             return {
-                success: cart ? Object.keys(cart).length > 0 : false,
-                data: cart,
+                success: result ? Object.keys(result).length > 0 : false,
+                data: result,
             };
         });
     }

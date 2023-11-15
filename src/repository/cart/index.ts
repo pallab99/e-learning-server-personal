@@ -10,7 +10,12 @@ class CartRepositoryClass {
   async findCartByUserIdPopulated(userID: string) {
     return await CartModel.findOne({
       user: new mongoose.Types.ObjectId(userID),
-    }).populate("courses");
+    }).populate({
+      path: "courses",
+      populate: {
+        path: "instructors",
+      },
+    });
   }
 
   async createNewCart(userId: string, courseId: string) {
@@ -27,6 +32,13 @@ class CartRepositoryClass {
 
   async removeCart(cartId: string) {
     return await CartModel.findByIdAndDelete(cartId, { new: true });
+  }
+
+  async removeCourseFromCart(cartId: string, courseId: string) {
+    return await CartModel.findOneAndUpdate(
+      { _id: new mongoose.Types.ObjectId(cartId) },
+      { $pull: { courses: courseId } }
+    );
   }
 }
 

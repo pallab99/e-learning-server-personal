@@ -7622,3 +7622,487 @@ Course validation failed: undefined: Cannot read properties of undefined (readin
 
 /api/course/all?type=disable  ( Time -> November 14, 2023 9:56 PM)
 
+/api/auth/sign-in  ( Time -> November 15, 2023 10:08 AM)
+
+/api/auth/sign-in  ( Time -> November 15, 2023 10:08 AM)
+
+/api/user/me  ( Time -> November 15, 2023 10:08 AM)
+
+/api/user/me  ( Time -> November 15, 2023 10:08 AM)
+
+/api/user/me  ( Time -> November 15, 2023 10:08 AM)
+
+/api/user/me  ( Time -> November 15, 2023 10:08 AM)
+
+/api/user/me  ( Time -> November 15, 2023 10:08 AM)
+
+/api/user/me  ( Time -> November 15, 2023 10:08 AM)
+
+/api/user/update-DP  ( Time -> November 15, 2023 10:08 AM)
+
+/api/user/me  ( Time -> November 15, 2023 10:09 AM)
+
+/api/user/me  ( Time -> November 15, 2023 10:09 AM)
+
+/api/user/me  ( Time -> November 15, 2023 10:11 AM)
+
+/api/user/me  ( Time -> November 15, 2023 10:11 AM)
+
+/api/user/me  ( Time -> November 15, 2023 10:11 AM)
+
+/api/user/me  ( Time -> November 15, 2023 10:34 AM)
+
+/api/user/me  ( Time -> November 15, 2023 10:34 AM)
+
+/api/user/me  ( Time -> November 15, 2023 10:40 AM)
+
+/api/user/me  ( Time -> November 15, 2023 10:54 AM)
+
+/api/user/me  ( Time -> November 15, 2023 11:41 AM)
+
+/api/user/me  ( Time -> November 15, 2023 11:43 AM)
+
+/api/subscription/all  ( Time -> November 15, 2023 12:00 PM)
+
+/api/subscription/all  ( Time -> November 15, 2023 12:00 PM)
+
+/api/subscription/all  ( Time -> November 15, 2023 12:00 PM)
+
+/api/subscription/all  ( Time -> November 15, 2023 12:01 PM)
+
+/api/auth/sign-in  ( Time -> November 15, 2023 12:01 PM)
+
+/api/user/me  ( Time -> November 15, 2023 12:01 PM)
+
+/api/subscription/all  ( Time -> November 15, 2023 12:01 PM)
+
+/api/user/me  ( Time -> November 15, 2023 12:01 PM)
+
+/api/subscription/all  ( Time -> November 15, 2023 12:02 PM)
+
+/api/subscription/all  ( Time -> November 15, 2023 12:03 PM)
+
+/api/auth/sign-in  ( Time -> November 15, 2023 12:03 PM)
+
+/api/user/me  ( Time -> November 15, 2023 12:03 PM)
+
+/api/auth/sign-in  ( Time -> November 15, 2023 12:03 PM)
+
+/api/auth/sign-in  ( Time -> November 15, 2023 12:04 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 12:04 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 12:04 PM)
+
+/api/cart/create  ( Time -> November 15, 2023 12:05 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 12:05 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 12:06 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 12:09 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 12:09 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 12:09 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 12:15 PM)
+
+Cannot populate path `instructors` because it is not in your schema. Set the `strictPopulate` option to false to override.  ( Time -> November 15, 2023 12:15 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 12:17 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 12:19 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 12:21 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 12:22 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 12:25 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 12:26 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 12:26 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 12:26 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 12:28 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:09 PM)
+
+/api/auth/sign-in  ( Time -> November 15, 2023 1:12 PM)
+
+/api/course/update/654daa0c91f52d2d74e84ca8  ( Time -> November 15, 2023 1:12 PM)
+
+/api/course/update/654daa0c91f52d2d74e84ca8  ( Time -> November 15, 2023 1:14 PM)
+
+/api/course/create  ( Time -> November 15, 2023 1:16 PM)
+
+/api/course/create  ( Time -> November 15, 2023 1:18 PM)
+
+/api/course/update/655470b1b9505845cfaf9349  ( Time -> November 15, 2023 1:19 PM)
+
+/api/auth/sign-in  ( Time -> November 15, 2023 1:20 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:20 PM)
+
+/api/cart/create  ( Time -> November 15, 2023 1:20 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:20 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:21 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:24 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:24 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:26 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:27 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:29 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:37 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:42 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:42 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:47 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:47 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:47 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:48 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:49 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:49 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:52 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:52 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:53 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:54 PM)
+
+/api/cart/update  ( Time -> November 15, 2023 1:54 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:54 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:54 PM)
+
+/api/cart/update  ( Time -> November 15, 2023 1:54 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:54 PM)
+
+/api/cart/update  ( Time -> November 15, 2023 1:57 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:57 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 1:57 PM)
+
+/api/cart/update  ( Time -> November 15, 2023 2:01 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:01 PM)
+
+/api/cart/update  ( Time -> November 15, 2023 2:02 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:02 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:04 PM)
+
+/api/cart/update  ( Time -> November 15, 2023 2:04 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:04 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:04 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:05 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:07 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:08 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:12 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:13 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:32 PM)
+
+/api/subscription/create  ( Time -> November 15, 2023 2:32 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:32 PM)
+
+/api/subscription/create  ( Time -> November 15, 2023 2:34 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:34 PM)
+
+/api/subscription/create  ( Time -> November 15, 2023 2:35 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:35 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:36 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:36 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:38 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:39 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:40 PM)
+
+/api/auth/sign-in  ( Time -> November 15, 2023 2:40 PM)
+
+/api/user/me  ( Time -> November 15, 2023 2:40 PM)
+
+/api/auth/sign-in  ( Time -> November 15, 2023 2:40 PM)
+
+/api/user/me  ( Time -> November 15, 2023 2:40 PM)
+
+/api/auth/sign-in  ( Time -> November 15, 2023 2:40 PM)
+
+/api/user/students/all  ( Time -> November 15, 2023 2:40 PM)
+
+/api/subscription/all  ( Time -> November 15, 2023 2:40 PM)
+
+/api/course/all  ( Time -> November 15, 2023 2:41 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 15, 2023 2:41 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 15, 2023 2:41 PM)
+
+/api/course/all?type=verified&value=true  ( Time -> November 15, 2023 2:41 PM)
+
+/api/course/all?type=verified&value=all  ( Time -> November 15, 2023 2:41 PM)
+
+/api/course/all  ( Time -> November 15, 2023 2:41 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 15, 2023 2:41 PM)
+
+/api/course/all?type=verified&value=true  ( Time -> November 15, 2023 2:41 PM)
+
+/api/course/all  ( Time -> November 15, 2023 2:42 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 15, 2023 2:42 PM)
+
+/api/course/all?type=verified&value=true  ( Time -> November 15, 2023 2:42 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 15, 2023 2:42 PM)
+
+/api/course/all?type=verified&value=all  ( Time -> November 15, 2023 2:43 PM)
+
+/api/user/me  ( Time -> November 15, 2023 2:44 PM)
+
+/api/user/me  ( Time -> November 15, 2023 2:44 PM)
+
+/api/user/me  ( Time -> November 15, 2023 2:46 PM)
+
+/api/auth/sign-in  ( Time -> November 15, 2023 2:46 PM)
+
+/api/user/students/all  ( Time -> November 15, 2023 2:46 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:46 PM)
+
+/api/auth/sign-in  ( Time -> November 15, 2023 2:46 PM)
+
+/api/user/me  ( Time -> November 15, 2023 2:46 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:50 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:50 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:50 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:51 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:51 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:52 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:53 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 2:54 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:00 PM)
+
+/api/wishlist/create  ( Time -> November 15, 2023 3:01 PM)
+
+/api/wishlist/create  ( Time -> November 15, 2023 3:12 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:13 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:13 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:14 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:14 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:19 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:20 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:21 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:23 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:23 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:23 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:23 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:25 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:25 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:25 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:31 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:31 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:32 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:32 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:32 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:32 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:33 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:35 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:36 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:36 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:36 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:37 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:37 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:37 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:37 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:37 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:38 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:38 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:38 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:38 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:39 PM)
+
+/api/wishlist/create  ( Time -> November 15, 2023 3:39 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:39 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:39 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:39 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:40 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:40 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:40 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:40 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:40 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:40 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:44 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:44 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:45 PM)
+
+/api/wishlist/update  ( Time -> November 15, 2023 3:45 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:45 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:45 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:45 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:47 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:47 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 3:47 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:49 PM)
+
+/api/user/me  ( Time -> November 15, 2023 3:49 PM)
+
+/api/wishlist/details  ( Time -> November 15, 2023 3:49 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 4:05 PM)
+
+/api/cart/details  ( Time -> November 15, 2023 4:05 PM)
+
+/api/auth/sign-in  ( Time -> November 15, 2023 4:05 PM)
+
+/api/user/me  ( Time -> November 15, 2023 4:05 PM)
+
+/api/auth/sign-in  ( Time -> November 15, 2023 4:05 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:05 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:05 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:06 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:06 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:08 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:09 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:11 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:11 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:11 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:11 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:11 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:13 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:13 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:13 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:14 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:15 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:17 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:18 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:20 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:21 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:22 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:23 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:24 PM)
+
+/api/course/all/instructor  ( Time -> November 15, 2023 4:25 PM)
+

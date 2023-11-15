@@ -73,19 +73,11 @@ class CartServiceClass {
     };
   }
 
-  async removeCourseFromCart(cart: any, courseId: string) {
-    const index = cart.courses.findIndex((ele: any) => {
-      return String(ele) === courseId;
-    });
-
-    if (index != -1) {
-      cart.courses.splice(index, 1);
-      cart.totalCourses -= 1;
-      await cart.save();
-    }
+  async removeCourseFromCart(cartId: any, courseId: string) {
+    const result = await CartRepository.removeCourseFromCart(cartId, courseId);
     return {
-      success: cart ? Object.keys(cart).length > 0 : false,
-      data: cart as any,
+      success: result ? Object.keys(result).length > 0 : false,
+      data: result as any,
     };
   }
 
