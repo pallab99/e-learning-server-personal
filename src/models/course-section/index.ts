@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 
 interface ICourseSection extends Document {
   title: string;
@@ -19,6 +19,7 @@ const courseSectionSchema: Schema<ICourseSection> = new Schema<ICourseSection>(
       type: String,
       required: true,
     },
+
     totalVideo: {
       type: Number,
       required: false,

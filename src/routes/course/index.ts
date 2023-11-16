@@ -6,14 +6,13 @@ import {
   isInstructor,
   tokenAuthorization,
 } from "../../middlewares/tokenValidator";
-import { validator } from "../../middlewares/validator";
 const router = express.Router();
 
 router
   .post(
     "/create",
     [tokenAuthorization, isInstructor],
-    CourseController.createCourse 
+    CourseController.createCourse
   )
   .post(
     "/publish-request/:courseId",
@@ -36,6 +35,11 @@ router
     "/upload/demoVideo/:courseId",
     upload.single("file_to_upload"),
     CourseController.uploadDemoVideo
+  )
+  .patch(
+    "/upload/thumbnail/:courseId",
+    upload.single("file_to_upload"),
+    CourseController.uploadThumbnail
   );
 
 export default router;

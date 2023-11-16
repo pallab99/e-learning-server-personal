@@ -18,6 +18,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const s3Config_1 = require("../../configs/s3Config");
 const user_1 = require("../../constant/user");
 const createObjectParams_1 = require("../../helper/createObjectParams");
+const parallelUploader_1 = require("../../helper/parallelUploader");
 const user_2 = __importDefault(require("../../repository/user"));
 dotenv_1.default.config();
 const bucketName = process.env.S3_BUCKET_NAME;
@@ -59,10 +60,13 @@ class USerServiceClass {
                 Body: file.buffer,
                 ContentType: file.mimetype,
             };
-            const command = new client_s3_1.PutObjectCommand(params);
-            const result = yield s3Config_1.s3Client.send(command);
-            if (result.$metadata.httpStatusCode === 200) {
-                return { success: true, data: user_1.publicURL + result };
+            const uploadParallel = (0, parallelUploader_1.parallelUploader)(params);
+            uploadParallel.on("httpUploadProgress", (progress) => {
+                console.log("prog", progress);
+            });
+            const uploadedData = yield uploadParallel.done();
+            if (uploadedData.$metadata.httpStatusCode === 200) {
+                return { success: true, data: (user_1.publicURL + fileName) };
             }
             return { success: false, data: [] };
             // console.log(result.$metadata.httpStatusCode === 200);

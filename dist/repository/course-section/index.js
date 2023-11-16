@@ -22,7 +22,10 @@ class CourseSectionClassRepository {
     }
     createSection(title, courseId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield course_section_1.default.create({ title, course: courseId });
+            return yield course_section_1.default.create({
+                title,
+                course: courseId,
+            });
         });
     }
     updateSection(id, doc) {

@@ -7,7 +7,10 @@ class CourseSectionClassRepository {
     return await CourseSectionModel.findById(id).populate("sectionContent");
   }
   async createSection(title: string, courseId: string) {
-    return await CourseSectionModel.create({ title, course: courseId });
+    return await CourseSectionModel.create({
+      title,
+      course: courseId,
+    });
   }
 
   async updateSection(id: string, doc: ICourseSectionUpdate) {

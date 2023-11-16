@@ -1,9 +1,10 @@
-import { GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
+import { GetObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import dotEnv from "dotenv";
 import { s3Client } from "../../configs/s3Config";
 import { publicURL } from "../../constant/user";
 import { createObjectParamsForS3 } from "../../helper/createObjectParams";
+import { parallelUploader } from "../../helper/parallelUploader";
 import UserRepository from "../../repository/user";
 dotEnv.config();
 const bucketName = process.env.S3_BUCKET_NAME;
@@ -50,12 +51,17 @@ class USerServiceClass {
       Body: file.buffer,
       ContentType: file.mimetype,
     };
-    const command = new PutObjectCommand(params);
-    const result = await s3Client.send(command);
-    if (result.$metadata.httpStatusCode === 200) {
-      return { success: true, data: (publicURL as string) + result };
+    const uploadParallel = parallelUploader(params);
+
+    uploadParallel.on("httpUploadProgress", (progress: any) => {
+      console.log("prog", progress);
+    });
+
+    const uploadedData = await uploadParallel.done();
+    if (uploadedData.$metadata.httpStatusCode === 200) {
+      return { success: true, data: (publicURL + fileName) as any };
     }
-    return { success: false, data: [] };
+    return { success: false, data: [] as any };
 
     // console.log(result.$metadata.httpStatusCode === 200);
   }
