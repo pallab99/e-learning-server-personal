@@ -38,7 +38,7 @@ class CourseContentClass {
                 const courseTitle = (_a = courseDoc.data) === null || _a === void 0 ? void 0 : _a.title;
                 const sectionTitle = (_b = courseSectionDoc.data) === null || _b === void 0 ? void 0 : _b.title;
                 const file = req.file;
-                console.log(file);
+                console.log("file", file);
                 const result = yield course_content_1.default.saveFileOnServer(file, courseTitle, sectionTitle);
                 if (!result.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.S3_SERVER_ERROR);

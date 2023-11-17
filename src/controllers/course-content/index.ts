@@ -1,13 +1,12 @@
+import { Request, Response } from "express";
 import { RESPONSE_MESSAGE } from "../../constant/responseMessage";
 import { HTTP_STATUS } from "../../constant/statusCode";
 import CourseContentModel from "../../models/course-content/courseContent";
-import CourseSectionModel from "../../models/course-section";
 import CourseService from "../../services/course";
 import CourseContentService from "../../services/course-content";
 import CourseSectionService from "../../services/course-section";
 import { databaseLogger } from "../../utils/dbLogger";
 import { sendResponse } from "../../utils/response";
-import { Request, Response } from "express";
 class CourseContentClass {
   async createCourseContent(req: Request, res: Response) {
     try {
@@ -31,7 +30,7 @@ class CourseContentClass {
       const courseTitle = courseDoc.data?.title;
       const sectionTitle = courseSectionDoc.data?.title;
       const file = req.file;
-      console.log(file);
+      console.log("file", file);
       const result = await CourseContentService.saveFileOnServer(
         file,
         courseTitle,
@@ -136,11 +135,7 @@ class CourseContentClass {
           RESPONSE_MESSAGE.DELETE_FAILED
         );
       }
-      return sendResponse(
-        res,
-        HTTP_STATUS.OK,
-        RESPONSE_MESSAGE.DELETE_SUCCESS
-      );
+      return sendResponse(res, HTTP_STATUS.OK, RESPONSE_MESSAGE.DELETE_SUCCESS);
     } catch (error: any) {
       console.log(error);
       databaseLogger(error.message);
