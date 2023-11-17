@@ -8,7 +8,7 @@ interface ICourseSection extends Document {
   sectionContent: Schema.Types.ObjectId[];
   course: Schema.Types.ObjectId;
   assignment?: Schema.Types.ObjectId;
-  quiz?: Schema.Types.ObjectId;
+  quiz?: Schema.Types.ObjectId; 
   createdAt?: Date;
   updatedAt?: Date;
 }

@@ -3,6 +3,7 @@ import { upload } from "../../configs/file";
 import { UserController } from "../../controllers/user";
 import {
   isAdmin,
+  isStudent,
   isStudentOrInstructor,
   tokenAuthorization,
 } from "../../middlewares/tokenValidator";
@@ -16,6 +17,11 @@ router
     "/students/all",
     [tokenAuthorization, isAdmin],
     UserController.getAllStudents
+  )
+  .get(
+    "/students/my-learning",
+    [tokenAuthorization, isStudent],
+    UserController.getMyLearning
   )
   .patch(
     "/update-DP",

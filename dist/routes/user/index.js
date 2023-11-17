@@ -13,6 +13,7 @@ router
     .get("/all", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isAdmin], user_1.UserController.getAllUser)
     .get("/me", [tokenValidator_1.tokenAuthorization], user_1.UserController.getUserProfile)
     .get("/students/all", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isAdmin], user_1.UserController.getAllStudents)
+    .get("/students/my-learning", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isStudent], user_1.UserController.getMyLearning)
     .patch("/update-DP", [tokenValidator_1.tokenAuthorization, file_1.upload.single("file_to_upload")], user_1.UserController.updateDp)
     .delete("/delete/:userId", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isAdmin], user_1.UserController.deleteUser)
     .get("/instructor/all", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isAdmin], user_1.UserController.getAllInstructor)

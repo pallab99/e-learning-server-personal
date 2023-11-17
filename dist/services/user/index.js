@@ -146,6 +146,24 @@ class USerServiceClass {
             return { success: true, data: students };
         });
     }
+    addToMyLearning(courseId, userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield user_2.default.addToMyLearning(courseId, userId);
+            if (result) {
+                return { success: true, data: result };
+            }
+            return { success: false, data: null };
+        });
+    }
+    getMyLearning(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield user_2.default.getMyLearning(userId);
+            if (result) {
+                return { success: true, data: result };
+            }
+            return { success: false, data: null };
+        });
+    }
 }
 const UserService = new USerServiceClass();
 exports.default = UserService;

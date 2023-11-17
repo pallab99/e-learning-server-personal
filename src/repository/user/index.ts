@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { UserModel } from "../../models/user";
 
 class UserRepositoryClass {
@@ -49,6 +50,17 @@ class UserRepositoryClass {
   }
   async getAllStudents() {
     return await UserModel.find({});
+  }
+
+  async addToMyLearning(courseId: string, userId: string) {
+    return await UserModel.findOneAndUpdate(
+      { _id: new mongoose.Types.ObjectId(userId) },
+      { $push: { enrolledCourses: courseId } }
+    );
+  }
+
+  async getMyLearning(userId: string) {
+    return await UserModel.findById(userId).populate("enrolledCourses");
   }
 }
 

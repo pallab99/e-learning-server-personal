@@ -138,6 +138,22 @@ class USerServiceClass {
 
     return { success: true, data: students };
   }
+
+  async addToMyLearning(courseId:string,userId:string){
+    const result = await UserRepository.addToMyLearning(courseId,userId)
+    if (result) {
+      return { success: true, data: result };
+    }
+    return { success: false, data: null };
+  }
+
+  async getMyLearning(userId:string){
+    const result = await UserRepository.getMyLearning(userId)
+    if (result ) {
+      return { success: true, data: result };
+    }
+    return { success: false, data: null };
+  }
 }
 
 const UserService = new USerServiceClass();

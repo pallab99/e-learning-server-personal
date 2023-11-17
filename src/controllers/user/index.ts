@@ -281,6 +281,44 @@ class UserControllerClass {
       );
     }
   }
+
+  async getMyLearning(req: Request, res: Response) {
+    try {
+      databaseLogger(req.originalUrl);
+      const { email } = req.user;
+      const user = await UserService.findByEmail(email);
+      if (!user) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.NOT_FOUND,
+          RESPONSE_MESSAGE.NO_DATA
+        );
+      }
+      const myLearning = await UserService.getMyLearning(user._id);
+      if (!myLearning.success) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.OK,
+          RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
+          []
+        );
+      }
+      return sendResponse(
+        res,
+        HTTP_STATUS.OK,
+        RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
+        myLearning.data
+      );
+    } catch (error: any) {
+      console.log(error);
+      databaseLogger(error.message);
+      return sendResponse(
+        res,
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
 }
 
 export const UserController = new UserControllerClass();

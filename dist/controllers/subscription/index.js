@@ -21,6 +21,7 @@ const purchase_history_1 = __importDefault(require("../../services/purchase-hist
 const subscription_1 = __importDefault(require("../../services/subscription"));
 const dbLogger_1 = require("../../utils/dbLogger");
 const response_1 = require("../../utils/response");
+const user_1 = __importDefault(require("../../services/user"));
 const { promisify } = require("util");
 const ejs = require("ejs");
 const ejsRenderFile = promisify(ejs.renderFile);
@@ -116,8 +117,9 @@ class SubscriptionControllerClass {
                 if (!course.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.COURSE_NOT_FOUND);
                 }
+                const addToMyLearning = yield user_1.default.addToMyLearning(courseId, subscription.data.user._id);
                 const addUserToEnrollmentList = yield course_1.default.addUserToEnrollmentList(courseId, subscription.data.user._id);
-                if (!addUserToEnrollmentList.success) {
+                if (!addUserToEnrollmentList.success || !addToMyLearning.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
                 }
                 const removeCourseFromSubscriptionList = yield subscription_1.default.removeCourseFromSubscriptionList(subscription.data, courseId);

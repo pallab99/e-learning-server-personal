@@ -8,6 +8,7 @@ import PurchaseHistoryService from "../../services/purchase-history";
 import SubscriptionService from "../../services/subscription";
 import { databaseLogger } from "../../utils/dbLogger";
 import { sendResponse } from "../../utils/response";
+import UserService from "../../services/user";
 const { promisify } = require("util");
 const ejs = require("ejs");
 const ejsRenderFile = promisify(ejs.renderFile);
@@ -175,14 +176,17 @@ class SubscriptionControllerClass {
           RESPONSE_MESSAGE.COURSE_NOT_FOUND
         );
       }
-
+      const addToMyLearning = await UserService.addToMyLearning(
+        courseId,
+        subscription.data.user._id
+      );
       const addUserToEnrollmentList =
         await CourseService.addUserToEnrollmentList(
           courseId,
           subscription.data.user._id
         );
 
-      if (!addUserToEnrollmentList.success) {
+      if (!addUserToEnrollmentList.success || !addToMyLearning.success) {
         return sendResponse(
           res,
           HTTP_STATUS.BAD_REQUEST,
