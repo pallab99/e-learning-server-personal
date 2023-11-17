@@ -9,6 +9,7 @@ const router = express_1.default.Router();
 router
     .post("/sign-up", auth_1.AuthController.signUp)
     .post("/sign-in", auth_1.AuthController.signIn)
+    .delete("/logout", auth_1.AuthController.logOut)
     .use("/validate-verify-account/:resetToken/:userId", auth_1.AuthController.validateVerifyAccount)
     .use("/verify-account/:resetToken/:userId", auth_1.AuthController.verifyAccount)
     .post("/refreshToken", auth_1.AuthController.refreshToken)

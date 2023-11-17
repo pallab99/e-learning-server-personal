@@ -210,6 +210,14 @@ class CourseSectionClassService {
     await result.save();
     return { success: true, data: result as any };
   }
+
+  async courseContentForNonSubscribedStudent(courseId:string){
+    const result=await CourseSectionRepository.courseContentForNonSubscribedStudent(courseId)
+    if (result) {
+      return { success: true, data: result as any };
+    }
+    return { success: false, data: [] as any };
+  }
 }
 
 const CourseSectionService = new CourseSectionClassService();

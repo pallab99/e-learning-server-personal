@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_validator_1 = require("express-validator");
-const mongoose_1 = __importDefault(require("mongoose"));
 const responseMessage_1 = require("../../constant/responseMessage");
 const statusCode_1 = require("../../constant/statusCode");
 const course_1 = __importDefault(require("../../services/course"));
@@ -21,22 +20,45 @@ const course_section_1 = __importDefault(require("../../services/course-section"
 const dbLogger_1 = require("../../utils/dbLogger");
 const response_1 = require("../../utils/response");
 const sendValidationError_1 = require("../../utils/sendValidationError");
+const user_1 = __importDefault(require("../../services/user"));
+const jwt = require("jsonwebtoken");
 class CourseSectionClass {
     getCourseSection(req, res) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { courseId } = req.params;
-                const objectId = new mongoose_1.default.Types.ObjectId(courseId);
-                const result = yield course_section_1.default.getCourseSectionByCourseId(courseId);
-                if (!result.success) {
-                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
+                const fetchCourseContent = (courseId) => __awaiter(this, void 0, void 0, function* () {
+                    const courseContent = yield course_section_1.default.courseContentForNonSubscribedStudent(courseId);
+                    if (!courseContent.success) {
+                        return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
+                    }
+                    return courseContent;
+                });
+                if ((_a = req === null || req === void 0 ? void 0 : req.cookies) === null || _a === void 0 ? void 0 : _a.accessToken) {
+                    const { accessToken } = req.cookies;
+                    const token = accessToken;
+                    const secretKey = process.env.ACCESS_TOKEN_SECRET;
+                    const validate = jwt.verify(token, secretKey);
+                    const user = yield user_1.default.findByEmail(validate === null || validate === void 0 ? void 0 : validate.email);
+                    if (!user) {
+                        return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
+                    }
+                    const userEnrolledInCourse = yield course_1.default.userEnrolledInCourse(courseId, user._id);
+                    if (!userEnrolledInCourse.success) {
+                        const courseContentForNonSubscribedStudent = yield fetchCourseContent(courseId);
+                        return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, courseContentForNonSubscribedStudent === null || courseContentForNonSubscribedStudent === void 0 ? void 0 : courseContentForNonSubscribedStudent.data);
+                    }
+                    else {
+                        const result = yield course_section_1.default.getCourseSectionByCourseId(courseId);
+                        return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, result.data);
+                    }
                 }
-                // const getCOurseContent = await CourseSectionService.getCourseContent(
-                //   result.data
-                // );
-                //  console.log(getCOurseContent.data);
-                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, result.data);
+                else {
+                    const courseContentForNonSubscribedStudent = yield fetchCourseContent(courseId);
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, courseContentForNonSubscribedStudent === null || courseContentForNonSubscribedStudent === void 0 ? void 0 : courseContentForNonSubscribedStudent.data);
+                }
             }
             catch (error) {
                 console.log(error);

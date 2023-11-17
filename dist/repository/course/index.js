@@ -48,6 +48,14 @@ class CourseRepositoryClass {
             return yield course_1.default.updateOne({ _id: new mongoose_1.default.Types.ObjectId(courseId) }, { $push: { students: userId } });
         });
     }
+    userEnrolledInCourse(courseId, userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield course_1.default.findOne({
+                _id: new mongoose_1.default.Types.ObjectId(courseId),
+                students: userId,
+            });
+        });
+    }
 }
 const CourseRepository = new CourseRepositoryClass();
 exports.default = CourseRepository;

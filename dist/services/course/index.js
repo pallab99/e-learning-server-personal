@@ -133,6 +133,12 @@ class CourseServiceClass {
             };
         });
     }
+    userEnrolledInCourse(courseId, userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield course_1.default.userEnrolledInCourse(courseId, userId);
+            return { success: result ? true : false, data: result };
+        });
+    }
 }
 const CourseService = new CourseServiceClass();
 exports.default = CourseService;

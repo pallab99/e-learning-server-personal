@@ -10350,3 +10350,91 @@ Cast to ObjectId failed for value "undefined" (type string) at path "_id" for mo
 
 /api/user/students/my-learning  ( Time -> November 17, 2023 10:14 PM)
 
+/api/course/all  ( Time -> November 17, 2023 10:18 PM)
+
+/api/auth/sign-in  ( Time -> November 17, 2023 10:18 PM)
+
+/api/cart/details  ( Time -> November 17, 2023 10:18 PM)
+
+/api/auth/sign-in  ( Time -> November 17, 2023 10:18 PM)
+
+/api/user/me  ( Time -> November 17, 2023 10:18 PM)
+
+/api/wishlist/details  ( Time -> November 17, 2023 10:19 PM)
+
+/api/user/me  ( Time -> November 17, 2023 10:19 PM)
+
+/api/user/me  ( Time -> November 17, 2023 10:19 PM)
+
+/api/course-section/getSectionCourseById/655470b1b9505845cfaf9349  ( Time -> November 17, 2023 11:10 PM)
+
+Cannot destructure property 'email' of 'req.user' as it is undefined.  ( Time -> November 17, 2023 11:10 PM)
+
+/api/course-section/getSectionCourseById/655470b1b9505845cfaf9349  ( Time -> November 17, 2023 11:12 PM)
+
+/api/course-section/getSectionCourseById/65557fc3f7d7deb0ac3759da  ( Time -> November 17, 2023 11:13 PM)
+
+/api/auth/sign-in  ( Time -> November 17, 2023 11:15 PM)
+
+/api/course-section/getSectionCourseById/65557fc3f7d7deb0ac3759da  ( Time -> November 17, 2023 11:15 PM)
+
+/api/course-section/getSectionCourseById/65557fc3f7d7deb0ac3759da  ( Time -> November 17, 2023 11:15 PM)
+
+/api/course-section/getSectionCourseById/65557fc3f7d7deb0ac3759da  ( Time -> November 17, 2023 11:16 PM)
+
+/api/course-section/getSectionCourseById/65557fc3f7d7deb0ac3759da  ( Time -> November 17, 2023 11:16 PM)
+
+/api/course-section/getSectionCourseById/65557fc3f7d7deb0ac3759da  ( Time -> November 17, 2023 11:17 PM)
+
+/api/course-section/getSectionCourseById/65557fc3f7d7deb0ac3759da  ( Time -> November 17, 2023 11:18 PM)
+
+/api/course-section/getSectionCourseById/65557fc3f7d7deb0ac3759da  ( Time -> November 17, 2023 11:18 PM)
+
+/api/auth/sign-in  ( Time -> November 17, 2023 11:19 PM)
+
+/api/course-section/getSectionCourseById/65557fc3f7d7deb0ac3759da  ( Time -> November 17, 2023 11:19 PM)
+
+/api/course-section/getSectionCourseById/65557fc3f7d7deb0ac3759da  ( Time -> November 17, 2023 11:22 PM)
+
+Cannot destructure property 'email' of 'req.user' as it is undefined.  ( Time -> November 17, 2023 11:22 PM)
+
+/api/course-section/getSectionCourseById/65557fc3f7d7deb0ac3759da  ( Time -> November 17, 2023 11:22 PM)
+
+/api/course-section/getSectionCourseById/65557fc3f7d7deb0ac3759da  ( Time -> November 17, 2023 11:23 PM)
+
+FieldPath field names may not start with '$'. Consider using $getField or $setField.  ( Time -> November 17, 2023 11:23 PM)
+
+/api/course-section/getSectionCourseById/65557fc3f7d7deb0ac3759da  ( Time -> November 17, 2023 11:24 PM)
+
+FieldPath field names may not start with '$'. Consider using $getField or $setField.  ( Time -> November 17, 2023 11:24 PM)
+
+/api/course-section/getSectionCourseById/65557fc3f7d7deb0ac3759da  ( Time -> November 17, 2023 11:25 PM)
+
+FieldPath field names may not start with '$'. Consider using $getField or $setField.  ( Time -> November 17, 2023 11:25 PM)
+
+/api/course-section/getSectionCourseById/65557fc3f7d7deb0ac3759da  ( Time -> November 17, 2023 11:25 PM)
+
+FieldPath field names may not start with '$'. Consider using $getField or $setField.  ( Time -> November 17, 2023 11:25 PM)
+
+/api/course-section/getSectionCourseById/65557fc3f7d7deb0ac3759da  ( Time -> November 17, 2023 11:29 PM)
+
+/api/course-section/getSectionCourseById/655470b1b9505845cfaf9349  ( Time -> November 17, 2023 11:30 PM)
+
+/api/course-section/getSectionCourseById/65557fc3f7d7deb0ac3759da  ( Time -> November 17, 2023 11:42 PM)
+
+/api/course-section/getSectionCourseById/65557fc3f7d7deb0ac3759da  ( Time -> November 17, 2023 11:44 PM)
+
+/api/course-section/getSectionCourseById/65557fc3f7d7deb0ac3759da  ( Time -> November 17, 2023 11:49 PM)
+
+/api/course-section/getSectionCourseById/65557fc3f7d7deb0ac3759da  ( Time -> November 17, 2023 11:58 PM)
+
+jwt must be provided  ( Time -> November 17, 2023 11:58 PM)
+
+/api/course-section/getSectionCourseById/65557fc3f7d7deb0ac3759da  ( Time -> November 17, 2023 11:58 PM)
+
+jwt must be provided  ( Time -> November 17, 2023 11:58 PM)
+
+/api/course-section/getSectionCourseById/65557fc3f7d7deb0ac3759da  ( Time -> November 17, 2023 11:59 PM)
+
+/api/course-section/getSectionCourseById/655470b1b9505845cfaf9349  ( Time -> November 17, 2023 11:59 PM)
+

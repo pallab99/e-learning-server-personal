@@ -5,6 +5,7 @@ const router = express.Router();
 router
   .post("/sign-up", AuthController.signUp)
   .post("/sign-in", AuthController.signIn)
+  .delete("/logout", AuthController.logOut)
   .use(
     "/validate-verify-account/:resetToken/:userId",
     AuthController.validateVerifyAccount

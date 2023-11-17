@@ -123,6 +123,14 @@ class CourseServiceClass {
       data: result as any,
     };
   }
+
+  async userEnrolledInCourse(courseId: string, userId: string) {
+    const result = await CourseRepository.userEnrolledInCourse(
+      courseId,
+      userId
+    );
+    return { success: result ? true : false, data: result as any };
+  }
 }
 
 const CourseService = new CourseServiceClass();

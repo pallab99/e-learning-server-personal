@@ -470,6 +470,31 @@ class AuthControllerClass {
       );
     }
   }
+
+  async logOut(req: Request, res: Response) {
+    try {
+      const accessToken = req.cookies["accessToken"];
+      const refreshToken = req.cookies["refreshToken"];
+      if (!accessToken || !refreshToken) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.BAD_REQUEST,
+          "Something went wrong",
+          []
+        );
+      }
+      res.clearCookie("accessToken");
+      res.clearCookie("refreshToken");
+      return sendResponse(res, HTTP_STATUS.OK, "Log Out Successful", []);
+    } catch (error: any) {
+      databaseLogger(error.message);
+      return sendResponse(
+        res,
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        "Internal server error"
+      );
+    }
+  }
 }
 const AuthController = new AuthControllerClass();
 export { AuthController };

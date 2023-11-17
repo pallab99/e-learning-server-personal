@@ -37,6 +37,15 @@ class CourseSectionClassRepository {
       .populate("assignment")
       .populate("quiz");
   }
+
+  async courseContentForNonSubscribedStudent(id: string) {
+    return await CourseSectionModel.find({
+      course: new mongoose.Types.ObjectId(id),
+    })
+      .populate("sectionContent", "-contentUrl")
+      .populate("assignment", "-assignmentFileURL -point -instructions")
+      .populate("quiz", "-questions");
+  }
 }
 
 const CourseSectionRepository = new CourseSectionClassRepository();

@@ -30,6 +30,12 @@ class CourseRepositoryClass {
       { $push: { students: userId } }
     );
   }
+  async userEnrolledInCourse(courseId: string, userId: string) {
+    return await CourseModel.findOne({
+      _id: new mongoose.Types.ObjectId(courseId),
+      students: userId,
+    });
+  }
 }
 
 const CourseRepository = new CourseRepositoryClass();

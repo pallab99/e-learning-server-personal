@@ -8,34 +8,73 @@ import CourseSectionService from "../../services/course-section";
 import { databaseLogger } from "../../utils/dbLogger";
 import { sendResponse } from "../../utils/response";
 import { sendValidationError } from "../../utils/sendValidationError";
+import UserService from "../../services/user";
+const jwt = require("jsonwebtoken");
+
 class CourseSectionClass {
   async getCourseSection(req: Request, res: Response) {
     try {
       databaseLogger(req.originalUrl);
       const { courseId } = req.params;
-      const objectId = new mongoose.Types.ObjectId(courseId);
-      const result =
-        await CourseSectionService.getCourseSectionByCourseId(courseId);
-      if (!result.success) {
+
+      const fetchCourseContent = async (courseId: string) => {
+        const courseContent = await CourseSectionService.courseContentForNonSubscribedStudent(
+          courseId
+        );
+        if (!courseContent.success) {
+          return sendResponse(
+            res,
+            HTTP_STATUS.BAD_REQUEST,
+            RESPONSE_MESSAGE.SOMETHING_WENT_WRONG
+          );
+        }
+        return courseContent;
+      };
+
+      if (req?.cookies?.accessToken) {
+        const { accessToken } = req.cookies;
+        const token = accessToken;
+        const secretKey = process.env.ACCESS_TOKEN_SECRET;
+        const validate = jwt.verify(token, secretKey);
+        const user = await UserService.findByEmail(validate?.email);
+        if (!user) {
+          return sendResponse(
+            res,
+            HTTP_STATUS.NOT_FOUND,
+            RESPONSE_MESSAGE.NO_DATA
+          );
+        }
+
+        const userEnrolledInCourse = await CourseService.userEnrolledInCourse(
+          courseId,
+          user._id
+        );
+        if (!userEnrolledInCourse.success) {
+          const courseContentForNonSubscribedStudent = await fetchCourseContent(courseId);
+          return sendResponse(
+            res,
+            HTTP_STATUS.OK,
+            RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
+            courseContentForNonSubscribedStudent?.data
+          );
+        } else {
+          const result = await CourseSectionService.getCourseSectionByCourseId(courseId);
+          return sendResponse(
+            res,
+            HTTP_STATUS.OK,
+            RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
+            result.data
+          );
+        }
+      } else {
+        const courseContentForNonSubscribedStudent = await fetchCourseContent(courseId);
         return sendResponse(
           res,
-          HTTP_STATUS.BAD_REQUEST,
-          RESPONSE_MESSAGE.SOMETHING_WENT_WRONG
+          HTTP_STATUS.OK,
+          RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
+          courseContentForNonSubscribedStudent?.data
         );
       }
-
-      // const getCOurseContent = await CourseSectionService.getCourseContent(
-      //   result.data
-      // );
-
-      //  console.log(getCOurseContent.data);
-
-      return sendResponse(
-        res,
-        HTTP_STATUS.OK,
-        RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
-        result.data
-      );
     } catch (error: any) {
       console.log(error);
       databaseLogger(error.message);

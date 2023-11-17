@@ -57,6 +57,16 @@ class CourseSectionClassRepository {
                 .populate("quiz");
         });
     }
+    courseContentForNonSubscribedStudent(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield course_section_1.default.find({
+                course: new mongoose_1.default.Types.ObjectId(id),
+            })
+                .populate("sectionContent", "-contentUrl")
+                .populate("assignment", "-assignmentFileURL -point -instructions")
+                .populate("quiz", "-questions");
+        });
+    }
 }
 const CourseSectionRepository = new CourseSectionClassRepository();
 exports.default = CourseSectionRepository;

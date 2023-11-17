@@ -214,6 +214,15 @@ class CourseSectionClassService {
             return { success: true, data: result };
         });
     }
+    courseContentForNonSubscribedStudent(courseId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield course_section_1.default.courseContentForNonSubscribedStudent(courseId);
+            if (result) {
+                return { success: true, data: result };
+            }
+            return { success: false, data: [] };
+        });
+    }
 }
 const CourseSectionService = new CourseSectionClassService();
 exports.default = CourseSectionService;
