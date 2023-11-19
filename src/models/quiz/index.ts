@@ -1,8 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 interface IQuiz extends Document {
-  title: string;
-  description: string;
   courseSection: Schema.Types.ObjectId;
   disable?: boolean;
   questions: [
@@ -17,14 +15,6 @@ interface IQuiz extends Document {
 
 const quizSchema: Schema<IQuiz> = new Schema<IQuiz>(
   {
-    title: {
-      type: String,
-      required: false,
-    },
-    description: {
-      type: String,
-      required: false,
-    },
 
     disable: {
       type: Boolean,
