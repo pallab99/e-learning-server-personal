@@ -92,4 +92,7 @@ export const RESPONSE_MESSAGE = {
   REPLY_DELETE_SUCCESS: "Reply deleted successfully",
   ACCEPT_COURSE_REQUEST: "Course publish request accepted successfully",
   REJECT_COURSE_REQUEST: "Course publish request is rejected",
+  COURSE_SECTION_ENABLED:"Course section enabled successfully",
+  COURSE_SECTION_DISABLED:"Course section disabled successfully"
+
 };

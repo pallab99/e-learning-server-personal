@@ -11,7 +11,6 @@ router
   )
   .get(
     "/all",
-    [tokenAuthorization, isAdmin],
     CategoryController.getAllCategory
   );
 

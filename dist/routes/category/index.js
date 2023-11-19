@@ -9,5 +9,5 @@ const tokenValidator_1 = require("../../middlewares/tokenValidator");
 const router = express_1.default.Router();
 router
     .post("/create", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isAdmin], category_1.default.addCategory)
-    .get("/all", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isAdmin], category_1.default.getAllCategory);
+    .get("/all", category_1.default.getAllCategory);
 exports.default = router;

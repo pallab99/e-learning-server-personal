@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_validator_1 = require("express-validator");
+const mongoose_1 = __importDefault(require("mongoose"));
 const responseMessage_1 = require("../../constant/responseMessage");
 const statusCode_1 = require("../../constant/statusCode");
 const course_1 = __importDefault(require("../../services/course"));
@@ -21,6 +22,7 @@ const dbLogger_1 = require("../../utils/dbLogger");
 const response_1 = require("../../utils/response");
 const sendValidationError_1 = require("../../utils/sendValidationError");
 const user_1 = __importDefault(require("../../services/user"));
+const course_section_2 = __importDefault(require("../../models/course-section"));
 const jwt = require("jsonwebtoken");
 class CourseSectionClass {
     getCourseSection(req, res) {
@@ -46,7 +48,7 @@ class CourseSectionClass {
                         return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
                     }
                     const userEnrolledInCourse = yield course_1.default.userEnrolledInCourse(courseId, user._id);
-                    if (!userEnrolledInCourse.success) {
+                    if (!userEnrolledInCourse.success && validate.rank === 3) {
                         const courseContentForNonSubscribedStudent = yield fetchCourseContent(courseId);
                         return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, courseContentForNonSubscribedStudent === null || courseContentForNonSubscribedStudent === void 0 ? void 0 : courseContentForNonSubscribedStudent.data);
                     }
@@ -138,6 +140,38 @@ class CourseSectionClass {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
                 }
                 return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.ACCEPTED, responseMessage_1.RESPONSE_MESSAGE.DELETE_SUCCESS, deletedSection.data);
+            }
+            catch (error) {
+                console.log(error);
+                (0, dbLogger_1.databaseLogger)(error.message);
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.INTERNAL_SERVER_ERROR, responseMessage_1.RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR);
+            }
+        });
+    }
+    changeVisibility(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { courseId, courseSectionId } = req.params;
+                const course = yield course_1.default.findById(courseId);
+                const type = req.query;
+                console.log(type);
+                if (!course.success) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
+                }
+                let result;
+                if (type.toString() === "enable") {
+                    result = yield course_section_2.default.findOneAndUpdate({ _id: new mongoose_1.default.Types.ObjectId(courseSectionId) }, { isVisible: 1 });
+                }
+                else {
+                    result = yield course_section_2.default.findOneAndUpdate({ _id: new mongoose_1.default.Types.ObjectId(courseSectionId) }, { isVisible: 0 });
+                }
+                if (!result) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
+                }
+                if (type.toString() === "enable") {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.COURSE_SECTION_ENABLED, result);
+                }
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.COURSE_SECTION_DISABLED, result);
             }
             catch (error) {
                 console.log(error);

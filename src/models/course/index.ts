@@ -2,11 +2,11 @@ import mongoose, { Document, Schema } from "mongoose";
 
 interface ICourse extends Document {
   title: string;
+  sub_title: string;
   description: string;
   instructors: mongoose.Types.ObjectId[];
   students?: mongoose.Types.ObjectId[];
   category: string;
-  tags: string[];
   thumbnail?: string;
   level: string;
   demoVideo?: string;
@@ -30,6 +30,10 @@ const courseSchema: Schema<ICourse> = new Schema<ICourse>(
       required: true,
       unique: true,
     },
+    sub_title: {
+      type: String,
+      required: true,
+    },
     description: {
       type: String,
       required: true,
@@ -45,13 +49,11 @@ const courseSchema: Schema<ICourse> = new Schema<ICourse>(
       type: String,
       required: true,
     },
-    tags: {
-      type: [String],
-      required: true,
-    },
+
     thumbnail: {
       type: String,
       required: false,
+      default: "https://img-c.udemycdn.com/course/750x422/625204_436a_3.jpg",
     },
     level: {
       type: String,

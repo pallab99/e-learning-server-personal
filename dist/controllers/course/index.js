@@ -36,6 +36,7 @@ class CourseControllerClass {
                     return (0, sendValidationError_1.sendValidationError)(res, validation);
                 }
                 const body = req.body;
+                console.log(body);
                 const { email } = req.user;
                 const findByTitle = yield course_2.default.findByTitle(body.title);
                 if (findByTitle.success) {
@@ -148,14 +149,6 @@ class CourseControllerClass {
                 const body = req.body;
                 const files = req.files;
                 const { courseId } = req.params;
-                // const findByTitle = await CourseService.findByTitle(body.title);
-                // if (findByTitle.success) {
-                //   return sendResponse(
-                //     res,
-                //     HTTP_STATUS.CONFLICT,
-                //     RESPONSE_MESSAGE.COURSE_TITLE
-                //   );
-                // }
                 const newCourse = yield course_1.default.findOneAndUpdate({ _id: courseId }, body, {
                     new: true,
                 });

@@ -8,6 +8,11 @@ import { validator } from "../../middlewares/validator";
 const router = express.Router();
 
 router
+  .get(
+    "/all/details/:courseId",
+    // [tokenAuthorization, isStudentOrInstructor], 
+    QNAController.getAllQNQOfACourse
+  )
   .post(
     "/create/question",
     [tokenAuthorization, isStudentOrInstructor, ...validator.addQNA],

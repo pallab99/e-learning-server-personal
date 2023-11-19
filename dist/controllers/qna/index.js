@@ -21,7 +21,31 @@ const user_1 = __importDefault(require("../../services/user"));
 const dbLogger_1 = require("../../utils/dbLogger");
 const response_1 = require("../../utils/response");
 const sendValidationError_1 = require("../../utils/sendValidationError");
+const QNA_1 = require("../../models/QNA");
+const mongoose_1 = __importDefault(require("mongoose"));
 class QNAControllerClass {
+    getAllQNQOfACourse(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                (0, dbLogger_1.databaseLogger)(req.originalUrl);
+                const { courseId } = req.params;
+                const qnas = yield QNA_1.QNAModel.findOne({
+                    course: new mongoose_1.default.Types.ObjectId(courseId),
+                })
+                    .populate("messages.user", "_id name email dp")
+                    .populate("messages.reply.user", "_id name email dp");
+                if (!qnas) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.NO_DATA, []);
+                }
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, qnas);
+            }
+            catch (error) {
+                console.log(error);
+                (0, dbLogger_1.databaseLogger)(error.message);
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.INTERNAL_SERVER_ERROR, responseMessage_1.RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR);
+            }
+        });
+    }
     addQuestion(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

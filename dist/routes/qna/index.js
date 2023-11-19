@@ -9,6 +9,9 @@ const tokenValidator_1 = require("../../middlewares/tokenValidator");
 const validator_1 = require("../../middlewares/validator");
 const router = express_1.default.Router();
 router
+    .get("/all/details/:courseId", 
+// [tokenAuthorization, isStudentOrInstructor], 
+qna_1.default.getAllQNQOfACourse)
     .post("/create/question", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isStudentOrInstructor, ...validator_1.validator.addQNA], qna_1.default.addQuestion)
     .patch("/update/question/reply/:questionId", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isStudentOrInstructor, ...validator_1.validator.replyToQNA], qna_1.default.replyToQuestion)
     .patch("/update/question/:courseId/:questionId", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isStudentOrInstructor, ...validator_1.validator.updateQNA], qna_1.default.updateQuestion)

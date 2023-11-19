@@ -30,6 +30,10 @@ const courseSchema = new mongoose_1.Schema({
         required: true,
         unique: true,
     },
+    sub_title: {
+        type: String,
+        required: true,
+    },
     description: {
         type: String,
         required: true,
@@ -45,13 +49,10 @@ const courseSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
-    tags: {
-        type: [String],
-        required: true,
-    },
     thumbnail: {
         type: String,
         required: false,
+        default: "https://img-c.udemycdn.com/course/750x422/625204_436a_3.jpg",
     },
     level: {
         type: String,

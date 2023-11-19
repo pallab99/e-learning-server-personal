@@ -23,6 +23,8 @@ class CourseControllerClass {
       }
 
       const body = req.body;
+      console.log(body);
+      
       const { email } = req.user;
       const findByTitle = await CourseService.findByTitle(body.title);
 
@@ -234,15 +236,8 @@ class CourseControllerClass {
       const body = req.body;
       const files = req.files;
       const { courseId } = req.params;
-      // const findByTitle = await CourseService.findByTitle(body.title);
-
-      // if (findByTitle.success) {
-      //   return sendResponse(
-      //     res,
-      //     HTTP_STATUS.CONFLICT,
-      //     RESPONSE_MESSAGE.COURSE_TITLE
-      //   );
-      // }
+   
+      
       const newCourse = await CourseModel.findOneAndUpdate(
         { _id: courseId },
         body,

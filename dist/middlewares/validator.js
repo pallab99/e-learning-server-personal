@@ -81,9 +81,9 @@ exports.validator = {
             .bail()
             .isString()
             .withMessage("Description must be string")
-            .bail()
-            .isLength({ max: 1500 })
-            .withMessage("Description cannot exceed 1500 characters"),
+            .bail(),
+        // .isLength({ max: 500000 })
+        // .withMessage("Description cannot exceed 1500 characters"),
         (0, express_validator_1.check)("category")
             .not()
             .isEmpty()
@@ -101,20 +101,20 @@ exports.validator = {
             .bail()
             .isString()
             .withMessage("Category must be string"),
-        (0, express_validator_1.check)("tags")
-            .not()
-            .isEmpty()
-            .withMessage("Tags is required")
-            .custom((value) => {
-            console.log(value);
-            const arrayValue = value.split(",");
-            for (let i = 0; i < arrayValue.length; i++) {
-                if (typeof arrayValue[i] !== "string") {
-                    throw new Error("All elements in tags must be strings");
-                }
-            }
-            return true;
-        }),
+        // check("tags")
+        //   .not()
+        //   .isEmpty()
+        //   .withMessage("Tags is required")
+        //   .custom((value: any) => {
+        //     console.log(value);
+        //     const arrayValue = value.split(",");
+        //     for (let i = 0; i < arrayValue.length; i++) {
+        //       if (typeof arrayValue[i] !== "string") {
+        //         throw new Error("All elements in tags must be strings");
+        //       }
+        //     }
+        //     return true;
+        //   }),
         (0, express_validator_1.check)("benefits")
             .not()
             .isEmpty()

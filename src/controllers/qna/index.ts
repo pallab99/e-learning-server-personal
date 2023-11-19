@@ -8,7 +8,38 @@ import UserService from "../../services/user";
 import { databaseLogger } from "../../utils/dbLogger";
 import { sendResponse } from "../../utils/response";
 import { sendValidationError } from "../../utils/sendValidationError";
+import { QNAModel } from "../../models/QNA";
+import mongoose from "mongoose";
+import { populate } from "dotenv";
 class QNAControllerClass {
+  async getAllQNQOfACourse(req: Request, res: Response) {
+    try {
+      databaseLogger(req.originalUrl);
+      const { courseId } = req.params;
+      const qnas = await QNAModel.findOne({
+        course: new mongoose.Types.ObjectId(courseId),
+      })
+        .populate("messages.user" ,"_id name email dp")
+        .populate("messages.reply.user" ,"_id name email dp");
+      if (!qnas) {
+        return sendResponse(res, HTTP_STATUS.OK, RESPONSE_MESSAGE.NO_DATA, []);
+      }
+      return sendResponse(
+        res,
+        HTTP_STATUS.OK,
+        RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
+        qnas
+      );
+    } catch (error: any) {
+      console.log(error);
+      databaseLogger(error.message);
+      return sendResponse(
+        res,
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
   async addQuestion(req: Request, res: Response) {
     try {
       databaseLogger(req.originalUrl);

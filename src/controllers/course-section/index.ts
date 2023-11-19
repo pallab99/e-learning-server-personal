@@ -9,6 +9,7 @@ import { databaseLogger } from "../../utils/dbLogger";
 import { sendResponse } from "../../utils/response";
 import { sendValidationError } from "../../utils/sendValidationError";
 import UserService from "../../services/user";
+import CourseSectionModel from "../../models/course-section";
 const jwt = require("jsonwebtoken");
 
 class CourseSectionClass {
@@ -18,9 +19,10 @@ class CourseSectionClass {
       const { courseId } = req.params;
 
       const fetchCourseContent = async (courseId: string) => {
-        const courseContent = await CourseSectionService.courseContentForNonSubscribedStudent(
-          courseId
-        );
+        const courseContent =
+          await CourseSectionService.courseContentForNonSubscribedStudent(
+            courseId
+          );
         if (!courseContent.success) {
           return sendResponse(
             res,
@@ -49,8 +51,9 @@ class CourseSectionClass {
           courseId,
           user._id
         );
-        if (!userEnrolledInCourse.success) {
-          const courseContentForNonSubscribedStudent = await fetchCourseContent(courseId);
+        if (!userEnrolledInCourse.success && validate.rank === 3) {
+          const courseContentForNonSubscribedStudent =
+            await fetchCourseContent(courseId);
           return sendResponse(
             res,
             HTTP_STATUS.OK,
@@ -58,7 +61,8 @@ class CourseSectionClass {
             courseContentForNonSubscribedStudent?.data
           );
         } else {
-          const result = await CourseSectionService.getCourseSectionByCourseId(courseId);
+          const result =
+            await CourseSectionService.getCourseSectionByCourseId(courseId);
           return sendResponse(
             res,
             HTTP_STATUS.OK,
@@ -67,7 +71,8 @@ class CourseSectionClass {
           );
         }
       } else {
-        const courseContentForNonSubscribedStudent = await fetchCourseContent(courseId);
+        const courseContentForNonSubscribedStudent =
+          await fetchCourseContent(courseId);
         return sendResponse(
           res,
           HTTP_STATUS.OK,
@@ -204,6 +209,64 @@ class CourseSectionClass {
         HTTP_STATUS.ACCEPTED,
         RESPONSE_MESSAGE.DELETE_SUCCESS,
         deletedSection.data
+      );
+    } catch (error: any) {
+      console.log(error);
+      databaseLogger(error.message);
+      return sendResponse(
+        res,
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  async changeVisibility(req: Request, res: Response) {
+    try {
+      const { courseId, courseSectionId } = req.params;
+      const course = await CourseService.findById(courseId);
+      const type = req.query;
+      console.log(type);
+
+      if (!course.success) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.BAD_REQUEST,
+          RESPONSE_MESSAGE.NO_DATA
+        );
+      }
+      let result;
+      if (type.toString() === "enable") {
+        result = await CourseSectionModel.findOneAndUpdate(
+          { _id: new mongoose.Types.ObjectId(courseSectionId) },
+          { isVisible: 1 }
+        );
+      } else {
+        result = await CourseSectionModel.findOneAndUpdate(
+          { _id: new mongoose.Types.ObjectId(courseSectionId) },
+          { isVisible: 0 }
+        );
+      }
+      if (!result) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.BAD_REQUEST,
+          RESPONSE_MESSAGE.SOMETHING_WENT_WRONG
+        );
+      }
+      if (type.toString() === "enable") {
+        return sendResponse(
+          res,
+          HTTP_STATUS.OK,
+          RESPONSE_MESSAGE.COURSE_SECTION_ENABLED,
+          result
+        );
+      }
+      return sendResponse(
+        res,
+        HTTP_STATUS.OK,
+        RESPONSE_MESSAGE.COURSE_SECTION_DISABLED,
+        result
       );
     } catch (error: any) {
       console.log(error);
