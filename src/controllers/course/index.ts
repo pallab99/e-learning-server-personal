@@ -464,6 +464,8 @@ class CourseControllerClass {
       );
     }
   }
+
+  // async userEnrolledInCourse(req:Request,res:Response)
 }
 
 const CourseController = new CourseControllerClass();

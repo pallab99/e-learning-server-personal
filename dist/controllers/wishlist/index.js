@@ -18,6 +18,7 @@ const user_1 = __importDefault(require("../../services/user"));
 const wishlist_1 = __importDefault(require("../../services/wishlist"));
 const dbLogger_1 = require("../../utils/dbLogger");
 const response_1 = require("../../utils/response");
+const mongoose_1 = __importDefault(require("mongoose"));
 class WishlistControllerClass {
     addToWishlist(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -104,6 +105,30 @@ class WishlistControllerClass {
                 (0, dbLogger_1.databaseLogger)(error.message);
                 return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.INTERNAL_SERVER_ERROR, responseMessage_1.RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR);
             }
+        });
+    }
+    courseAvailableInWishlist(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                (0, dbLogger_1.databaseLogger)(req.originalUrl);
+                const { courseId } = req.params;
+                const { email } = req.user;
+                const user = yield user_1.default.findByEmail(email);
+                if (!user) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
+                }
+                const wishlist = yield wishlist_1.default.getWishlistByUserId(user === null || user === void 0 ? void 0 : user._id);
+                if (!wishlist.success) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
+                }
+                console.log(wishlist.data);
+                const courseAvailableInWishlist = wishlist.data.courses.includes(new mongoose_1.default.Types.ObjectId(courseId));
+                if (courseAvailableInWishlist) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA);
+                }
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
+            }
+            catch (error) { }
         });
     }
 }

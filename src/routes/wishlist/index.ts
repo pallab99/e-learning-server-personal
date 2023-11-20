@@ -17,6 +17,10 @@ router
     "/details",
     [tokenAuthorization, isStudent],
     WishlistController.getWishlistByUserId
+  )  .get(
+    "/course-available/:courseId",
+    [tokenAuthorization, isStudent],
+    WishlistController.courseAvailableInWishlist
   )
   .patch(
     "/update",

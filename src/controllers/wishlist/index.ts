@@ -5,6 +5,7 @@ import UserService from "../../services/user";
 import WishlistService from "../../services/wishlist";
 import { databaseLogger } from "../../utils/dbLogger";
 import { sendResponse } from "../../utils/response";
+import mongoose from "mongoose";
 class WishlistControllerClass {
   async addToWishlist(req: Request, res: Response) {
     try {
@@ -165,6 +166,43 @@ class WishlistControllerClass {
         RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR
       );
     }
+  }
+
+  async courseAvailableInWishlist(req: Request, res: Response) {
+    try {
+      databaseLogger(req.originalUrl);
+      const { courseId } = req.params;
+      const { email } = req.user;
+      const user = await UserService.findByEmail(email);
+      if (!user) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.NOT_FOUND,
+          RESPONSE_MESSAGE.NO_DATA
+        );
+      }
+      const wishlist = await WishlistService.getWishlistByUserId(user?._id);
+      if (!wishlist.success) {
+        return sendResponse(res, HTTP_STATUS.OK, RESPONSE_MESSAGE.NO_DATA);
+      }
+      console.log(wishlist.data);
+
+      const courseAvailableInWishlist = wishlist.data.courses.includes(
+        new mongoose.Types.ObjectId(courseId)
+      );
+      if (courseAvailableInWishlist) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.OK,
+          RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA
+        );
+      }
+      return sendResponse(
+        res,
+        HTTP_STATUS.BAD_REQUEST,
+        RESPONSE_MESSAGE.NO_DATA
+      );
+    } catch (error: any) {}
   }
 }
 

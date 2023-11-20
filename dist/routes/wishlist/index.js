@@ -9,6 +9,6 @@ const wishlist_1 = __importDefault(require("../../controllers/wishlist"));
 const router = express_1.default.Router();
 router
     .post("/create", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isStudent], wishlist_1.default.addToWishlist)
-    .get("/details", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isStudent], wishlist_1.default.getWishlistByUserId)
+    .get("/details", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isStudent], wishlist_1.default.getWishlistByUserId).get("/course-available/:courseId", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isStudent], wishlist_1.default.courseAvailableInWishlist)
     .patch("/update", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isStudent], wishlist_1.default.updateWishlist);
 exports.default = router;

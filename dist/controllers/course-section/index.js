@@ -153,17 +153,19 @@ class CourseSectionClass {
             try {
                 const { courseId, courseSectionId } = req.params;
                 const course = yield course_1.default.findById(courseId);
-                const type = req.query;
+                const { type } = req.query;
                 console.log(type);
                 if (!course.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
                 }
                 let result;
-                if (type.toString() === "enable") {
+                if (type === "enable") {
+                    console.log("enable");
                     result = yield course_section_2.default.findOneAndUpdate({ _id: new mongoose_1.default.Types.ObjectId(courseSectionId) }, { isVisible: 1 });
                 }
                 else {
                     result = yield course_section_2.default.findOneAndUpdate({ _id: new mongoose_1.default.Types.ObjectId(courseSectionId) }, { isVisible: 0 });
+                    console.log("disable");
                 }
                 if (!result) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);

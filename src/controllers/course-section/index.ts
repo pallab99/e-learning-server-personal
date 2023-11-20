@@ -225,7 +225,7 @@ class CourseSectionClass {
     try {
       const { courseId, courseSectionId } = req.params;
       const course = await CourseService.findById(courseId);
-      const type = req.query;
+      const {type} = req.query;
       console.log(type);
 
       if (!course.success) {
@@ -236,7 +236,9 @@ class CourseSectionClass {
         );
       }
       let result;
-      if (type.toString() === "enable") {
+      if (type === "enable") {
+        console.log("enable");
+        
         result = await CourseSectionModel.findOneAndUpdate(
           { _id: new mongoose.Types.ObjectId(courseSectionId) },
           { isVisible: 1 }
@@ -246,6 +248,8 @@ class CourseSectionClass {
           { _id: new mongoose.Types.ObjectId(courseSectionId) },
           { isVisible: 0 }
         );
+        console.log("disable");
+
       }
       if (!result) {
         return sendResponse(
