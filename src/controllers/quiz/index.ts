@@ -16,6 +16,7 @@ class QuizControllerClass {
         return sendValidationError(res, validation);
       }
       const quizData = req.body;
+      console.log("quiz data", quizData);
 
       const newQuiz = await QuizService.createQuiz(quizData);
       if (!newQuiz.success) {

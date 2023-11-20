@@ -16,6 +16,7 @@ class QuizServiceClass {
 
   async updateQuiz(quizId: string, quizData: any) {
     const result = await QuizRepository.findByIdAndUpdate(quizId, quizData);
+
     return { success: result ? true : false, data: result as any };
   }
   async findById(quizId: string) {

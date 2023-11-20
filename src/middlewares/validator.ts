@@ -79,8 +79,8 @@ export const validator = {
       .isString()
       .withMessage("Description must be string")
       .bail(),
-      // .isLength({ max: 500000 })
-      // .withMessage("Description cannot exceed 1500 characters"),
+    // .isLength({ max: 500000 })
+    // .withMessage("Description cannot exceed 1500 characters"),
     check("category")
       .not()
       .isEmpty()
@@ -335,20 +335,6 @@ export const validator = {
   ],
 
   addQuiz: [
-    body("title")
-      .isString()
-      .notEmpty()
-      .withMessage("Title is required and must be a string")
-      .bail()
-      .isLength({ min: 5, max: 100 })
-      .withMessage("Title must be between 5 and 500 characters"),
-    body("description")
-      .isString()
-      .notEmpty()
-      .withMessage("Description is required and must be a string")
-      .bail()
-      .isLength({ min: 5, max: 500 })
-      .withMessage("Description must be between 5 and 500 characters"),
     body("courseSection")
       .isMongoId()
       .withMessage("Course Section must be a valid MongoDB ID")

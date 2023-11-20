@@ -30,6 +30,7 @@ class QuizControllerClass {
                     return (0, sendValidationError_1.sendValidationError)(res, validation);
                 }
                 const quizData = req.body;
+                console.log("quiz data", quizData);
                 const newQuiz = yield quiz_1.default.createQuiz(quizData);
                 if (!newQuiz.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.QUIZ_CREATE_FAILED);

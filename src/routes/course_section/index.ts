@@ -1,10 +1,10 @@
 import express from "express";
 import CourseSectionController from "../../controllers/course-section";
-import { validator } from "../../middlewares/validator";
 import {
   isInstructor,
   tokenAuthorization,
 } from "../../middlewares/tokenValidator";
+import { validator } from "../../middlewares/validator";
 const router = express.Router();
 
 router
@@ -15,7 +15,7 @@ router
   )
   .get(
     "/getSectionCourseById/:courseId",
-    [tokenAuthorization, isInstructor],
+    // [tokenAuthorization, isInstructor],
     CourseSectionController.getCourseSection
   )
   .patch(
