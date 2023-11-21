@@ -7,7 +7,7 @@ function buildMatchStage(search, instructors, category, filterCategory, filterLe
     if (search) {
         matchStage.$or = [
             { title: { $regex: search, $options: "i" } },
-            { category: { $regex: search, $options: "i" } },
+            { sub_title: { $regex: search, $options: "i" } },
             { description: { $regex: search, $options: "i" } },
         ];
     }
@@ -21,7 +21,7 @@ function buildMatchStage(search, instructors, category, filterCategory, filterLe
     }
     // Filter by category, level, and totalHours
     if (filterCategory || filterLevel || filterTotalHours) {
-        if (filterCategory) {
+        if (filterCategory.length) {
             console.log({ filterCategory });
             matchStage["category.title"] = { $in: filterCategory };
         }

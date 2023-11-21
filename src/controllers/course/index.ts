@@ -114,7 +114,6 @@ class CourseControllerClass {
         filterTotalHours,
         type,
         value,
-        order,
         sortValue,
       } = req.query;
 
@@ -210,8 +209,8 @@ class CourseControllerClass {
             as: "category",
           },
         },
-        { $unwind: "$category" },
         { $match: matchStage },
+        { $unwind: "$category" },
         {
           $addFields: {
             studentsCount: { $size: "$students" },
@@ -219,11 +218,10 @@ class CourseControllerClass {
         },
       ];
 
-      // Add $sort stage only if order is defined
-      if (sortValue === "student" && order) {
+      if (sortValue === "student") {
         aggregation.push({
           $sort: {
-            studentsCount: order === "asc" ? 1 : -1,
+            studentsCount: -1,
           },
         });
       }

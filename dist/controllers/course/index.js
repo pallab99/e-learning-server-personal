@@ -86,7 +86,7 @@ class CourseControllerClass {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
-                const { page, limit, search, instructors, category, filterCategory, filterLevel, filterTotalHours, type, value, order, sortValue, } = req.query;
+                const { page, limit, search, instructors, category, filterCategory, filterLevel, filterTotalHours, type, value, sortValue, } = req.query;
                 const query = {};
                 // Pagination
                 if (type || value) {
@@ -136,19 +136,18 @@ class CourseControllerClass {
                             as: "category",
                         },
                     },
-                    { $unwind: "$category" },
                     { $match: matchStage },
+                    { $unwind: "$category" },
                     {
                         $addFields: {
                             studentsCount: { $size: "$students" },
                         },
                     },
                 ];
-                // Add $sort stage only if order is defined
-                if (sortValue === "student" && order) {
+                if (sortValue === "student") {
                     aggregation.push({
                         $sort: {
-                            studentsCount: order === "asc" ? 1 : -1,
+                            studentsCount: -1,
                         },
                     });
                 }

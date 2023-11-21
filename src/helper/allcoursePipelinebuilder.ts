@@ -12,7 +12,7 @@ const matchStage: any = {};
 if (search) {
   matchStage.$or = [
     { title: { $regex: search, $options: "i" } },
-    { category: { $regex: search, $options: "i" } },
+    { sub_title: { $regex: search, $options: "i" } },
     { description: { $regex: search, $options: "i" } },
   ];
 }
@@ -29,7 +29,7 @@ if (category) {
 
 // Filter by category, level, and totalHours
 if (filterCategory || filterLevel || filterTotalHours) {
-  if (filterCategory) {
+  if (filterCategory.length) {
     console.log({filterCategory});
     matchStage["category.title"] = { $in: filterCategory };
   }

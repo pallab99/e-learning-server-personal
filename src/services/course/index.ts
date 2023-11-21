@@ -115,11 +115,8 @@ class CourseServiceClass {
     return { success: false, data: [] as any };
   }
 
-  async getCourseByInstructor(instructorId: string, searchTerm: string) {
-    const result = await CourseRepository.getCourseByInstructor(
-      instructorId,
-      searchTerm
-    );
+  async getCourseByInstructor(instructorId: string,searchTerm:string) {
+    const result = await CourseRepository.getCourseByInstructor(instructorId,searchTerm);
 
     return {
       success: result && result.length >= 0 ? true : false,
@@ -134,6 +131,8 @@ class CourseServiceClass {
     );
     return { success: result ? true : false, data: result as any };
   }
+
+  
 }
 
 const CourseService = new CourseServiceClass();
