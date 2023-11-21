@@ -124,9 +124,9 @@ class CourseServiceClass {
             return { success: false, data: [] };
         });
     }
-    getCourseByInstructor(instructorId) {
+    getCourseByInstructor(instructorId, searchTerm) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield course_1.default.getCourseByInstructor(instructorId);
+            const result = yield course_1.default.getCourseByInstructor(instructorId, searchTerm);
             return {
                 success: result && result.length >= 0 ? true : false,
                 data: result,

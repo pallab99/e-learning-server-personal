@@ -46,7 +46,8 @@ const courseSchema = new mongoose_1.Schema({
         type: [{ type: mongoose_1.Schema.Types.ObjectId, ref: "User" }],
     },
     category: {
-        type: String,
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "Category",
         required: true,
     },
     thumbnail: {

@@ -28,6 +28,8 @@ export const RESPONSE_MESSAGE = {
   REQUEST_RESET_PASSWORD:
     "Successfully request for reset password.Please check your email",
   COURSE_CREATED: "Course created successfully",
+  COURSE_UPDATED: "Course updated successfully",
+
   COURSE_TITLE: "Course with this title already exists",
   S3_SERVER_ERROR: "Server error cannot get the data right now",
   S3_SERVER_SUCCESS: "File uploaded successfully",
@@ -92,7 +94,6 @@ export const RESPONSE_MESSAGE = {
   REPLY_DELETE_SUCCESS: "Reply deleted successfully",
   ACCEPT_COURSE_REQUEST: "Course publish request accepted successfully",
   REJECT_COURSE_REQUEST: "Course publish request is rejected",
-  COURSE_SECTION_ENABLED:"Course section enabled successfully",
-  COURSE_SECTION_DISABLED:"Course section disabled successfully"
-
+  COURSE_SECTION_ENABLED: "Course section enabled successfully",
+  COURSE_SECTION_DISABLED: "Course section disabled successfully",
 };

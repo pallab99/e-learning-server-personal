@@ -40,7 +40,8 @@ const userSchema: Schema<IUser> = new Schema<IUser>(
     },
     notificationSetting: {
       type: Boolean,
-      required: true,
+      required: false,
+      default: true,
     },
     enrolledCourses: {
       type: [{ type: mongoose.Types.ObjectId, ref: "Course" }],

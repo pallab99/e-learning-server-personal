@@ -16,13 +16,13 @@ const express_validator_1 = require("express-validator");
 const mongoose_1 = __importDefault(require("mongoose"));
 const responseMessage_1 = require("../../constant/responseMessage");
 const statusCode_1 = require("../../constant/statusCode");
+const course_section_1 = __importDefault(require("../../models/course-section"));
 const course_1 = __importDefault(require("../../services/course"));
-const course_section_1 = __importDefault(require("../../services/course-section"));
+const course_section_2 = __importDefault(require("../../services/course-section"));
+const user_1 = __importDefault(require("../../services/user"));
 const dbLogger_1 = require("../../utils/dbLogger");
 const response_1 = require("../../utils/response");
 const sendValidationError_1 = require("../../utils/sendValidationError");
-const user_1 = __importDefault(require("../../services/user"));
-const course_section_2 = __importDefault(require("../../models/course-section"));
 const jwt = require("jsonwebtoken");
 class CourseSectionClass {
     getCourseSection(req, res) {
@@ -32,7 +32,7 @@ class CourseSectionClass {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { courseId } = req.params;
                 const fetchCourseContent = (courseId) => __awaiter(this, void 0, void 0, function* () {
-                    const courseContent = yield course_section_1.default.courseContentForNonSubscribedStudent(courseId);
+                    const courseContent = yield course_section_2.default.courseContentForNonSubscribedStudent(courseId);
                     if (!courseContent.success) {
                         return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
                     }
@@ -53,7 +53,7 @@ class CourseSectionClass {
                         return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, courseContentForNonSubscribedStudent === null || courseContentForNonSubscribedStudent === void 0 ? void 0 : courseContentForNonSubscribedStudent.data);
                     }
                     else {
-                        const result = yield course_section_1.default.getCourseSectionByCourseId(courseId);
+                        const result = yield course_section_2.default.getCourseSectionByCourseId(courseId);
                         return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, result.data);
                     }
                 }
@@ -83,7 +83,7 @@ class CourseSectionClass {
                 if (!course.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
                 }
-                const result = yield course_section_1.default.createSection(title, courseId);
+                const result = yield course_section_2.default.createSection(title, courseId);
                 if (!result.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
                 }
@@ -110,7 +110,7 @@ class CourseSectionClass {
                 if (!course.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
                 }
-                const updatedDoc = yield course_section_1.default.updateSection(courseSectionId, {
+                const updatedDoc = yield course_section_2.default.updateSection(courseSectionId, {
                     title,
                     isVisible,
                 });
@@ -135,7 +135,7 @@ class CourseSectionClass {
                 if (!course.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
                 }
-                const deletedSection = yield course_section_1.default.deleteSection(courseSectionId);
+                const deletedSection = yield course_section_2.default.deleteSection(courseSectionId);
                 if (!deletedSection.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
                 }
@@ -161,16 +161,16 @@ class CourseSectionClass {
                 let result;
                 if (type === "enable") {
                     console.log("enable");
-                    result = yield course_section_2.default.findOneAndUpdate({ _id: new mongoose_1.default.Types.ObjectId(courseSectionId) }, { isVisible: 1 });
+                    result = yield course_section_1.default.findOneAndUpdate({ _id: new mongoose_1.default.Types.ObjectId(courseSectionId) }, { isVisible: 1 });
                 }
                 else {
-                    result = yield course_section_2.default.findOneAndUpdate({ _id: new mongoose_1.default.Types.ObjectId(courseSectionId) }, { isVisible: 0 });
+                    result = yield course_section_1.default.findOneAndUpdate({ _id: new mongoose_1.default.Types.ObjectId(courseSectionId) }, { isVisible: 0 });
                     console.log("disable");
                 }
                 if (!result) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
                 }
-                if (type.toString() === "enable") {
+                if ((type === null || type === void 0 ? void 0 : type.toString()) === "enable") {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.COURSE_SECTION_ENABLED, result);
                 }
                 return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.COURSE_SECTION_DISABLED, result);

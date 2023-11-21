@@ -115,8 +115,11 @@ class CourseServiceClass {
     return { success: false, data: [] as any };
   }
 
-  async getCourseByInstructor(instructorId: string) {
-    const result = await CourseRepository.getCourseByInstructor(instructorId);
+  async getCourseByInstructor(instructorId: string, searchTerm: string) {
+    const result = await CourseRepository.getCourseByInstructor(
+      instructorId,
+      searchTerm
+    );
 
     return {
       success: result && result.length >= 0 ? true : false,

@@ -18,7 +18,7 @@ class CategoryRepositoryClass {
     }
     getAllCategory() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield category_1.CategoryModel.find();
+            return yield category_1.CategoryModel.find().select("_id title");
         });
     }
     findByTitle(title) {

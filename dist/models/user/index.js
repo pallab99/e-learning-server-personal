@@ -43,7 +43,8 @@ const userSchema = new mongoose_1.Schema({
     },
     notificationSetting: {
         type: Boolean,
-        required: true,
+        required: false,
+        default: true,
     },
     enrolledCourses: {
         type: [{ type: mongoose_1.default.Types.ObjectId, ref: "Course" }],

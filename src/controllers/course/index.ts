@@ -24,7 +24,7 @@ class CourseControllerClass {
 
       const body = req.body;
       console.log(body);
-      
+
       const { email } = req.user;
       const findByTitle = await CourseService.findByTitle(body.title);
 
@@ -45,7 +45,7 @@ class CourseControllerClass {
       }
       let instructorId = [];
       instructorId.push(instructor._id);
-
+      // const newCategory = new mongoose.Types.ObjectId(body.category);
       const newCourse = await CourseModel.create(body);
       newCourse.instructors.push(instructor._id);
       await newCourse.save();
@@ -71,9 +71,9 @@ class CourseControllerClass {
     try {
       databaseLogger(req.originalUrl);
       const { courseId } = req.params;
-      const course = await CourseModel.findOne({ _id: courseId }).populate(
-        "instructors"
-      );
+      const course = await CourseModel.findOne({ _id: courseId })
+        .populate("instructors")
+        .populate("category", "_id title");
       if (!course) {
         return sendResponse(
           res,
@@ -236,8 +236,7 @@ class CourseControllerClass {
       const body = req.body;
       const files = req.files;
       const { courseId } = req.params;
-   
-      
+
       const newCourse = await CourseModel.findOneAndUpdate(
         { _id: courseId },
         body,
@@ -249,7 +248,7 @@ class CourseControllerClass {
       return sendResponse(
         res,
         HTTP_STATUS.CREATED,
-        RESPONSE_MESSAGE.COURSE_CREATED,
+        RESPONSE_MESSAGE.COURSE_UPDATED,
         newCourse
       );
     } catch (error: any) {
@@ -267,6 +266,8 @@ class CourseControllerClass {
     try {
       databaseLogger(req.originalUrl);
       const { email } = req.user;
+      const { searchTerm } = req.query;
+      console.log(searchTerm);
 
       const instructor = await UserService.findByEmail(email);
       if (!instructor) {
@@ -277,7 +278,8 @@ class CourseControllerClass {
         );
       }
       const courseByInstructor = await CourseService.getCourseByInstructor(
-        instructor?._id
+        instructor?._id,
+        searchTerm
       );
 
       if (!courseByInstructor.success) {
@@ -466,6 +468,10 @@ class CourseControllerClass {
   }
 
   // async userEnrolledInCourse(req:Request,res:Response)
+  async requestForCoursePublish(req: Request, res: Response) {
+    try {
+    } catch (error) {}
+  }
 }
 
 const CourseController = new CourseControllerClass();

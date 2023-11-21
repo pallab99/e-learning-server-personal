@@ -212,13 +212,17 @@ class AuthControllerClass {
     try {
       const { resetToken, userId } = req.params;
       const auth = await AuthService.findById(userId);
+      console.log({ auth });
+
       const wrongURL = "http://localhost:5173/something-went-wrong";
       if (!auth || auth.isVerified) {
-        return sendResponse(
-          res,
-          HTTP_STATUS.BAD_REQUEST,
-          RESPONSE_MESSAGE.SOMETHING_WENT_WRONG
-        );
+        // return sendResponse(
+        //   res,
+        //   HTTP_STATUS.BAD_REQUEST,
+        //   RESPONSE_MESSAGE.SOMETHING_WENT_WRONG
+        // );
+        res.redirect(wrongURL);
+        return;
       }
 
       res.redirect(
@@ -238,6 +242,8 @@ class AuthControllerClass {
   async verifyAccount(req: Request, res: Response) {
     try {
       const { resetToken, userId } = req.params;
+      console.log("userID", userId);
+
       const auth = await AuthService.findById(userId);
       if (!auth || auth.isVerified) {
         return sendResponse(
@@ -247,8 +253,15 @@ class AuthControllerClass {
         );
       }
       auth.isVerified = true;
-      await AuthService.save(auth);
-      return sendResponse(res, HTTP_STATUS.OK, RESPONSE_MESSAGE.EMAIL_VERIFIED);
+      const result = await AuthService.save(auth);
+      console.log("result", result);
+
+      if (result) {
+        res.redirect("http://localhost:5173/email-verified");
+        console.log("email verifeid");
+
+        return;
+      }
     } catch (error: any) {
       console.log(error);
       databaseLogger(error.message);

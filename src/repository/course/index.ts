@@ -20,8 +20,13 @@ class CourseRepositoryClass {
     });
   }
 
-  async getCourseByInstructor(instructorId: string) {
-    return await CourseModel.find({ instructors: { $in: [instructorId] } });
+  async getCourseByInstructor(instructorId: string, searchTerm: string) {
+    const query = {
+      instructors: { $in: [instructorId] },
+      title: { $regex: searchTerm, $options: "i" },
+    };
+
+    return await CourseModel.find(query).sort({ updatedAt: -1 });
   }
 
   async addToEnrollment(courseId: string, userId: string) {

@@ -3,13 +3,13 @@ import { validationResult } from "express-validator";
 import mongoose from "mongoose";
 import { RESPONSE_MESSAGE } from "../../constant/responseMessage";
 import { HTTP_STATUS } from "../../constant/statusCode";
+import CourseSectionModel from "../../models/course-section";
 import CourseService from "../../services/course";
 import CourseSectionService from "../../services/course-section";
+import UserService from "../../services/user";
 import { databaseLogger } from "../../utils/dbLogger";
 import { sendResponse } from "../../utils/response";
 import { sendValidationError } from "../../utils/sendValidationError";
-import UserService from "../../services/user";
-import CourseSectionModel from "../../models/course-section";
 const jwt = require("jsonwebtoken");
 
 class CourseSectionClass {
@@ -258,7 +258,7 @@ class CourseSectionClass {
           RESPONSE_MESSAGE.SOMETHING_WENT_WRONG
         );
       }
-      if (type.toString() === "enable") {
+      if (type?.toString() === "enable") {
         return sendResponse(
           res,
           HTTP_STATUS.OK,

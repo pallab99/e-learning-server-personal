@@ -126,9 +126,16 @@ class AuthControllerClass {
             try {
                 const { resetToken, userId } = req.params;
                 const auth = yield auth_2.default.findById(userId);
+                console.log({ auth });
                 const wrongURL = "http://localhost:5173/something-went-wrong";
                 if (!auth || auth.isVerified) {
-                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
+                    // return sendResponse(
+                    //   res,
+                    //   HTTP_STATUS.BAD_REQUEST,
+                    //   RESPONSE_MESSAGE.SOMETHING_WENT_WRONG
+                    // );
+                    res.redirect(wrongURL);
+                    return;
                 }
                 res.redirect(`http://localhost:8000/api/auth/verify-account/${resetToken}/${auth._id.toString()}`);
             }
@@ -143,13 +150,19 @@ class AuthControllerClass {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { resetToken, userId } = req.params;
+                console.log("userID", userId);
                 const auth = yield auth_2.default.findById(userId);
                 if (!auth || auth.isVerified) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
                 }
                 auth.isVerified = true;
-                yield auth_2.default.save(auth);
-                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.EMAIL_VERIFIED);
+                const result = yield auth_2.default.save(auth);
+                console.log("result", result);
+                if (result) {
+                    res.redirect("http://localhost:5173/email-verified");
+                    console.log("email verifeid");
+                    return;
+                }
             }
             catch (error) {
                 console.log(error);

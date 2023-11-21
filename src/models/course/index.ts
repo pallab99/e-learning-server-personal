@@ -6,7 +6,7 @@ interface ICourse extends Document {
   description: string;
   instructors: mongoose.Types.ObjectId[];
   students?: mongoose.Types.ObjectId[];
-  category: string;
+  category: mongoose.Types.ObjectId;
   thumbnail?: string;
   level: string;
   demoVideo?: string;
@@ -46,7 +46,8 @@ const courseSchema: Schema<ICourse> = new Schema<ICourse>(
       type: [{ type: Schema.Types.ObjectId, ref: "User" }],
     },
     category: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "Category",
       required: true,
     },
 

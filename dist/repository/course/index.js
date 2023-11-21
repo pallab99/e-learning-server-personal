@@ -38,9 +38,13 @@ class CourseRepositoryClass {
             });
         });
     }
-    getCourseByInstructor(instructorId) {
+    getCourseByInstructor(instructorId, searchTerm) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield course_1.default.find({ instructors: { $in: [instructorId] } });
+            const query = {
+                instructors: { $in: [instructorId] },
+                title: { $regex: searchTerm, $options: "i" },
+            };
+            return yield course_1.default.find(query).sort({ updatedAt: -1 });
         });
     }
     addToEnrollment(courseId, userId) {

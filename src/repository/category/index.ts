@@ -5,7 +5,7 @@ class CategoryRepositoryClass {
     return await CategoryModel.create({ title });
   }
   async getAllCategory() {
-    return await CategoryModel.find();
+    return await CategoryModel.find().select("_id title");
   }
 
   async findByTitle(title: string) {

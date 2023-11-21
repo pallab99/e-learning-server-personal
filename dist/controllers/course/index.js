@@ -48,6 +48,7 @@ class CourseControllerClass {
                 }
                 let instructorId = [];
                 instructorId.push(instructor._id);
+                // const newCategory = new mongoose.Types.ObjectId(body.category);
                 const newCourse = yield course_1.default.create(body);
                 newCourse.instructors.push(instructor._id);
                 yield newCourse.save();
@@ -66,7 +67,9 @@ class CourseControllerClass {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { courseId } = req.params;
-                const course = yield course_1.default.findOne({ _id: courseId }).populate("instructors");
+                const course = yield course_1.default.findOne({ _id: courseId })
+                    .populate("instructors")
+                    .populate("category", "_id title");
                 if (!course) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA, []);
                 }
@@ -152,7 +155,7 @@ class CourseControllerClass {
                 const newCourse = yield course_1.default.findOneAndUpdate({ _id: courseId }, body, {
                     new: true,
                 });
-                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.CREATED, responseMessage_1.RESPONSE_MESSAGE.COURSE_CREATED, newCourse);
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.CREATED, responseMessage_1.RESPONSE_MESSAGE.COURSE_UPDATED, newCourse);
             }
             catch (error) {
                 console.log(error);
@@ -166,11 +169,13 @@ class CourseControllerClass {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { email } = req.user;
+                const { searchTerm } = req.query;
+                console.log(searchTerm);
                 const instructor = yield user_2.default.findByEmail(email);
                 if (!instructor) {
                     return yield (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
                 }
-                const courseByInstructor = yield course_2.default.getCourseByInstructor(instructor === null || instructor === void 0 ? void 0 : instructor._id);
+                const courseByInstructor = yield course_2.default.getCourseByInstructor(instructor === null || instructor === void 0 ? void 0 : instructor._id, searchTerm);
                 if (!courseByInstructor.success) {
                     return yield (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.NO_DATA, []);
                 }
@@ -264,6 +269,14 @@ class CourseControllerClass {
                 (0, dbLogger_1.databaseLogger)(error.message);
                 return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.INTERNAL_SERVER_ERROR, responseMessage_1.RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR);
             }
+        });
+    }
+    // async userEnrolledInCourse(req:Request,res:Response)
+    requestForCoursePublish(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+            }
+            catch (error) { }
         });
     }
 }
