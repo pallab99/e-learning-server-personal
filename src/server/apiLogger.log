@@ -17044,3 +17044,77 @@ $regex has to be a string  ( Time -> November 21, 2023 11:15 AM)
 
 /api/course/all  ( Time -> November 21, 2023 4:40 PM)
 
+/api/course/all?filterCategory=reactjs  ( Time -> November 21, 2023 6:51 PM)
+
+/api/course/all?filterCategory=reactjs  ( Time -> November 21, 2023 6:52 PM)
+
+/api/course/all?filterCategory=web%20devlopment  ( Time -> November 21, 2023 6:53 PM)
+
+/api/course/all  ( Time -> November 21, 2023 6:56 PM)
+
+/api/cart/details  ( Time -> November 21, 2023 6:56 PM)
+
+/api/course/all  ( Time -> November 21, 2023 6:56 PM)
+
+/api/cart/details  ( Time -> November 21, 2023 6:56 PM)
+
+/api/user/me  ( Time -> November 21, 2023 6:56 PM)
+
+/api/auth/sign-in  ( Time -> November 21, 2023 6:56 PM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 21, 2023 6:56 PM)
+
+/api/course/getCourseById/655c1580429f642c2968cdbb  ( Time -> November 21, 2023 6:56 PM)
+
+/api/category/all  ( Time -> November 21, 2023 6:56 PM)
+
+/api/course/getCourseById/655c1580429f642c2968cdbb  ( Time -> November 21, 2023 6:57 PM)
+
+/api/category/all  ( Time -> November 21, 2023 6:57 PM)
+
+/api/category/all  ( Time -> November 21, 2023 6:58 PM)
+
+/api/course/getCourseById/655c1580429f642c2968cdbb  ( Time -> November 21, 2023 6:58 PM)
+
+/api/category/all  ( Time -> November 21, 2023 6:58 PM)
+
+/api/course/getCourseById/655c1580429f642c2968cdbb  ( Time -> November 21, 2023 6:58 PM)
+
+/api/course/getCourseById/655c1580429f642c2968cdbb  ( Time -> November 21, 2023 6:58 PM)
+
+/api/category/all  ( Time -> November 21, 2023 6:58 PM)
+
+/api/course/update/655c1580429f642c2968cdbb  ( Time -> November 21, 2023 6:58 PM)
+
+/api/course/getCourseById/655c1580429f642c2968cdbb  ( Time -> November 21, 2023 6:59 PM)
+
+/api/category/all  ( Time -> November 21, 2023 6:59 PM)
+
+/api/course/all?filterCategory=reactjs  ( Time -> November 21, 2023 6:59 PM)
+
+/api/course/all?filterCategory=reactjs,web%20development  ( Time -> November 21, 2023 7:00 PM)
+
+$in needs an array  ( Time -> November 21, 2023 7:00 PM)
+
+/api/course/all?filterCategory=reactjs,web%20development  ( Time -> November 21, 2023 7:01 PM)
+
+/api/course/all?filterCategory=reactjs,web%20development  ( Time -> November 21, 2023 7:01 PM)
+
+/api/course/all?filterCategory=reactjs  ( Time -> November 21, 2023 7:02 PM)
+
+/api/course/all?filterCategory=reactjs,web%20development  ( Time -> November 21, 2023 7:02 PM)
+
+/api/course/all?filterCategory=reactjs,web%20devlopment  ( Time -> November 21, 2023 7:04 PM)
+
+/api/course/all?filterCategory=reactjs,web%20devlopment  ( Time -> November 21, 2023 7:07 PM)
+
+/api/course/all?filterCategory=reactjs,web%20devlopment  ( Time -> November 21, 2023 7:07 PM)
+
+/api/course/all?filterCategory=reactjs,web%20devlopment&order=asc  ( Time -> November 21, 2023 7:23 PM)
+
+/api/course/all?filterCategory=reactjs,web%20devlopment&order=desc  ( Time -> November 21, 2023 7:23 PM)
+
+/api/course/all?filterCategory=reactjs,web%20devlopment&order=desc&sortValue=student  ( Time -> November 21, 2023 7:29 PM)
+
+/api/course/all?filterCategory=reactjs,web%20devlopment&order=desc&sortValue=student  ( Time -> November 21, 2023 7:30 PM)
+

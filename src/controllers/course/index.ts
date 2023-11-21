@@ -114,6 +114,8 @@ class CourseControllerClass {
         filterTotalHours,
         type,
         value,
+        order,
+        sortValue,
       } = req.query;
 
       const query: any = {};
@@ -188,21 +190,45 @@ class CourseControllerClass {
       const pageNumber = parseInt(page as string) || 1;
       const pageSize = parseInt(limit as string) || 10;
       const skip = (pageNumber - 1) * pageSize;
-
+      const filterCategoryArray = filterCategory
+        ? (filterCategory as string).split(",")
+        : [];
       const matchStage: any = buildMatchStage(
         search as string,
         instructors as string[],
         category as string,
-        filterCategory as string,
+        filterCategoryArray,
         filterLevel as string,
         filterTotalHours as string
       );
-
-      const aggregation = [
+      const aggregation: mongoose.PipelineStage[] = [
+        {
+          $lookup: {
+            from: "categories",
+            localField: "category",
+            foreignField: "_id",
+            as: "category",
+          },
+        },
+        { $unwind: "$category" },
         { $match: matchStage },
-        { $skip: skip },
-        { $limit: pageSize },
+        {
+          $addFields: {
+            studentsCount: { $size: "$students" },
+          },
+        },
       ];
+
+      // Add $sort stage only if order is defined
+      if (sortValue === "student" && order) {
+        aggregation.push({
+          $sort: {
+            studentsCount: order === "asc" ? 1 : -1,
+          },
+        });
+      }
+
+      aggregation.push({ $skip: skip }, { $limit: pageSize });
 
       const courses = await CourseModel.aggregate(aggregation);
 

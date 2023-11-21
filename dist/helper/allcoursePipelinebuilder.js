@@ -22,7 +22,8 @@ function buildMatchStage(search, instructors, category, filterCategory, filterLe
     // Filter by category, level, and totalHours
     if (filterCategory || filterLevel || filterTotalHours) {
         if (filterCategory) {
-            matchStage.category = filterCategory;
+            console.log({ filterCategory });
+            matchStage["category.title"] = { $in: filterCategory };
         }
         if (filterLevel) {
             matchStage.level = filterLevel;

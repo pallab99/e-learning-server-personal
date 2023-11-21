@@ -86,7 +86,7 @@ class CourseControllerClass {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
-                const { page, limit, search, instructors, category, filterCategory, filterLevel, filterTotalHours, type, value, } = req.query;
+                const { page, limit, search, instructors, category, filterCategory, filterLevel, filterTotalHours, type, value, order, sortValue, } = req.query;
                 const query = {};
                 // Pagination
                 if (type || value) {
@@ -123,12 +123,36 @@ class CourseControllerClass {
                 const pageNumber = parseInt(page) || 1;
                 const pageSize = parseInt(limit) || 10;
                 const skip = (pageNumber - 1) * pageSize;
-                const matchStage = (0, allcoursePipelinebuilder_1.buildMatchStage)(search, instructors, category, filterCategory, filterLevel, filterTotalHours);
+                const filterCategoryArray = filterCategory
+                    ? filterCategory.split(",")
+                    : [];
+                const matchStage = (0, allcoursePipelinebuilder_1.buildMatchStage)(search, instructors, category, filterCategoryArray, filterLevel, filterTotalHours);
                 const aggregation = [
+                    {
+                        $lookup: {
+                            from: "categories",
+                            localField: "category",
+                            foreignField: "_id",
+                            as: "category",
+                        },
+                    },
+                    { $unwind: "$category" },
                     { $match: matchStage },
-                    { $skip: skip },
-                    { $limit: pageSize },
+                    {
+                        $addFields: {
+                            studentsCount: { $size: "$students" },
+                        },
+                    },
                 ];
+                // Add $sort stage only if order is defined
+                if (sortValue === "student" && order) {
+                    aggregation.push({
+                        $sort: {
+                            studentsCount: order === "asc" ? 1 : -1,
+                        },
+                    });
+                }
+                aggregation.push({ $skip: skip }, { $limit: pageSize });
                 const courses = yield course_1.default.aggregate(aggregation);
                 const totalCourses = yield course_1.default.countDocuments(matchStage);
                 return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, {
