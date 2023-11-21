@@ -127,7 +127,28 @@ class CourseControllerClass {
                     ? filterCategory.split(",")
                     : [];
                 const matchStage = (0, allcoursePipelinebuilder_1.buildMatchStage)(search, instructors, category, filterCategoryArray, filterLevel, filterTotalHours);
+                console.log(sortValue);
                 const aggregation = [
+                    // {
+                    //   $lookup: {
+                    //     from: "reviewratings",
+                    //     localField: "reviews",
+                    //     foreignField: "_id",
+                    //     as: "reviews",
+                    //   },
+                    // },
+                    // { $unwind: "$reviews" },
+                    // {
+                    //   $group: {
+                    //     _id: "$_id",
+                    //     reviews: { $push: "$reviews" },
+                    //   },
+                    // },
+                    // {
+                    //   $addFields: {
+                    //     averageRating: { $avg: "$reviews.rating" },
+                    //   },
+                    // },
                     {
                         $lookup: {
                             from: "categories",
@@ -148,6 +169,27 @@ class CourseControllerClass {
                     aggregation.push({
                         $sort: {
                             studentsCount: -1,
+                        },
+                    });
+                }
+                else if (sortValue === "latest") {
+                    aggregation.push({
+                        $sort: {
+                            createdAt: -1,
+                        },
+                    });
+                }
+                else if (sortValue === "updated") {
+                    aggregation.push({
+                        $sort: {
+                            updatedAt: -1,
+                        },
+                    });
+                }
+                else if (sortValue === "rating") {
+                    aggregation.push({
+                        $sort: {
+                            averageRating: -1,
                         },
                     });
                 }
