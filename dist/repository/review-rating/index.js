@@ -49,7 +49,7 @@ class ReviewRatingRepositoryClass {
         return __awaiter(this, void 0, void 0, function* () {
             return yield review_rating_1.ReviewRatingModel.find({
                 course: new mongoose_1.default.Types.ObjectId(courseId),
-            });
+            }).populate("user");
         });
     }
     findByIdAndDelete(reviewId) {

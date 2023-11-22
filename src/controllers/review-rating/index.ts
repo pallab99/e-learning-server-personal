@@ -8,6 +8,8 @@ import UserService from "../../services/user";
 import { databaseLogger } from "../../utils/dbLogger";
 import { sendResponse } from "../../utils/response";
 import { sendValidationError } from "../../utils/sendValidationError";
+import { ReviewRatingModel } from "../../models/review-rating";
+import mongoose from "mongoose";
 class ReviewRatingControllerClass {
   async addReviewRating(req: Request, res: Response) {
     try {
@@ -153,11 +155,30 @@ class ReviewRatingControllerClass {
       if (!allReviewByCourse.success) {
         return sendResponse(res, HTTP_STATUS.OK, RESPONSE_MESSAGE.NO_DATA);
       }
+      const averageRating = await ReviewRatingModel.aggregate([
+        {
+          $match: {
+            course: new mongoose.Types.ObjectId(courseId),
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            averageRating: {
+              $avg: "$rating",
+            },
+          },
+        },
+      ]).exec();
+      const data = {
+        data: allReviewByCourse.data,
+        averageRating:averageRating[0].averageRating,
+      };
       return sendResponse(
         res,
         HTTP_STATUS.OK,
         RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
-        allReviewByCourse.data
+        data
       );
     } catch (error: any) {
       console.log(error);
@@ -206,7 +227,7 @@ class ReviewRatingControllerClass {
       }
       return sendResponse(
         res,
-        HTTP_STATUS.BAD_REQUEST,
+        HTTP_STATUS.OK,
         RESPONSE_MESSAGE.DELETE_REVIEW_SUCCESS
       );
     } catch (error: any) {

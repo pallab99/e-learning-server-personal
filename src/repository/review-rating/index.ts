@@ -31,7 +31,7 @@ class ReviewRatingRepositoryClass {
   async getReviewsByCourse(courseId: string) {
     return await ReviewRatingModel.find({
       course: new mongoose.Types.ObjectId(courseId),
-    });
+    }).populate("user")
   }
 
   async findByIdAndDelete(reviewId: string) {

@@ -21,6 +21,8 @@ const user_1 = __importDefault(require("../../services/user"));
 const dbLogger_1 = require("../../utils/dbLogger");
 const response_1 = require("../../utils/response");
 const sendValidationError_1 = require("../../utils/sendValidationError");
+const review_rating_2 = require("../../models/review-rating");
+const mongoose_1 = __importDefault(require("mongoose"));
 class ReviewRatingControllerClass {
     addReviewRating(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -104,7 +106,27 @@ class ReviewRatingControllerClass {
                 if (!allReviewByCourse.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
                 }
-                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, allReviewByCourse.data);
+                const averageRating = yield review_rating_2.ReviewRatingModel.aggregate([
+                    {
+                        $match: {
+                            course: new mongoose_1.default.Types.ObjectId(courseId),
+                        },
+                    },
+                    {
+                        $group: {
+                            _id: null,
+                            averageRating: {
+                                $avg: "$rating",
+                            },
+                        },
+                    },
+                ]).exec();
+                console.log(averageRating);
+                const data = {
+                    data: allReviewByCourse.data,
+                    averageRating: averageRating[0].averageRating,
+                };
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, data);
             }
             catch (error) {
                 console.log(error);
@@ -131,7 +153,7 @@ class ReviewRatingControllerClass {
                 if (!removeReviewFromCourse.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.DELETE_REVIEW_FAILED);
                 }
-                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.DELETE_REVIEW_SUCCESS);
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.DELETE_REVIEW_SUCCESS);
             }
             catch (error) {
                 console.log(error);
