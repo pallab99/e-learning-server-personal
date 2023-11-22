@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { RESPONSE_MESSAGE } from "../../constant/responseMessage";
 import { HTTP_STATUS } from "../../constant/statusCode";
+import CourseModel from "../../models/course";
 import AssignmentService from "../../services/assignment";
 import CourseService from "../../services/course";
 import CourseSectionService from "../../services/course-section";
@@ -519,8 +520,12 @@ class AssignmentControllerClass {
     try {
       databaseLogger(req.originalUrl);
       const { courseId, assignmentId } = req.params;
+      // console.log(courseId, assignmentId);
+
       const course = await CourseService.findById(courseId);
+
       const assignment = await SubmitAssignmentService.findById(assignmentId);
+      console.log(assignment);
       if (!course.success || !assignment.success) {
         return sendResponse(
           res,
@@ -613,6 +618,99 @@ class AssignmentControllerClass {
       );
     }
   }
+
+  async getAllAssignmentByInstructor(req: Request, res: Response) {
+    try {
+      databaseLogger(req.originalUrl);
+      // const { courseId } = req.params;
+      const { email } = req.user;
+      const instructor = await UserService.findByEmail(email);
+      if (!instructor) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.NOT_FOUND,
+          RESPONSE_MESSAGE.NO_DATA
+        );
+      }
+
+      const findAllCourseByInstructor = await CourseModel.find({
+        instructors: { $in: [instructor._id] },
+      });
+      console.log(findAllCourseByInstructor);
+
+      // const course = await CourseService.findById(courseId);
+      // if (!course.success) {
+      //   return sendResponse(
+      //     res,
+      //     HTTP_STATUS.NOT_FOUND,
+      //     RESPONSE_MESSAGE.COURSE_NOT_FOUND
+      //   );
+      // }
+
+      // const allAssignmentOfACourse =
+      //   await AssignmentService.getAllAssignmentOfACourse(courseId);
+
+      // if (!allAssignmentOfACourse.success) {
+      //   return sendResponse(
+      //     res,
+      //     HTTP_STATUS.BAD_REQUEST,
+      //     RESPONSE_MESSAGE.NOT_FOUND
+      //   );
+      // }
+      // return sendResponse(
+      //   res,
+      //   HTTP_STATUS.OK,
+      //   RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
+      //   allAssignmentOfACourse.data
+      // );
+    } catch (error: any) {
+      console.log(error);
+      databaseLogger(error.message);
+      return sendResponse(
+        res,
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  // async getSubmittedAssignment(req:Request,res:Response){
+  //   try {
+
+  //   } catch (error) {
+
+  //   }
+  // }
+
+  // async getAllSubmittedAssignmentById(req: Request, res: Response) {
+  //   try {
+  //     databaseLogger(req.originalUrl);
+  //     const { courseId, assignmentId } = req.params;
+  //     const course = await CourseService.findById(courseId);
+  //     const assignment = await SubmitAssignmentService.findById(assignmentId);
+  //     if (!course.success || !assignment.success) {
+  //       return sendResponse(
+  //         res,
+  //         HTTP_STATUS.NOT_FOUND,
+  //         RESPONSE_MESSAGE.NO_DATA
+  //       );
+  //     }
+  //     return sendResponse(
+  //       res,
+  //       HTTP_STATUS.OK,
+  //       RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
+  //       assignment
+  //     );
+  //   } catch (error: any) {
+  //     console.log(error);
+  //     databaseLogger(error.message);
+  //     return sendResponse(
+  //       res,
+  //       HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  //       RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR
+  //     );
+  //   }
+  // }
 }
 
 const AssignmentController = new AssignmentControllerClass();

@@ -201,7 +201,7 @@ class CourseControllerClass {
         filterTotalHours as string
       );
       console.log(sortValue);
-      
+
       const aggregation: mongoose.PipelineStage[] = [
         // {
         //   $lookup: {
@@ -216,26 +216,27 @@ class CourseControllerClass {
         //   $group: {
         //     _id: "$_id",
         //     reviews: { $push: "$reviews" },
+        //     course: { $first: "$$ROOT" }, // Add this line
         //   },
         // },
         // {
-        //   $addFields: {
-        //     averageRating: { $avg: "$reviews.rating" },
+        //   $replaceRoot: {
+        //     newRoot: {
+        //       $mergeObjects: ["$doc", "$$ROOT"],
+        //     },
         //   },
         // },
         {
-          $lookup: {
-            from: "categories",
-            localField: "category",
-            foreignField: "_id",
-            as: "category",
+          $addFields: {
+            averageRating: { $avg: "$reviews.rating" },
           },
         },
         { $match: matchStage },
-        { $unwind: "$category" },
         {
           $addFields: {
-            studentsCount: { $size: "$students" },
+            studentsCount: {
+              $cond: [{ $isArray: "$students" }, { $size: "$students" }, 0],
+            },
           },
         },
       ];

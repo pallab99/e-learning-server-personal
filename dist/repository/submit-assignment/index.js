@@ -42,7 +42,9 @@ class SubmitAssignmentRepositoryClass {
     }
     findById(assignmentId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield submit_assignment_1.default.findById(assignmentId)
+            return yield submit_assignment_1.default.find({
+                assignment: new mongoose_1.default.Types.ObjectId(assignmentId),
+            })
                 .populate("assignment")
                 .populate("student")
                 .populate("courseSection");

@@ -27,10 +27,12 @@ class SubmitAssignmentRepositoryClass {
       .populate("courseSection");
   }
   async findById(assignmentId: string) {
-    return await SubmitAssignmentModel.findById(assignmentId)
+    return await SubmitAssignmentModel.find({
+      assignment: new mongoose.Types.ObjectId(assignmentId),
+    })
       .populate("assignment")
       .populate("student")
-      .populate("courseSection");
+      .populate("courseSection"); 
   }
 
   async submitAssessment(

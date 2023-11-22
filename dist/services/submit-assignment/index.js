@@ -29,6 +29,7 @@ class SubmitAssignmentServiceClass {
     findById(assignmentId) {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield submit_assignment_1.default.findById(assignmentId);
+            console.log({ result });
             return { success: result ? 1 : 0, data: result };
         });
     }

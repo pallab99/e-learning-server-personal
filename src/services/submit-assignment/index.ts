@@ -18,6 +18,8 @@ class SubmitAssignmentServiceClass {
 
   async findById(assignmentId: string) {
     const result = await SubmitAssignmentRepository.findById(assignmentId);
+    console.log({ result });
+
     return { success: result ? 1 : 0, data: result as any };
   }
 

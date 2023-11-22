@@ -21,6 +21,11 @@ router
     AssignmentController.getAllSubmittedAssignmentByCourseId
   )
   .get(
+    "/all",
+    [tokenAuthorization, isInstructor],
+    AssignmentController.getAllAssignmentByInstructor
+  )
+  .get(
     "/submit/details/:courseId/:assignmentId",
     [tokenAuthorization, isInstructor],
     AssignmentController.getSubmittedAssignmentById

@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose_1 = __importDefault(require("mongoose"));
 const responseMessage_1 = require("../../constant/responseMessage");
 const statusCode_1 = require("../../constant/statusCode");
 const courseContent_1 = __importDefault(require("../../models/course-content/courseContent"));
@@ -91,6 +92,54 @@ class CourseContentClass {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.DELETE_FAILED);
                 }
                 return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.DELETE_SUCCESS);
+            }
+            catch (error) {
+                console.log(error);
+                (0, dbLogger_1.databaseLogger)(error.message);
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.INTERNAL_SERVER_ERROR, responseMessage_1.RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR);
+            }
+        });
+    }
+    updateCourseContent(req, res) {
+        var _a, _b;
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                (0, dbLogger_1.databaseLogger)(req.originalUrl);
+                const { contentId } = req.params;
+                const content = yield course_content_1.default.findById(contentId);
+                const course = yield course_1.default.findById((_a = content === null || content === void 0 ? void 0 : content.data) === null || _a === void 0 ? void 0 : _a.course);
+                const section = yield course_section_1.default.findById((_b = content === null || content === void 0 ? void 0 : content.data) === null || _b === void 0 ? void 0 : _b.courseSection);
+                console.log({ course });
+                if (!content.success || !course.success || !section.success) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
+                }
+                const body = req.body;
+                console.log(body);
+                console.log(req.file);
+                if (req.file) {
+                    const result = yield course_content_1.default.saveFileOnServer(req.file, course.data.title, section.data.title);
+                    const contentDuration = yield course_content_1.default.getVideoDuration(req.file);
+                    if (!result.success) {
+                        return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.S3_SERVER_ERROR);
+                    }
+                    const updatedDoc = yield courseContent_1.default.findOneAndUpdate({ _id: new mongoose_1.default.Types.ObjectId(contentId) }, {
+                        contentTitle: req.body.title,
+                        contentUrl: result.data,
+                        contentLength: contentDuration,
+                    });
+                    console.log("updated doc", updatedDoc);
+                    if (!updatedDoc) {
+                        return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
+                    }
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.UPDATE_SUCCESS);
+                }
+                else {
+                    const updatedDoc = yield courseContent_1.default.findOneAndUpdate({ _id: new mongoose_1.default.Types.ObjectId(contentId) }, { contentTitle: req.body.title });
+                    if (!updatedDoc) {
+                        return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
+                    }
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.UPDATE_SUCCESS);
+                }
             }
             catch (error) {
                 console.log(error);

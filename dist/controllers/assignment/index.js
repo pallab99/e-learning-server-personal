@@ -14,8 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const responseMessage_1 = require("../../constant/responseMessage");
 const statusCode_1 = require("../../constant/statusCode");
+const course_1 = __importDefault(require("../../models/course"));
 const assignment_1 = __importDefault(require("../../services/assignment"));
-const course_1 = __importDefault(require("../../services/course"));
+const course_2 = __importDefault(require("../../services/course"));
 const course_section_1 = __importDefault(require("../../services/course-section"));
 const submit_assignment_1 = __importDefault(require("../../services/submit-assignment"));
 const user_1 = __importDefault(require("../../services/user"));
@@ -29,7 +30,7 @@ class AssignmentControllerClass {
                 const { title, description, instructions, point } = req.body;
                 const { courseId, sectionId } = req.params;
                 const file = req.file;
-                const course = yield course_1.default.findById(courseId);
+                const course = yield course_2.default.findById(courseId);
                 const courseSection = yield course_section_1.default.findById(sectionId);
                 if (!course.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.COURSE_NOT_FOUND);
@@ -67,7 +68,7 @@ class AssignmentControllerClass {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { courseId, sectionId, assignmentId } = req.params;
                 const file = req.file;
-                const course = yield course_1.default.findById(courseId);
+                const course = yield course_2.default.findById(courseId);
                 const courseSection = yield course_section_1.default.findById(sectionId);
                 if (!course.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.COURSE_NOT_FOUND);
@@ -98,7 +99,7 @@ class AssignmentControllerClass {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { courseId, sectionId, assignmentId } = req.params;
-                const course = yield course_1.default.findById(courseId);
+                const course = yield course_2.default.findById(courseId);
                 const courseSection = yield course_section_1.default.findById(sectionId);
                 const assignment = yield assignment_1.default.findById(assignmentId);
                 if (!course.success) {
@@ -128,7 +129,7 @@ class AssignmentControllerClass {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { courseId, sectionId, assignmentId } = req.params;
-                const course = yield course_1.default.findById(courseId);
+                const course = yield course_2.default.findById(courseId);
                 const courseSection = yield course_section_1.default.findById(sectionId);
                 const assignment = yield assignment_1.default.findById(assignmentId);
                 if (!course.success) {
@@ -158,7 +159,7 @@ class AssignmentControllerClass {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { courseId } = req.params;
-                const course = yield course_1.default.findById(courseId);
+                const course = yield course_2.default.findById(courseId);
                 if (!course.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.COURSE_NOT_FOUND);
                 }
@@ -180,7 +181,7 @@ class AssignmentControllerClass {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { courseId, sectionId } = req.params;
-                const course = yield course_1.default.findById(courseId);
+                const course = yield course_2.default.findById(courseId);
                 const section = yield course_section_1.default.findById(sectionId);
                 if (!course.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.COURSE_NOT_FOUND);
@@ -206,7 +207,7 @@ class AssignmentControllerClass {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { courseId, sectionId, assignmentId } = req.params;
-                const course = yield course_1.default.findById(courseId);
+                const course = yield course_2.default.findById(courseId);
                 const section = yield course_section_1.default.findById(sectionId);
                 const assignment = yield assignment_1.default.findById(assignmentId);
                 if (!course.success) {
@@ -236,7 +237,7 @@ class AssignmentControllerClass {
                 const file = req.file;
                 const { email } = req.user;
                 const student = yield user_1.default.findByEmail(email);
-                const course = yield course_1.default.findById(courseId);
+                const course = yield course_2.default.findById(courseId);
                 const section = yield course_section_1.default.findById(sectionId);
                 const assignment = yield assignment_1.default.findById(assignmentId);
                 if (!course.success ||
@@ -277,7 +278,7 @@ class AssignmentControllerClass {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { courseId } = req.params;
-                const course = yield course_1.default.findById(courseId);
+                const course = yield course_2.default.findById(courseId);
                 if (!course.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
                 }
@@ -296,8 +297,10 @@ class AssignmentControllerClass {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { courseId, assignmentId } = req.params;
-                const course = yield course_1.default.findById(courseId);
+                // console.log(courseId, assignmentId);
+                const course = yield course_2.default.findById(courseId);
                 const assignment = yield submit_assignment_1.default.findById(assignmentId);
+                console.log(assignment);
                 if (!course.success || !assignment.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
                 }
@@ -316,7 +319,7 @@ class AssignmentControllerClass {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { courseId, sectionId, assignmentId, submittedAssignmentId } = req.params;
                 const { grade, feedback } = req.body;
-                const course = yield course_1.default.findById(courseId);
+                const course = yield course_2.default.findById(courseId);
                 const section = yield course_section_1.default.findById(sectionId);
                 const assignment = yield assignment_1.default.findById(assignmentId);
                 const submittedAssignment = yield submit_assignment_1.default.findById(submittedAssignmentId);
@@ -335,6 +338,51 @@ class AssignmentControllerClass {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.ASSIGNMENT_ASSESSMENT_FAIlED);
                 }
                 return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.ASSIGNMENT_ASSESSMENT_SUCCESS, addAssessment.data);
+            }
+            catch (error) {
+                console.log(error);
+                (0, dbLogger_1.databaseLogger)(error.message);
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.INTERNAL_SERVER_ERROR, responseMessage_1.RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR);
+            }
+        });
+    }
+    getAllAssignmentByInstructor(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                (0, dbLogger_1.databaseLogger)(req.originalUrl);
+                // const { courseId } = req.params;
+                const { email } = req.user;
+                const instructor = yield user_1.default.findByEmail(email);
+                if (!instructor) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
+                }
+                const findAllCourseByInstructor = yield course_1.default.find({
+                    instructors: { $in: [instructor._id] },
+                });
+                console.log(findAllCourseByInstructor);
+                // const course = await CourseService.findById(courseId);
+                // if (!course.success) {
+                //   return sendResponse(
+                //     res,
+                //     HTTP_STATUS.NOT_FOUND,
+                //     RESPONSE_MESSAGE.COURSE_NOT_FOUND
+                //   );
+                // }
+                // const allAssignmentOfACourse =
+                //   await AssignmentService.getAllAssignmentOfACourse(courseId);
+                // if (!allAssignmentOfACourse.success) {
+                //   return sendResponse(
+                //     res,
+                //     HTTP_STATUS.BAD_REQUEST,
+                //     RESPONSE_MESSAGE.NOT_FOUND
+                //   );
+                // }
+                // return sendResponse(
+                //   res,
+                //   HTTP_STATUS.OK,
+                //   RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
+                //   allAssignmentOfACourse.data
+                // );
             }
             catch (error) {
                 console.log(error);
