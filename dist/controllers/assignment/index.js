@@ -317,16 +317,11 @@ class AssignmentControllerClass {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
-                const { courseId, sectionId, assignmentId, submittedAssignmentId } = req.params;
+                const { assignmentId, submittedAssignmentId } = req.params;
                 const { grade, feedback } = req.body;
-                const course = yield course_2.default.findById(courseId);
-                const section = yield course_section_1.default.findById(sectionId);
                 const assignment = yield assignment_1.default.findById(assignmentId);
                 const submittedAssignment = yield submit_assignment_1.default.findById(submittedAssignmentId);
-                if (!course.success ||
-                    !section.success ||
-                    !assignment.success ||
-                    !submittedAssignment.success) {
+                if (!assignment.success || !submittedAssignment.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
                 }
                 const checkMark = yield assignment_1.default.checkMark(grade, assignment.data.point);
