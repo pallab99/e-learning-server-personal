@@ -13,31 +13,49 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_validator_1 = require("express-validator");
+const mongoose_1 = __importDefault(require("mongoose"));
 const responseMessage_1 = require("../../constant/responseMessage");
 const statusCode_1 = require("../../constant/statusCode");
+const QNA_1 = require("../../models/QNA");
 const course_1 = __importDefault(require("../../services/course"));
 const qna_1 = __importDefault(require("../../services/qna"));
 const user_1 = __importDefault(require("../../services/user"));
 const dbLogger_1 = require("../../utils/dbLogger");
 const response_1 = require("../../utils/response");
 const sendValidationError_1 = require("../../utils/sendValidationError");
-const QNA_1 = require("../../models/QNA");
-const mongoose_1 = __importDefault(require("mongoose"));
 class QNAControllerClass {
     getAllQNQOfACourse(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { courseId } = req.params;
-                const qnas = yield QNA_1.QNAModel.findOne({
-                    course: new mongoose_1.default.Types.ObjectId(courseId),
-                })
-                    .populate("messages.user", "_id name email dp")
-                    .populate("messages.reply.user", "_id name email dp");
-                if (!qnas) {
+                const qnas = yield QNA_1.QNAModel.aggregate([
+                    { $match: { course: new mongoose_1.default.Types.ObjectId(courseId) } },
+                    { $unwind: "$messages" },
+                    { $sort: { "messages._id": -1 } },
+                    {
+                        $group: {
+                            _id: "$_id",
+                            root: { $first: "$$ROOT" },
+                            messages: { $push: "$messages" },
+                        },
+                    },
+                    {
+                        $replaceRoot: {
+                            newRoot: {
+                                $mergeObjects: ["$root", { messages: "$messages" }],
+                            },
+                        },
+                    },
+                ]).exec();
+                if (!qnas || qnas.length === 0) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.NO_DATA, []);
                 }
-                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, qnas);
+                const populatedQnas = yield QNA_1.QNAModel.populate(qnas, [
+                    { path: "messages.user", select: "_id name email dp" },
+                    { path: "messages.reply.user", select: "_id name email dp" },
+                ]);
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, populatedQnas);
             }
             catch (error) {
                 console.log(error);

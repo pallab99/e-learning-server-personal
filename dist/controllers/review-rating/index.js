@@ -13,16 +13,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_validator_1 = require("express-validator");
+const mongoose_1 = __importDefault(require("mongoose"));
 const responseMessage_1 = require("../../constant/responseMessage");
 const statusCode_1 = require("../../constant/statusCode");
+const review_rating_1 = require("../../models/review-rating");
 const course_1 = __importDefault(require("../../services/course"));
-const review_rating_1 = __importDefault(require("../../services/review-rating"));
+const review_rating_2 = __importDefault(require("../../services/review-rating"));
 const user_1 = __importDefault(require("../../services/user"));
 const dbLogger_1 = require("../../utils/dbLogger");
 const response_1 = require("../../utils/response");
 const sendValidationError_1 = require("../../utils/sendValidationError");
-const review_rating_2 = require("../../models/review-rating");
-const mongoose_1 = __importDefault(require("mongoose"));
 class ReviewRatingControllerClass {
     addReviewRating(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -44,7 +44,7 @@ class ReviewRatingControllerClass {
                 if (!userSubscribedInCourse.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUBSCRIBE_COURSE_BEFORE_ADDING_REVIEW);
                 }
-                const reviewAlreadyExists = yield review_rating_1.default.reviewAlreadyExists(courseId, user._id);
+                const reviewAlreadyExists = yield review_rating_2.default.reviewAlreadyExists(courseId, user._id);
                 if (reviewAlreadyExists.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.REVIEW_EXISTS);
                 }
@@ -54,7 +54,7 @@ class ReviewRatingControllerClass {
                     reviewMessage,
                     rating,
                 };
-                const createReviewRating = yield review_rating_1.default.createReview(reviewData);
+                const createReviewRating = yield review_rating_2.default.createReview(reviewData);
                 if (!createReviewRating.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.ADD_REVIEW_FAILED);
                 }
@@ -80,11 +80,11 @@ class ReviewRatingControllerClass {
                     return (0, sendValidationError_1.sendValidationError)(res, validation);
                 }
                 const { reviewId } = req.params;
-                const review = yield review_rating_1.default.findById(reviewId);
+                const review = yield review_rating_2.default.findById(reviewId);
                 if (!review.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
                 }
-                const updateDoc = yield review_rating_1.default.findByIdAndUpdate(reviewId, req.body);
+                const updateDoc = yield review_rating_2.default.findByIdAndUpdate(reviewId, req.body);
                 if (!updateDoc.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.UPDATE_REVIEW_FAILED);
                 }
@@ -102,11 +102,12 @@ class ReviewRatingControllerClass {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { courseId } = req.params;
-                const allReviewByCourse = yield review_rating_1.default.allReviewsByCourse(courseId);
-                if (!allReviewByCourse.success) {
+                const allReviewByCourse = yield review_rating_2.default.allReviewsByCourse(courseId);
+                console.log(allReviewByCourse);
+                if (!allReviewByCourse.success || allReviewByCourse.data.length <= 0) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
                 }
-                const averageRating = yield review_rating_2.ReviewRatingModel.aggregate([
+                const averageRating = yield review_rating_1.ReviewRatingModel.aggregate([
                     {
                         $match: {
                             course: new mongoose_1.default.Types.ObjectId(courseId),
@@ -121,7 +122,6 @@ class ReviewRatingControllerClass {
                         },
                     },
                 ]).exec();
-                console.log(averageRating);
                 const data = {
                     data: allReviewByCourse.data,
                     averageRating: averageRating[0].averageRating,
@@ -140,12 +140,12 @@ class ReviewRatingControllerClass {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { courseId, reviewId } = req.params;
-                const review = yield review_rating_1.default.findById(reviewId);
+                const review = yield review_rating_2.default.findById(reviewId);
                 const course = yield course_1.default.findById(courseId);
                 if (!review.success || !course.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
                 }
-                const deletedReview = yield review_rating_1.default.findByIdAndDelete(reviewId);
+                const deletedReview = yield review_rating_2.default.findByIdAndDelete(reviewId);
                 if (!deletedReview.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.DELETE_REVIEW_FAILED);
                 }

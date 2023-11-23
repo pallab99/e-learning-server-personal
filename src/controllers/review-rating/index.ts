@@ -1,15 +1,15 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
+import mongoose from "mongoose";
 import { RESPONSE_MESSAGE } from "../../constant/responseMessage";
 import { HTTP_STATUS } from "../../constant/statusCode";
+import { ReviewRatingModel } from "../../models/review-rating";
 import CourseService from "../../services/course";
 import ReviewRatingService from "../../services/review-rating";
 import UserService from "../../services/user";
 import { databaseLogger } from "../../utils/dbLogger";
 import { sendResponse } from "../../utils/response";
 import { sendValidationError } from "../../utils/sendValidationError";
-import { ReviewRatingModel } from "../../models/review-rating";
-import mongoose from "mongoose";
 class ReviewRatingControllerClass {
   async addReviewRating(req: Request, res: Response) {
     try {
@@ -152,7 +152,9 @@ class ReviewRatingControllerClass {
       const { courseId } = req.params;
       const allReviewByCourse =
         await ReviewRatingService.allReviewsByCourse(courseId);
-      if (!allReviewByCourse.success) {
+      console.log(allReviewByCourse);
+
+      if (!allReviewByCourse.success || allReviewByCourse.data.length <= 0) {
         return sendResponse(res, HTTP_STATUS.OK, RESPONSE_MESSAGE.NO_DATA);
       }
       const averageRating = await ReviewRatingModel.aggregate([
@@ -172,7 +174,7 @@ class ReviewRatingControllerClass {
       ]).exec();
       const data = {
         data: allReviewByCourse.data,
-        averageRating:averageRating[0].averageRating,
+        averageRating: averageRating[0].averageRating,
       };
       return sendResponse(
         res,

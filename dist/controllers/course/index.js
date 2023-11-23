@@ -345,6 +345,33 @@ class CourseControllerClass {
             catch (error) { }
         });
     }
+    courseBoughtByStudent(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                (0, dbLogger_1.databaseLogger)(req.originalUrl);
+                const { courseId } = req.params;
+                const { email } = req.user;
+                const course = yield course_2.default.findById(courseId);
+                const user = yield user_2.default.findByEmail(email);
+                if (!course.success) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
+                }
+                const userBoughtTheCourse = yield course_1.default.findOne({
+                    _id: new mongoose_1.default.Types.ObjectId(courseId),
+                    students: { $in: [user === null || user === void 0 ? void 0 : user._id] },
+                });
+                if (!userBoughtTheCourse) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, {});
+                }
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, userBoughtTheCourse);
+            }
+            catch (error) {
+                console.log(error);
+                (0, dbLogger_1.databaseLogger)(error.message);
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.INTERNAL_SERVER_ERROR, responseMessage_1.RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR);
+            }
+        });
+    }
 }
 const CourseController = new CourseControllerClass();
 exports.default = CourseController;

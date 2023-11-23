@@ -14,6 +14,7 @@ router
     .get("/all", course_1.default.getAllCourse)
     .get("/all/instructor", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isInstructor], course_1.default.getCourseByInstructor)
     .get("/getCourseById/:courseId", course_1.default.getCourseById)
+    .get("/student-bought/:courseId", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isStudent], course_1.default.courseBoughtByStudent)
     .patch("/update/:courseId", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isInstructor, file_1.upload.array("file_to_upload")], course_1.default.updateCourse)
     .patch("/upload/demoVideo/:courseId", file_1.upload.single("file_to_upload"), course_1.default.uploadDemoVideo)
     .patch("/upload/thumbnail/:courseId", file_1.upload.single("file_to_upload"), course_1.default.uploadThumbnail);

@@ -93,6 +93,24 @@ class QuizControllerClass {
             }
         });
     }
+    getQuizById(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { sectionId, quizId } = req.params;
+                const section = yield course_section_1.default.findById(sectionId);
+                const quiz = yield quiz_1.default.findById(quizId);
+                if (!section.success || !quiz.success) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
+                }
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, quiz.data);
+            }
+            catch (error) {
+                console.log(error);
+                (0, dbLogger_1.databaseLogger)(error.message);
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.INTERNAL_SERVER_ERROR, responseMessage_1.RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR);
+            }
+        });
+    }
 }
 const QuizController = new QuizControllerClass();
 exports.default = QuizController;

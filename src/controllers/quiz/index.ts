@@ -125,6 +125,36 @@ class QuizControllerClass {
       );
     }
   }
+
+  async getQuizById(req: Request, res: Response) {
+    try {
+      const { sectionId, quizId } = req.params;
+      const section = await CourseSectionService.findById(sectionId);
+      const quiz = await QuizService.findById(quizId);
+      if (!section.success || !quiz.success) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.NOT_FOUND,
+          RESPONSE_MESSAGE.NO_DATA
+        );
+      }
+
+      return sendResponse(
+        res,
+        HTTP_STATUS.OK,
+        RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
+        quiz.data
+      );
+    } catch (error: any) {
+      console.log(error);
+      databaseLogger(error.message);
+      return sendResponse(
+        res,
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
 }
 
 const QuizController = new QuizControllerClass();

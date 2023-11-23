@@ -4,6 +4,7 @@ import CourseController from "../../controllers/course";
 import {
   isAdmin,
   isInstructor,
+  isStudent,
   tokenAuthorization,
 } from "../../middlewares/tokenValidator";
 const router = express.Router();
@@ -26,6 +27,11 @@ router
     CourseController.getCourseByInstructor
   )
   .get("/getCourseById/:courseId", CourseController.getCourseById)
+  .get(
+    "/student-bought/:courseId",
+    [tokenAuthorization, isStudent],
+    CourseController.courseBoughtByStudent
+  )
   .patch(
     "/update/:courseId",
     [tokenAuthorization, isInstructor, upload.array("file_to_upload")],

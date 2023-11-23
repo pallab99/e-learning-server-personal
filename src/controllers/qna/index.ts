@@ -1,34 +1,52 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
+import mongoose from "mongoose";
 import { RESPONSE_MESSAGE } from "../../constant/responseMessage";
 import { HTTP_STATUS } from "../../constant/statusCode";
+import { QNAModel } from "../../models/QNA";
 import CourseService from "../../services/course";
 import QNAService from "../../services/qna";
 import UserService from "../../services/user";
 import { databaseLogger } from "../../utils/dbLogger";
 import { sendResponse } from "../../utils/response";
 import { sendValidationError } from "../../utils/sendValidationError";
-import { QNAModel } from "../../models/QNA";
-import mongoose from "mongoose";
-import { populate } from "dotenv";
 class QNAControllerClass {
   async getAllQNQOfACourse(req: Request, res: Response) {
     try {
       databaseLogger(req.originalUrl);
       const { courseId } = req.params;
-      const qnas = await QNAModel.findOne({
-        course: new mongoose.Types.ObjectId(courseId),
-      })
-        .populate("messages.user" ,"_id name email dp")
-        .populate("messages.reply.user" ,"_id name email dp");
-      if (!qnas) {
+      const qnas = await QNAModel.aggregate([
+        { $match: { course: new mongoose.Types.ObjectId(courseId) } },
+        { $unwind: "$messages" },
+        { $sort: { "messages._id": -1 } },
+        {
+          $group: {
+            _id: "$_id",
+            root: { $first: "$$ROOT" },
+            messages: { $push: "$messages" },
+          },
+        },
+        {
+          $replaceRoot: {
+            newRoot: {
+              $mergeObjects: ["$root", { messages: "$messages" }],
+            },
+          },
+        },
+      ]).exec();
+      if (!qnas || qnas.length === 0) {
         return sendResponse(res, HTTP_STATUS.OK, RESPONSE_MESSAGE.NO_DATA, []);
       }
+      const populatedQnas = await QNAModel.populate(qnas, [
+        { path: "messages.user", select: "_id name email dp" },
+        { path: "messages.reply.user", select: "_id name email dp" },
+      ]);
+
       return sendResponse(
         res,
         HTTP_STATUS.OK,
         RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
-        qnas
+        populatedQnas
       );
     } catch (error: any) {
       console.log(error);

@@ -8,6 +8,7 @@ import { validator } from "../../middlewares/validator";
 const router = express.Router();
 
 router
+  .get("/details/:sectionId/:quizId", QuizController.getQuizById)
   .post(
     "/create",
     [tokenAuthorization, isInstructor, ...validator.addQuiz],

@@ -537,6 +537,51 @@ class CourseControllerClass {
     try {
     } catch (error) {}
   }
+
+  async courseBoughtByStudent(req: Request, res: Response) {
+    try {
+      databaseLogger(req.originalUrl);
+
+      const { courseId } = req.params;
+      const { email } = req.user;
+      const course = await CourseService.findById(courseId);
+      const user = await UserService.findByEmail(email);
+      if (!course.success) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.BAD_REQUEST,
+          RESPONSE_MESSAGE.NO_DATA
+        );
+      }
+      const userBoughtTheCourse = await CourseModel.findOne({
+        _id: new mongoose.Types.ObjectId(courseId),
+        students: { $in: [user?._id] },
+      });
+
+      if (!userBoughtTheCourse) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.OK,
+          RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
+          {}
+        );
+      }
+      return sendResponse(
+        res,
+        HTTP_STATUS.OK,
+        RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
+        userBoughtTheCourse
+      );
+    } catch (error: any) {
+      console.log(error);
+      databaseLogger(error.message);
+      return sendResponse(
+        res,
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
 }
 
 const CourseController = new CourseControllerClass();

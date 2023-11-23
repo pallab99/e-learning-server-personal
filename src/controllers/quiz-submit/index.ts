@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
+import mongoose from "mongoose";
 import { RESPONSE_MESSAGE } from "../../constant/responseMessage";
 import { HTTP_STATUS } from "../../constant/statusCode";
+import { QuizSubmissionModel } from "../../models/quiz-submission";
 import QuizService from "../../services/quiz";
 import QuizSubmitService from "../../services/quiz-submit";
 import UserService from "../../services/user";
@@ -22,6 +24,8 @@ class QuizSubmissionControllerClass {
       const user = await UserService.findByEmail(email);
       const quizSubmission = req.body;
       const userAns = quizSubmission.answer.map((ele: any) => ele);
+      console.log("user ans", userAns);
+
       const quiz = await QuizService.findById(quizId);
       if (!quiz.success || !user) {
         return sendResponse(
@@ -31,6 +35,8 @@ class QuizSubmissionControllerClass {
         );
       }
       const rightAns = quiz.data.questions.map((ele: any) => ele.correctAnswer);
+      console.log("right ans", rightAns);
+
       const obtainedMark = QuizSubmitService.calculateMarks(userAns, rightAns);
       const quizSubmissionData: IQuizSubmissionData = {
         userId: user._id,
@@ -131,6 +137,47 @@ class QuizSubmissionControllerClass {
         res,
         HTTP_STATUS.OK,
         RESPONSE_MESSAGE.QUESTION_DELETE_SUCCESS
+      );
+    } catch (error: any) {
+      console.log(error);
+      databaseLogger(error.message);
+      return sendResponse(
+        res,
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  async getSubmittedQuiz(req: Request, res: Response) {
+    try {
+      const { quizId } = req.params;
+      const { email } = req.user;
+      const user = await UserService.findByEmail(email);
+      if (!user) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.NOT_FOUND,
+          RESPONSE_MESSAGE.NO_DATA
+        );
+      }
+      const submittedQuiz = await QuizSubmissionModel.findOne({
+        quizId: new mongoose.Types.ObjectId(quizId),
+        userId: new mongoose.Types.ObjectId(user._id),
+      });
+      if (!submittedQuiz) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.OK,
+          RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
+          []
+        );
+      }
+      return sendResponse(
+        res,
+        HTTP_STATUS.OK,
+        RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
+        submittedQuiz
       );
     } catch (error: any) {
       console.log(error);
