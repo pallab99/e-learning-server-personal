@@ -4,6 +4,7 @@ import AssignmentController from "../../controllers/assignment";
 import {
   isInstructor,
   isStudent,
+  isStudentOrInstructor,
   tokenAuthorization,
 } from "../../middlewares/tokenValidator";
 
@@ -27,7 +28,7 @@ router
   )
   .get(
     "/submit/details/:courseId/:assignmentId",
-    [tokenAuthorization, isInstructor],
+    [tokenAuthorization, isStudentOrInstructor],
     AssignmentController.getSubmittedAssignmentById
   )
   .post(

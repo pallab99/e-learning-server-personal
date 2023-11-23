@@ -27,11 +27,11 @@ const mongoose_1 = __importStar(require("mongoose"));
 const submitAssignmentSchema = new mongoose_1.Schema({
     title: {
         type: String,
-        required: true,
+        required: false,
     },
     description: {
         type: String,
-        required: true,
+        required: false,
     },
     comments: {
         type: [String],

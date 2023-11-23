@@ -520,17 +520,14 @@ class AssignmentControllerClass {
     try {
       databaseLogger(req.originalUrl);
       const { courseId, assignmentId } = req.params;
-      // console.log(courseId, assignmentId);
-
       const course = await CourseService.findById(courseId);
-
       const assignment = await SubmitAssignmentService.findById(assignmentId);
-      console.log(assignment);
       if (!course.success || !assignment.success) {
         return sendResponse(
           res,
-          HTTP_STATUS.NOT_FOUND,
-          RESPONSE_MESSAGE.NO_DATA
+          HTTP_STATUS.OK,
+          RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
+          { data: [] }
         );
       }
       return sendResponse(
@@ -553,7 +550,7 @@ class AssignmentControllerClass {
   async giveGraderToSubmittedAssignment(req: Request, res: Response) {
     try {
       databaseLogger(req.originalUrl);
-      const {assignmentId, submittedAssignmentId } = req.params;
+      const { assignmentId, submittedAssignmentId } = req.params;
 
       const { grade, feedback } = req.body;
 

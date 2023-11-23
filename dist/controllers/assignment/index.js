@@ -297,12 +297,10 @@ class AssignmentControllerClass {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { courseId, assignmentId } = req.params;
-                // console.log(courseId, assignmentId);
                 const course = yield course_2.default.findById(courseId);
                 const assignment = yield submit_assignment_1.default.findById(assignmentId);
-                console.log(assignment);
                 if (!course.success || !assignment.success) {
-                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, { data: [] });
                 }
                 return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, assignment);
             }

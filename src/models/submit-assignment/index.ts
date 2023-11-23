@@ -1,8 +1,8 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 interface ISubmitAssignment extends Document {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   assignmentFileURL: string;
   comments?: string[];
   disabled?: boolean;
@@ -21,11 +21,11 @@ const submitAssignmentSchema: Schema<ISubmitAssignment> =
     {
       title: {
         type: String,
-        required: true,
+        required: false,
       },
       description: {
         type: String,
-        required: true,
+        required: false,
       },
       comments: {
         type: [String],

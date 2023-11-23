@@ -12,7 +12,7 @@ router
     .post("/create/:courseId/:sectionId", file_1.upload.single("file_to_upload"), assignment_1.default.createAssignment)
     .get("/submit/all/:courseId", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isInstructor], assignment_1.default.getAllSubmittedAssignmentByCourseId)
     .get("/all", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isInstructor], assignment_1.default.getAllAssignmentByInstructor)
-    .get("/submit/details/:courseId/:assignmentId", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isInstructor], assignment_1.default.getSubmittedAssignmentById)
+    .get("/submit/details/:courseId/:assignmentId", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isStudentOrInstructor], assignment_1.default.getSubmittedAssignmentById)
     .post("/submit/:courseId/:sectionId/:assignmentId", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isStudent, file_1.upload.single("file_to_upload")], assignment_1.default.submitAssignment)
     .patch("/assessment/create/:courseId/:sectionId/:assignmentId/:submittedAssignmentId", [tokenValidator_1.tokenAuthorization, tokenValidator_1.isInstructor], assignment_1.default.giveGraderToSubmittedAssignment)
     .get("/all/course/:courseId", assignment_1.default.getAllAssignmentOfACourse)
