@@ -10,6 +10,8 @@ import UserService from "../../services/user";
 import { ISubmitAssignment } from "../../types/submitAssignment";
 import { databaseLogger } from "../../utils/dbLogger";
 import { sendResponse } from "../../utils/response";
+import SubmitAssignmentModel from "../../models/submit-assignment";
+import mongoose from "mongoose";
 class AssignmentControllerClass {
   async createAssignment(req: Request, res: Response) {
     try {
@@ -535,6 +537,49 @@ class AssignmentControllerClass {
         HTTP_STATUS.OK,
         RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
         assignment
+      );
+    } catch (error: any) {
+      console.log(error);
+      databaseLogger(error.message);
+      return sendResponse(
+        res,
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  async getAssignmentSubmittedByUser(req: Request, res: Response) {
+    try {
+      databaseLogger(req.originalUrl);
+      const { courseId, assignmentId } = req.params;
+      const { email } = req.user;
+      const user =await UserService.findByEmail(email);
+
+      if (!user) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.NOT_FOUND,
+          RESPONSE_MESSAGE.NO_DATA
+        );
+      }
+      const submittedAssignment = await SubmitAssignmentModel.findOne({
+        course: new mongoose.Types.ObjectId(courseId),
+        assignment: new mongoose.Types.ObjectId(assignmentId),
+        student:new mongoose.Types.ObjectId(user?._id)
+      });
+      if (!submittedAssignment) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.NOT_FOUND,
+          RESPONSE_MESSAGE.NO_DATA, 
+        );
+      }
+      return sendResponse(
+        res,
+        HTTP_STATUS.OK,
+        RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
+        submittedAssignment
       );
     } catch (error: any) {
       console.log(error);

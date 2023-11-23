@@ -31,13 +31,18 @@ router
     [tokenAuthorization, isStudentOrInstructor],
     AssignmentController.getSubmittedAssignmentById
   )
+  .get(
+    "/submit/user/:courseId/:assignmentId",
+    [tokenAuthorization, isStudentOrInstructor],
+    AssignmentController.getAssignmentSubmittedByUser
+  )
   .post(
     "/submit/:courseId/:sectionId/:assignmentId",
     [tokenAuthorization, isStudent, upload.single("file_to_upload")],
     AssignmentController.submitAssignment
   )
   .patch(
-    "/assessment/create/:courseId/:sectionId/:assignmentId/:submittedAssignmentId",
+    "/assessment/create/:assignmentId/:submittedAssignmentId",
     [tokenAuthorization, isInstructor],
     AssignmentController.giveGraderToSubmittedAssignment
   )
