@@ -6,6 +6,7 @@ export interface IUserProgress extends Document {
   completedLessons: Schema.Types.ObjectId[];
   createdAt?: Date;
   updatedAt?: Date;
+  progressPercentage?: number;
 }
 
 const userProgressSchema: Schema<IUserProgress> = new Schema<IUserProgress>(
