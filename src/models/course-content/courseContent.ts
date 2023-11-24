@@ -5,7 +5,7 @@ interface ICourseContentDocument extends Document {
   contentUrl: string;
   contentLength: number;
   course: Schema.Types.ObjectId;
-  courseSection:Schema.Types.ObjectId;
+  courseSection: Schema.Types.ObjectId;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -25,7 +25,11 @@ const courseContentSchema: Schema<ICourseContentDocument> =
         required: true,
       },
       course: { type: Schema.Types.ObjectId, ref: "Course", required: true },
-      courseSection: { type: Schema.Types.ObjectId, ref: "CourseSection", required: true },
+      courseSection: {
+        type: Schema.Types.ObjectId,
+        ref: "CourseSection",
+        required: true,
+      },
     },
     { timestamps: true }
   );

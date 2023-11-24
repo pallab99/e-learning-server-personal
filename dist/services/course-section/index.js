@@ -101,7 +101,7 @@ class CourseSectionClassService {
             if (courseSection) {
                 courseSection.totalVideo = content.length;
                 let sum = content.reduce((accumulator, ele) => accumulator + ele.contentLength, 0);
-                courseSection.totalHours = sum;
+                courseSection.totalHours = 0;
                 yield courseSection.save();
             }
         });
@@ -131,7 +131,7 @@ class CourseSectionClassService {
             if (index != -1 && result.totalHours && result.totalVideo) {
                 result.sectionContent.splice(index, 1);
                 result.totalVideo -= 1;
-                result.totalHours -= content.contentLength;
+                // result.totalHours -= content.contentLength;
                 yield result.save();
                 return { success: true, data: result };
             }

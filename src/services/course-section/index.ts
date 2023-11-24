@@ -90,7 +90,7 @@ class CourseSectionClassService {
         (accumulator: any, ele: any) => accumulator + ele.contentLength,
         0
       );
-      courseSection.totalHours = sum;
+      courseSection.totalHours = 0;
 
       await courseSection.save();
     }
@@ -120,7 +120,7 @@ class CourseSectionClassService {
     if (index != -1 && result.totalHours && result.totalVideo) {
       result.sectionContent.splice(index, 1);
       result.totalVideo -= 1;
-      result.totalHours -= content.contentLength;
+      // result.totalHours -= content.contentLength;
       await result.save();
       return { success: true, data: result as any };
     }
@@ -211,8 +211,11 @@ class CourseSectionClassService {
     return { success: true, data: result as any };
   }
 
-  async courseContentForNonSubscribedStudent(courseId:string){
-    const result=await CourseSectionRepository.courseContentForNonSubscribedStudent(courseId)
+  async courseContentForNonSubscribedStudent(courseId: string) {
+    const result =
+      await CourseSectionRepository.courseContentForNonSubscribedStudent(
+        courseId
+      );
     if (result) {
       return { success: true, data: result as any };
     }

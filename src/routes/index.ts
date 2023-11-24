@@ -13,8 +13,8 @@ import quizSubmissionRouter from "./quiz-submit";
 import reviewRatingRouter from "./review-rating";
 import subscriptionRouter from "./subscription";
 import userRouter from "./user";
+import userProgressRouter from "./user-progress";
 import wishlistRouter from "./wishlist";
-
 const router = express.Router();
 
 router.use("/auth", authRouter);
@@ -32,5 +32,6 @@ router.use("/review-rating", reviewRatingRouter);
 router.use("/quiz", quizRouter);
 router.use("/quiz-submit", quizSubmissionRouter);
 router.use("/qna", qnaRouter);
+router.use("/user-progress", userProgressRouter);
 
 export default router;
