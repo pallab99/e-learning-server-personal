@@ -5,43 +5,42 @@ export function buildMatchStage(
   filterCategory: string[],
   filterLevel: string,
   filterTotalHours: string
-) {
-const matchStage: any = {};
-
-// Search
-if (search) {
-  matchStage.$or = [
+ ) {
+  const matchStage: any = { $or: [] };
+ 
+  // Search
+  if (search) {
+  matchStage.$or.push(
     { title: { $regex: search, $options: "i" } },
     { sub_title: { $regex: search, $options: "i" } },
     { description: { $regex: search, $options: "i" } },
-  ];
-}
-
-// Filter by instructors
-if (instructors) {
-  matchStage.instructors = { $in: instructors };
-}
-
-// Filter by category
-
-
-// Filter by category, level, and totalHours
-if (filterCategory || filterLevel || filterTotalHours) {
+  );
+  }
+ 
+  // Filter by instructors
+  if (instructors) {
+  matchStage.$or.push({ instructors: { $in: instructors } });
+  }
+ 
+  // Filter by category, level, and totalHours
+  if (filterCategory || filterLevel || filterTotalHours) {
   if (filterCategory.length) {
-    console.log("category",filterCategory);
-    matchStage["category.title"] = { $in: filterCategory };
+    matchStage.$or.push({ "category.title": { $in: filterCategory } });
   }
-
-  if (filterLevel) {
-    matchStage.level = filterLevel;
+ 
+  if (filterLevel) { 
+    matchStage.$or.push({ level: filterLevel });
   }
-
+ 
   if (filterTotalHours) {
-    matchStage.totalHours = {
-      $gte: parseInt(filterTotalHours),
-    };
+    matchStage.$or.push({ totalHours: { $gte: parseInt(filterTotalHours) } });
   }
-}
-
-return matchStage;
-}
+  }
+ 
+  // If $or array is empty, return an empty object
+  if (matchStage.$or.length === 0) {
+  return {};
+  }
+ 
+  return matchStage;
+ }
