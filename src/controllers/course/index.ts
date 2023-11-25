@@ -12,6 +12,7 @@ import UserService from "../../services/user";
 import { databaseLogger } from "../../utils/dbLogger";
 import { sendResponse } from "../../utils/response";
 import { sendValidationError } from "../../utils/sendValidationError";
+const jwt = require("jsonwebtoken");
 const bucketName = process.env.S3_BUCKET_NAME;
 class CourseControllerClass {
   async createCourse(req: Request, res: Response) {
@@ -120,156 +121,184 @@ class CourseControllerClass {
       const query: any = {};
 
       // Pagination
-      if (type || value) {
-        console.log({ type, value });
+      if (req?.cookies?.accessToken) {
+        const { accessToken } = req.cookies;
+        const token = accessToken;
+        const secretKey = process.env.ACCESS_TOKEN_SECRET;
+        const validate = jwt.verify(token, secretKey);
+        if (validate.rank === 1) {
+          console.log("admin");
 
-        if (type === "disable") {
-          const result = await CourseModel.find({ disable: true });
+          if (type || value) {
+            if (type === "disable") {
+              const result = await CourseModel.find({ disable: true });
 
-          if (!result) {
-            return sendResponse(
-              res,
-              HTTP_STATUS.OK,
-              RESPONSE_MESSAGE.NO_DATA,
-              []
-            );
-          }
-          return sendResponse(
-            res,
-            HTTP_STATUS.OK,
-            RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
-            {
-              courses: result,
+              if (!result) {
+                return sendResponse(
+                  res,
+                  HTTP_STATUS.OK,
+                  RESPONSE_MESSAGE.NO_DATA,
+                  []
+                );
+              }
+              return sendResponse(
+                res,
+                HTTP_STATUS.OK,
+                RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
+                {
+                  courses: result,
+                }
+              );
             }
-          );
-        }
-        if (type === "verified" && value === "true") {
-          const result = await CourseModel.find({ verified: true });
+            if (type === "verified" && value === "true") {
+              const result = await CourseModel.find({ verified: true });
 
-          if (!result) {
-            return sendResponse(
-              res,
-              HTTP_STATUS.OK,
-              RESPONSE_MESSAGE.NO_DATA,
-              []
-            );
-          }
-          return sendResponse(
-            res,
-            HTTP_STATUS.OK,
-            RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
-            {
-              courses: result,
+              if (!result) {
+                return sendResponse(
+                  res,
+                  HTTP_STATUS.OK,
+                  RESPONSE_MESSAGE.NO_DATA,
+                  []
+                );
+              }
+              return sendResponse(
+                res,
+                HTTP_STATUS.OK,
+                RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
+                {
+                  courses: result,
+                }
+              );
             }
-          );
-        }
-        if (type === "verified" && value === "false") {
-          console.log("hello");
+            if (type === "verified" && value === "false") {
+              console.log("hello");
 
-          const result = await CourseModel.find({ verified: "false" });
+              const result = await CourseModel.find({ verified: "false" });
 
-          if (!result) {
-            return sendResponse(
-              res,
-              HTTP_STATUS.OK,
-              RESPONSE_MESSAGE.NO_DATA,
-              []
-            );
-          }
-          return sendResponse(
-            res,
-            HTTP_STATUS.OK,
-            RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
-            {
-              courses: result,
+              if (!result) {
+                return sendResponse(
+                  res,
+                  HTTP_STATUS.OK,
+                  RESPONSE_MESSAGE.NO_DATA,
+                  []
+                );
+              }
+              return sendResponse(
+                res,
+                HTTP_STATUS.OK,
+                RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
+                {
+                  courses: result,
+                }
+              );
             }
-          );
+          }
         }
       }
+
       const pageNumber = parseInt(page as string) || 1;
       const pageSize = parseInt(limit as string) || 10;
       const skip = (pageNumber - 1) * pageSize;
       const filterCategoryArray = filterCategory
         ? (filterCategory as string).split(",")
         : [];
+
       const matchStage: any = buildMatchStage(
         search as string,
         instructors as string[],
         category as string,
-        filterCategoryArray,
+        filterCategoryArray as string[],
         filterLevel as string,
         filterTotalHours as string
       );
-      console.log(sortValue);
 
-      const aggregation: mongoose.PipelineStage[] = [
-        // {
-        //   $lookup: {
-        //     from: "reviewratings",
-        //     localField: "reviews",
-        //     foreignField: "_id",
-        //     as: "reviews",
-        //   },
-        // },
-        // { $unwind: "$reviews" },
-        // {
-        //   $group: {
-        //     _id: "$_id",
-        //     reviews: { $push: "$reviews" },
-        //     course: { $first: "$$ROOT" }, // Add this line
-        //   },
-        // },
-        // {
-        //   $replaceRoot: {
-        //     newRoot: {
-        //       $mergeObjects: ["$doc", "$$ROOT"],
-        //     },
-        //   },
-        // },
+      const aggregationPipeline: mongoose.PipelineStage[] = [
         {
-          $addFields: {
-            averageRating: { $avg: "$reviews.rating" },
+          $lookup: {
+            from: "categories",
+            localField: "category",
+            foreignField: "_id",
+            as: "category",
           },
         },
-        { $match: matchStage },
+        {
+          $match: matchStage,
+        },
+        {
+          $lookup: {
+            from: "reviewratings",
+            localField: "_id",
+            foreignField: "course",
+            as: "reviews",
+          },
+        },
         {
           $addFields: {
-            studentsCount: {
-              $cond: [{ $isArray: "$students" }, { $size: "$students" }, 0],
+            rating: {
+              $cond: {
+                if: { $gt: [{ $size: "$reviews" }, 0] },
+                then: { $avg: "$reviews.rating" },
+                else: 0,
+              },
+            },
+            ratingCount: {
+              $size: "$reviews"
+            }
+           },
+        },
+        {
+          $project: {
+            title: 1,
+            thumbnail: 1,
+            rating: 1,
+            ratingCount:1,
+            level:1,
+            createdAt:1,
+            updatedAt:1,
+            category: {
+              $cond: {
+                if: { $ifNull: ["$category", false] },
+                then: { $arrayElemAt: ["$category.title", 0] },
+                else: null,
+              },
             },
           },
         },
-      ];
+       ];
+
+      const result: any = await CourseModel.aggregate(aggregationPipeline);
+
+      console.log(result);
 
       if (sortValue === "student") {
-        aggregation.push({
+        aggregationPipeline.push({
           $sort: {
             studentsCount: -1,
           },
         });
       } else if (sortValue === "latest") {
-        aggregation.push({
+        aggregationPipeline.push({
           $sort: {
             createdAt: -1,
           },
         });
       } else if (sortValue === "updated") {
-        aggregation.push({
+        aggregationPipeline.push({
           $sort: {
             updatedAt: -1,
           },
         });
       } else if (sortValue === "rating") {
-        aggregation.push({
+        aggregationPipeline.push({
           $sort: {
-            averageRating: -1,
+            rating: -1,
           },
         });
       }
 
-      aggregation.push({ $skip: skip }, { $limit: pageSize });
+      aggregationPipeline.push({ $skip: skip }, { $limit: pageSize });
 
-      const courses = await CourseModel.aggregate(aggregation);
+      const courses = await CourseModel.aggregate(aggregationPipeline).exec();
 
       const totalCourses = await CourseModel.countDocuments(matchStage);
 

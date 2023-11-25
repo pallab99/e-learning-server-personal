@@ -25,6 +25,7 @@ const user_2 = __importDefault(require("../../services/user"));
 const dbLogger_1 = require("../../utils/dbLogger");
 const response_1 = require("../../utils/response");
 const sendValidationError_1 = require("../../utils/sendValidationError");
+const jwt = require("jsonwebtoken");
 const bucketName = process.env.S3_BUCKET_NAME;
 class CourseControllerClass {
     createCourse(req, res) {
@@ -83,41 +84,50 @@ class CourseControllerClass {
         });
     }
     getAllCourse(req, res) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { page, limit, search, instructors, category, filterCategory, filterLevel, filterTotalHours, type, value, sortValue, } = req.query;
                 const query = {};
                 // Pagination
-                if (type || value) {
-                    console.log({ type, value });
-                    if (type === "disable") {
-                        const result = yield course_1.default.find({ disable: true });
-                        if (!result) {
-                            return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.NO_DATA, []);
+                if ((_a = req === null || req === void 0 ? void 0 : req.cookies) === null || _a === void 0 ? void 0 : _a.accessToken) {
+                    const { accessToken } = req.cookies;
+                    const token = accessToken;
+                    const secretKey = process.env.ACCESS_TOKEN_SECRET;
+                    const validate = jwt.verify(token, secretKey);
+                    if (validate.rank === 1) {
+                        console.log("admin");
+                        if (type || value) {
+                            if (type === "disable") {
+                                const result = yield course_1.default.find({ disable: true });
+                                if (!result) {
+                                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.NO_DATA, []);
+                                }
+                                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, {
+                                    courses: result,
+                                });
+                            }
+                            if (type === "verified" && value === "true") {
+                                const result = yield course_1.default.find({ verified: true });
+                                if (!result) {
+                                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.NO_DATA, []);
+                                }
+                                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, {
+                                    courses: result,
+                                });
+                            }
+                            if (type === "verified" && value === "false") {
+                                console.log("hello");
+                                const result = yield course_1.default.find({ verified: "false" });
+                                if (!result) {
+                                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.NO_DATA, []);
+                                }
+                                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, {
+                                    courses: result,
+                                });
+                            }
                         }
-                        return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, {
-                            courses: result,
-                        });
-                    }
-                    if (type === "verified" && value === "true") {
-                        const result = yield course_1.default.find({ verified: true });
-                        if (!result) {
-                            return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.NO_DATA, []);
-                        }
-                        return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, {
-                            courses: result,
-                        });
-                    }
-                    if (type === "verified" && value === "false") {
-                        console.log("hello");
-                        const result = yield course_1.default.find({ verified: "false" });
-                        if (!result) {
-                            return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.NO_DATA, []);
-                        }
-                        return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, {
-                            courses: result,
-                        });
                     }
                 }
                 const pageNumber = parseInt(page) || 1;
@@ -127,75 +137,91 @@ class CourseControllerClass {
                     ? filterCategory.split(",")
                     : [];
                 const matchStage = (0, allcoursePipelinebuilder_1.buildMatchStage)(search, instructors, category, filterCategoryArray, filterLevel, filterTotalHours);
-                console.log(sortValue);
-                const aggregation = [
-                    // {
-                    //   $lookup: {
-                    //     from: "reviewratings",
-                    //     localField: "reviews",
-                    //     foreignField: "_id",
-                    //     as: "reviews",
-                    //   },
-                    // },
-                    // { $unwind: "$reviews" },
-                    // {
-                    //   $group: {
-                    //     _id: "$_id",
-                    //     reviews: { $push: "$reviews" },
-                    //     course: { $first: "$$ROOT" }, // Add this line
-                    //   },
-                    // },
-                    // {
-                    //   $replaceRoot: {
-                    //     newRoot: {
-                    //       $mergeObjects: ["$doc", "$$ROOT"],
-                    //     },
-                    //   },
-                    // },
+                const aggregationPipeline = [
                     {
-                        $addFields: {
-                            averageRating: { $avg: "$reviews.rating" },
+                        $lookup: {
+                            from: "categories",
+                            localField: "category",
+                            foreignField: "_id",
+                            as: "category",
                         },
                     },
-                    { $match: matchStage },
+                    {
+                        $match: matchStage,
+                    },
+                    {
+                        $lookup: {
+                            from: "reviewratings",
+                            localField: "_id",
+                            foreignField: "course",
+                            as: "reviews",
+                        },
+                    },
                     {
                         $addFields: {
-                            studentsCount: {
-                                $cond: [{ $isArray: "$students" }, { $size: "$students" }, 0],
+                            rating: {
+                                $cond: {
+                                    if: { $gt: [{ $size: "$reviews" }, 0] },
+                                    then: { $avg: "$reviews.rating" },
+                                    else: 0,
+                                },
+                            },
+                            ratingCount: {
+                                $size: "$reviews"
+                            }
+                        },
+                    },
+                    {
+                        $project: {
+                            title: 1,
+                            thumbnail: 1,
+                            rating: 1,
+                            ratingCount: 1,
+                            level: 1,
+                            createdAt: 1,
+                            updatedAt: 1,
+                            category: {
+                                $cond: {
+                                    if: { $ifNull: ["$category", false] },
+                                    then: { $arrayElemAt: ["$category.title", 0] },
+                                    else: null,
+                                },
                             },
                         },
                     },
                 ];
+                const result = yield course_1.default.aggregate(aggregationPipeline);
+                console.log(result);
                 if (sortValue === "student") {
-                    aggregation.push({
+                    aggregationPipeline.push({
                         $sort: {
                             studentsCount: -1,
                         },
                     });
                 }
                 else if (sortValue === "latest") {
-                    aggregation.push({
+                    aggregationPipeline.push({
                         $sort: {
                             createdAt: -1,
                         },
                     });
                 }
                 else if (sortValue === "updated") {
-                    aggregation.push({
+                    aggregationPipeline.push({
                         $sort: {
                             updatedAt: -1,
                         },
                     });
                 }
                 else if (sortValue === "rating") {
-                    aggregation.push({
+                    aggregationPipeline.push({
                         $sort: {
-                            averageRating: -1,
+                            rating: -1,
                         },
                     });
                 }
-                aggregation.push({ $skip: skip }, { $limit: pageSize });
-                const courses = yield course_1.default.aggregate(aggregation);
+                aggregationPipeline.push({ $skip: skip }, { $limit: pageSize });
+                const courses = yield course_1.default.aggregate(aggregationPipeline).exec();
                 const totalCourses = yield course_1.default.countDocuments(matchStage);
                 return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, {
                     courses,

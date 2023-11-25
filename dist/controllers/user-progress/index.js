@@ -20,7 +20,6 @@ const user_progress_2 = __importDefault(require("../../services/user-progress"))
 const dbLogger_1 = require("../../utils/dbLogger");
 const response_1 = require("../../utils/response");
 const mongoose_1 = __importDefault(require("mongoose"));
-const course_section_1 = __importDefault(require("../../models/course-section"));
 class UserProgressController {
     createUserProgress(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -68,48 +67,86 @@ class UserProgressController {
                 if (!user) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
                 }
-                const userProgressAvailable = yield user_progress_1.default.findOne({
-                    student: user === null || user === void 0 ? void 0 : user._id,
-                    course: courseId,
-                });
-                if (!userProgressAvailable) {
-                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
-                }
-                const courseSectionPipeline = [
-                    { $match: { course: new mongoose_1.default.Types.ObjectId(courseId) } },
-                    {
-                        $project: {
-                            totalItems: {
-                                $add: [
-                                    { $size: "$sectionContent" },
-                                    { $cond: [{ $ifNull: ["$assignment", false] }, 1, 0] },
-                                    { $cond: [{ $ifNull: ["$quiz", false] }, 1, 0] },
-                                ],
-                            },
-                        },
-                    },
-                    { $group: { _id: "$course", totalContents: { $sum: "$totalItems" } } },
-                ];
-                const totalContentsResult = yield course_section_1.default.aggregate(courseSectionPipeline);
-                const totalContents = totalContentsResult[0].totalContents;
                 const userProgressPipeline = [
                     {
                         $match: {
-                            student: new mongoose_1.default.Types.ObjectId(user === null || user === void 0 ? void 0 : user._id),
+                            student: new mongoose_1.default.Types.ObjectId(user._id),
                             course: new mongoose_1.default.Types.ObjectId(courseId),
                         },
                     },
-                    { $project: { completedContents: { $size: "$completedLessons" } } },
+                    {
+                        $lookup: {
+                            from: "coursesections",
+                            let: { courseId: new mongoose_1.default.Types.ObjectId(courseId) },
+                            pipeline: [
+                                {
+                                    $match: {
+                                        $expr: {
+                                            $eq: ["$course", "$$courseId"],
+                                        },
+                                    },
+                                },
+                                {
+                                    $project: {
+                                        totalItems: {
+                                            $add: [
+                                                { $size: "$sectionContent" },
+                                                { $cond: [{ $ifNull: ["$assignment", false] }, 1, 0] },
+                                                { $cond: [{ $ifNull: ["$quiz", false] }, 1, 0] },
+                                            ],
+                                        },
+                                    },
+                                },
+                            ],
+                            as: "courseSections",
+                        },
+                    },
+                    {
+                        $unwind: "$courseSections",
+                    },
+                    {
+                        $group: {
+                            _id: "$_id",
+                            totalContents: { $sum: "$courseSections.totalItems" },
+                            completedContents: { $first: { $size: "$completedLessons" } },
+                            userProgressObject: { $first: "$$ROOT" },
+                        },
+                    },
+                    {
+                        $project: {
+                            userProgressObject: 1,
+                            progressPercentage: {
+                                $cond: [
+                                    { $eq: ["$totalContents", 0] },
+                                    0,
+                                    {
+                                        $multiply: [
+                                            { $divide: ["$completedContents", "$totalContents"] },
+                                            100,
+                                        ],
+                                    },
+                                ],
+                            },
+                            totalContents: "$totalContents",
+                        },
+                    },
+                    {
+                        $addFields: {
+                            "userProgressObject.progressPercentage": "$progressPercentage",
+                            "userProgressObject.totalContents": "$totalContents",
+                        },
+                    },
+                    {
+                        $replaceRoot: {
+                            newRoot: "$userProgressObject",
+                        },
+                    },
                 ];
-                const completedContentsResult = yield user_progress_1.default.aggregate(userProgressPipeline);
-                let completedContents = 0;
-                if (completedContentsResult.length > 0) {
-                    completedContents = completedContentsResult[0].completedContents;
+                const userProgressResult = yield user_progress_1.default.aggregate(userProgressPipeline);
+                if (!userProgressResult || userProgressResult.length === 0) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
                 }
-                const progressPercentage = totalContents === 0 ? 0 : (completedContents / totalContents) * 100;
-                const userProgressObject = userProgressAvailable.toObject();
-                userProgressObject.progressPercentage = progressPercentage;
-                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, userProgressObject);
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, userProgressResult[0]);
             }
             catch (error) {
                 console.log(error);

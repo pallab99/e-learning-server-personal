@@ -23,14 +23,12 @@ if (instructors) {
 }
 
 // Filter by category
-if (category) {
-  matchStage.category = category;
-}
+
 
 // Filter by category, level, and totalHours
 if (filterCategory || filterLevel || filterTotalHours) {
   if (filterCategory.length) {
-    console.log({filterCategory});
+    console.log("category",filterCategory);
     matchStage["category.title"] = { $in: filterCategory };
   }
 

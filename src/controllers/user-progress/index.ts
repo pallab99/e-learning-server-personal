@@ -83,6 +83,7 @@ class UserProgressController {
       const { email } = req.user;
       const { courseId } = req.params;
       const user = await UserService.findByEmail(email);
+
       if (!user) {
         return sendResponse(
           res,
@@ -91,71 +92,98 @@ class UserProgressController {
         );
       }
 
-      const userProgressAvailable = await UserProgressModel.findOne({
-        student: user?._id,
-        course: courseId,
-      });
-      if (!userProgressAvailable) {
+      const userProgressPipeline = [
+        {
+          $match: {
+            student: new mongoose.Types.ObjectId(user._id),
+            course: new mongoose.Types.ObjectId(courseId),
+          },
+        },
+        {
+          $lookup: {
+            from: "coursesections",
+            let: { courseId: new mongoose.Types.ObjectId(courseId) },
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $eq: ["$course", "$$courseId"],
+                  },
+                },
+              },
+              {
+                $project: {
+                  totalItems: {
+                    $add: [
+                      { $size: "$sectionContent" },
+                      { $cond: [{ $ifNull: ["$assignment", false] }, 1, 0] },
+                      { $cond: [{ $ifNull: ["$quiz", false] }, 1, 0] },
+                    ],
+                  },
+                },
+              },
+            ],
+            as: "courseSections",
+          },
+        },
+        {
+          $unwind: "$courseSections",
+        },
+        {
+          $group: {
+            _id: "$_id",
+            totalContents: { $sum: "$courseSections.totalItems" },
+            completedContents: { $first: { $size: "$completedLessons" } },
+            userProgressObject: { $first: "$$ROOT" },
+          },
+        },
+        {
+          $project: {
+            userProgressObject: 1,
+            progressPercentage: {
+              $cond: [
+                { $eq: ["$totalContents", 0] },
+                0,
+                {
+                  $multiply: [
+                    { $divide: ["$completedContents", "$totalContents"] },
+                    100,
+                  ],
+                },
+              ],
+            },
+            totalContents: "$totalContents",
+          },
+        },
+        {
+          $addFields: {
+            "userProgressObject.progressPercentage": "$progressPercentage",
+            "userProgressObject.totalContents": "$totalContents",
+          },
+        },
+        {
+          $replaceRoot: {
+            newRoot: "$userProgressObject",
+          },
+        },
+      ];
+
+      const userProgressResult =
+        await UserProgressModel.aggregate(userProgressPipeline);
+
+      if (!userProgressResult || userProgressResult.length === 0) {
         return sendResponse(
           res,
           HTTP_STATUS.NOT_FOUND,
           RESPONSE_MESSAGE.NO_DATA
         );
       }
-      
-      const courseSectionPipeline = [
-        { $match: { course: new mongoose.Types.ObjectId(courseId) } },
-        {
-          $project: {
-            totalItems: {
-              $add: [
-                { $size: "$sectionContent" },
-                { $cond: [{ $ifNull: ["$assignment", false] }, 1, 0] },
-                { $cond: [{ $ifNull: ["$quiz", false] }, 1, 0] },
-              ],
-            },
-          },
-        },
-        { $group: { _id: "$course", totalContents: { $sum: "$totalItems" } } },
-      ];
-
-      const totalContentsResult = await CourseSectionModel.aggregate(
-        courseSectionPipeline
-      );
-
-      const totalContents = totalContentsResult[0].totalContents;
-
-      const userProgressPipeline = [
-        {
-          $match: {
-            student: new mongoose.Types.ObjectId(user?._id),
-            course: new mongoose.Types.ObjectId(courseId),
-          },
-        },
-        { $project: { completedContents: { $size: "$completedLessons" } } },
-      ];
-
-      const completedContentsResult =
-        await UserProgressModel.aggregate(userProgressPipeline);
-
-      let completedContents = 0;
-
-      if (completedContentsResult.length > 0) {
-        completedContents = completedContentsResult[0].completedContents;
-      }
-
-      const progressPercentage =
-        totalContents === 0 ? 0 : (completedContents / totalContents) * 100;
-
-      const userProgressObject = userProgressAvailable.toObject();
-
-      userProgressObject.progressPercentage = progressPercentage;
 
       return sendResponse(
         res,
         HTTP_STATUS.OK,
         RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
-        userProgressObject
+        userProgressResult[0]
       );
     } catch (error: any) {
       console.log(error);
