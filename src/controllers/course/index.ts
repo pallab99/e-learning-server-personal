@@ -7,7 +7,7 @@ import { publicURL } from "../../constant/user";
 import { buildMatchStage } from "../../helper/allcoursePipelinebuilder";
 import { generateFileName } from "../../helper/generateFileName";
 import CourseModel from "../../models/course";
-import CourseService from "../../services/course"; 
+import CourseService from "../../services/course";
 import UserService from "../../services/user";
 import { databaseLogger } from "../../utils/dbLogger";
 import { sendResponse } from "../../utils/response";
@@ -72,6 +72,77 @@ class CourseControllerClass {
     try {
       databaseLogger(req.originalUrl);
       const { courseId } = req.params;
+
+      const aggregationPipeline: mongoose.PipelineStage[] = [
+        {
+          $match: {
+            _id: new mongoose.Types.ObjectId(courseId),
+          },
+        },
+       
+        {
+          $lookup: {
+            from: "reviewratings",
+            localField: "_id",
+            foreignField: "course",
+            as: "reviews",
+          },
+        },
+       
+        {
+          $lookup: {
+            from: "users", // Assuming "users" is the collection for the User model
+            localField: "instructors",
+            foreignField: "_id",
+            as: "instructors",
+          },
+        },
+        {
+          $lookup: {
+            from: "categories",
+            localField: "category",
+            foreignField: "_id",
+            as: "category",
+          },
+        },
+        {
+          $addFields: {
+            rating: {
+              $cond: {
+                if: { $gt: [{ $size: "$reviews" }, 0] },
+                then: { $avg: "$reviews.rating" },
+                else: 0,
+              },
+            },
+            ratingCount: {
+              $size: "$reviews",
+            },
+          },
+        },
+       
+        {
+          $project: {
+            title: 1,
+            thumbnail: 1,
+            rating: 1,
+            ratingCount: 1,
+            level: 1,
+            createdAt: 1,
+            updatedAt: 1,
+            students: 1,
+            sub_title: 1,
+            instructors: 1,
+            demoVideo:1,
+            description:1,
+            prerequisites:1,
+            benefits:1,  
+            category: 1
+          },
+        },
+       ];
+      const courses = await CourseModel.aggregate(aggregationPipeline).exec();
+      
+
       const course = await CourseModel.findOne({ _id: courseId })
         .populate("instructors")
         .populate("category", "_id title");
@@ -88,7 +159,7 @@ class CourseControllerClass {
         res,
         HTTP_STATUS.OK,
         RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
-        course
+        ...courses
       );
     } catch (error: any) {
       console.log(error);
@@ -123,7 +194,7 @@ class CourseControllerClass {
       // Pagination
       if (token) {
         const secretKey = process.env.ACCESS_TOKEN_SECRET;
-     const validate = jwt.verify(token, secretKey);
+        const validate = jwt.verify(token, secretKey);
 
         if (validate.rank === 1) {
           console.log("admin");

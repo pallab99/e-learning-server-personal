@@ -68,13 +68,78 @@ class CourseControllerClass {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { courseId } = req.params;
+                const aggregationPipeline = [
+                    {
+                        $match: {
+                            _id: new mongoose_1.default.Types.ObjectId(courseId),
+                        },
+                    },
+                    {
+                        $lookup: {
+                            from: "reviewratings",
+                            localField: "_id",
+                            foreignField: "course",
+                            as: "reviews",
+                        },
+                    },
+                    {
+                        $lookup: {
+                            from: "users",
+                            localField: "instructors",
+                            foreignField: "_id",
+                            as: "instructors",
+                        },
+                    },
+                    {
+                        $lookup: {
+                            from: "categories",
+                            localField: "category",
+                            foreignField: "_id",
+                            as: "category",
+                        },
+                    },
+                    {
+                        $addFields: {
+                            rating: {
+                                $cond: {
+                                    if: { $gt: [{ $size: "$reviews" }, 0] },
+                                    then: { $avg: "$reviews.rating" },
+                                    else: 0,
+                                },
+                            },
+                            ratingCount: {
+                                $size: "$reviews",
+                            },
+                        },
+                    },
+                    {
+                        $project: {
+                            title: 1,
+                            thumbnail: 1,
+                            rating: 1,
+                            ratingCount: 1,
+                            level: 1,
+                            createdAt: 1,
+                            updatedAt: 1,
+                            students: 1,
+                            sub_title: 1,
+                            instructors: 1,
+                            demoVideo: 1,
+                            description: 1,
+                            prerequisites: 1,
+                            benefits: 1,
+                            category: 1
+                        },
+                    },
+                ];
+                const courses = yield course_1.default.aggregate(aggregationPipeline).exec();
                 const course = yield course_1.default.findOne({ _id: courseId })
                     .populate("instructors")
                     .populate("category", "_id title");
                 if (!course) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA, []);
                 }
-                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, course);
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, ...courses);
             }
             catch (error) {
                 console.log(error);
