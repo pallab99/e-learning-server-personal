@@ -242,66 +242,44 @@ class CourseContentClass {
     }
   }
 
-  // async changeVisibility(req: Request, res: Response) {
-  //   try {
-  //     const { contentId } = req.params;
-  //     const courseContent = await CourseContentService.findById(contentId);
-  //     const { type } = req.query;
-  //     console.log(type);
+  async disableCourseContent(req: Request, res: Response) {
+    try {
+      databaseLogger(req.originalUrl);
+      const { contentId } = req.params;
+      const content = await CourseContentService.findById(contentId);
+      if (!content.success) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.NOT_FOUND,
+          RESPONSE_MESSAGE.NO_DATA
+        );
+      }
 
-  //     if (!courseContent.success) {
-  //       return sendResponse(
-  //         res,
-  //         HTTP_STATUS.BAD_REQUEST,
-  //         RESPONSE_MESSAGE.NO_DATA
-  //       );
-  //     }
-  //     let result;
-  //     if (type === "enable") {
-  //       console.log("enable");
+      const updateDoc = await CourseContentModel.updateOne(
+        { _id: new mongoose.Types.ObjectId(contentId) },
+        { $set: { disable: true } }
+      );
 
-  //       result = await CourseSectionModel.findOneAndUpdate(
-  //         { _id: new mongoose.Types.ObjectId(courseSectionId) },
-  //         { isVisible: 1 }
-  //       );
-  //     } else {
-  //       result = await CourseSectionModel.findOneAndUpdate(
-  //         { _id: new mongoose.Types.ObjectId(courseSectionId) },
-  //         { isVisible: 0 }
-  //       );
-  //       console.log("disable");
-  //     }
-  //     if (!result) {
-  //       return sendResponse(
-  //         res,
-  //         HTTP_STATUS.BAD_REQUEST,
-  //         RESPONSE_MESSAGE.SOMETHING_WENT_WRONG
-  //       );
-  //     }
-  //     if (type?.toString() === "enable") {
-  //       return sendResponse(
-  //         res,
-  //         HTTP_STATUS.OK,
-  //         RESPONSE_MESSAGE.COURSE_SECTION_ENABLED,
-  //         result
-  //       );
-  //     }
-  //     return sendResponse(
-  //       res,
-  //       HTTP_STATUS.OK,
-  //       RESPONSE_MESSAGE.COURSE_SECTION_DISABLED,
-  //       result
-  //     );
-  //   } catch (error: any) {
-  //     console.log(error);
-  //     databaseLogger(error.message);
-  //     return sendResponse(
-  //       res,
-  //       HTTP_STATUS.INTERNAL_SERVER_ERROR,
-  //       RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR
-  //     );
-  //   }
-  // }
+      if (!updateDoc.modifiedCount) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.BAD_REQUEST,
+          RESPONSE_MESSAGE.SOMETHING_WENT_WRONG
+        );
+      }
+
+      return sendResponse(res, HTTP_STATUS.OK, RESPONSE_MESSAGE.DELETE_SUCCESS);
+      
+    } catch (error: any) {
+      console.log(error);
+      databaseLogger(error.message);
+      return sendResponse(
+        res,
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
 }
 
 const CourseContentController = new CourseContentClass();

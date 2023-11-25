@@ -33,7 +33,10 @@ class CourseSectionClassRepository {
     return await CourseSectionModel.find({
       course: new mongoose.Types.ObjectId(id),
     })
-      .populate("sectionContent")
+      .populate({
+        path: "sectionContent",
+        match: { disable: { $eq: false } },
+      })
       .populate("assignment")
       .populate("quiz");
   }
@@ -42,7 +45,11 @@ class CourseSectionClassRepository {
     return await CourseSectionModel.find({
       course: new mongoose.Types.ObjectId(id),
     })
-      .populate("sectionContent", "-contentUrl")
+      .populate({
+        path: "sectionContent",
+        match: { disable: { $eq: false } },
+        select: "-contentUrl",
+      })
       .populate("assignment", "-assignmentFileURL -point -instructions")
       .populate("quiz", "-questions");
   }

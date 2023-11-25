@@ -1,13 +1,15 @@
 import express from "express";
 import { upload } from "../../configs/file";
 import CourseContentController from "../../controllers/course-content";
+import {
+  isInstructor,
+  tokenAuthorization,
+} from "../../middlewares/tokenValidator";
 const router = express.Router();
 
 router
   .post(
     "/create/:courseId/:sectionId",
-    //   [...validator.createCourseSection],
-
     upload.single("file_to_upload"),
     CourseContentController.createCourseContent
   )
@@ -19,10 +21,12 @@ router
     "/update/:contentId",
     upload.single("file_to_upload"),
     CourseContentController.updateCourseContent
+  )
+  .patch(
+    "/disable/:contentId",
+    [tokenAuthorization, isInstructor],
+    CourseContentController.disableCourseContent
   );
-//   .get(
-//     "/getSectionCourseById/:courseId",
-//     CourseSectionController.getCourseSection
-//   )
+
 
 export default router;

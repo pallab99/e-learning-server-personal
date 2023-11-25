@@ -6,6 +6,7 @@ interface ICourseContentDocument extends Document {
   contentLength: number;
   course: Schema.Types.ObjectId;
   courseSection: Schema.Types.ObjectId;
+  disable?:boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -23,6 +24,11 @@ const courseContentSchema: Schema<ICourseContentDocument> =
       contentLength: {
         type: Number,
         required: true,
+      },
+      disable:{
+        type:Boolean,
+        required:false,
+        default:false
       },
       course: { type: Schema.Types.ObjectId, ref: "Course", required: true },
       courseSection: {

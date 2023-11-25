@@ -52,7 +52,10 @@ class CourseSectionClassRepository {
             return yield course_section_1.default.find({
                 course: new mongoose_1.default.Types.ObjectId(id),
             })
-                .populate("sectionContent")
+                .populate({
+                path: "sectionContent",
+                match: { disable: { $eq: false } },
+            })
                 .populate("assignment")
                 .populate("quiz");
         });
@@ -62,7 +65,11 @@ class CourseSectionClassRepository {
             return yield course_section_1.default.find({
                 course: new mongoose_1.default.Types.ObjectId(id),
             })
-                .populate("sectionContent", "-contentUrl")
+                .populate({
+                path: "sectionContent",
+                match: { disable: { $eq: false } },
+                select: "-contentUrl",
+            })
                 .populate("assignment", "-assignmentFileURL -point -instructions")
                 .populate("quiz", "-questions");
         });

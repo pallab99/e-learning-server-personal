@@ -148,6 +148,28 @@ class CourseContentClass {
             }
         });
     }
+    disableCourseContent(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                (0, dbLogger_1.databaseLogger)(req.originalUrl);
+                const { contentId } = req.params;
+                const content = yield course_content_1.default.findById(contentId);
+                if (!content.success) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
+                }
+                const updateDoc = yield courseContent_1.default.updateOne({ _id: new mongoose_1.default.Types.ObjectId(contentId) }, { $set: { disable: true } });
+                if (!updateDoc.modifiedCount) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
+                }
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.DELETE_SUCCESS);
+            }
+            catch (error) {
+                console.log(error);
+                (0, dbLogger_1.databaseLogger)(error.message);
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.INTERNAL_SERVER_ERROR, responseMessage_1.RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR);
+            }
+        });
+    }
 }
 const CourseContentController = new CourseContentClass();
 exports.default = CourseContentController;

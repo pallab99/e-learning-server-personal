@@ -37,6 +37,11 @@ const courseContentSchema = new mongoose_1.Schema({
         type: Number,
         required: true,
     },
+    disable: {
+        type: Boolean,
+        required: false,
+        default: false
+    },
     course: { type: mongoose_1.Schema.Types.ObjectId, ref: "Course", required: true },
     courseSection: {
         type: mongoose_1.Schema.Types.ObjectId,
