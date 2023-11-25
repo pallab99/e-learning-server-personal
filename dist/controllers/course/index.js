@@ -90,15 +90,23 @@ class CourseControllerClass {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
                 const { page, limit, search, instructors, category, filterCategory, filterLevel, filterTotalHours, type, value, sortValue, } = req.query;
                 const query = {};
+                const token = (_a = req === null || req === void 0 ? void 0 : req.cookies) === null || _a === void 0 ? void 0 : _a.accessToken;
                 // Pagination
-                if ((_a = req === null || req === void 0 ? void 0 : req.cookies) === null || _a === void 0 ? void 0 : _a.accessToken) {
-                    const { accessToken } = req.cookies;
-                    const token = accessToken;
+                if (token) {
                     const secretKey = process.env.ACCESS_TOKEN_SECRET;
                     const validate = jwt.verify(token, secretKey);
                     if (validate.rank === 1) {
                         console.log("admin");
-                        if (type || value) {
+                        if (!type || !value) {
+                            const result = yield course_1.default.find();
+                            if (!result) {
+                                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.NO_DATA, []);
+                            }
+                            return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, {
+                                courses: result,
+                            });
+                        }
+                        else if (type || value) {
                             if (type === "disable") {
                                 const result = yield course_1.default.find({ disable: true });
                                 if (!result) {
@@ -129,106 +137,209 @@ class CourseControllerClass {
                             }
                         }
                     }
-                }
-                const pageNumber = parseInt(page) || 1;
-                const pageSize = parseInt(limit) || 10;
-                const skip = (pageNumber - 1) * pageSize;
-                const filterCategoryArray = filterCategory
-                    ? filterCategory.split(",")
-                    : [];
-                const matchStage = (0, allcoursePipelinebuilder_1.buildMatchStage)(search, instructors, category, filterCategoryArray, filterLevel, filterTotalHours);
-                const aggregationPipeline = [
-                    {
-                        $lookup: {
-                            from: "categories",
-                            localField: "category",
-                            foreignField: "_id",
-                            as: "category",
-                        },
-                    },
-                    {
-                        $match: matchStage,
-                    },
-                    {
-                        $lookup: {
-                            from: "reviewratings",
-                            localField: "_id",
-                            foreignField: "course",
-                            as: "reviews",
-                        },
-                    },
-                    {
-                        $addFields: {
-                            rating: {
-                                $cond: {
-                                    if: { $gt: [{ $size: "$reviews" }, 0] },
-                                    then: { $avg: "$reviews.rating" },
-                                    else: 0,
+                    else {
+                        const pageNumber = parseInt(page) || 1;
+                        const pageSize = parseInt(limit) || 10;
+                        const skip = (pageNumber - 1) * pageSize;
+                        const filterCategoryArray = filterCategory
+                            ? filterCategory.split(",")
+                            : [];
+                        const matchStage = (0, allcoursePipelinebuilder_1.buildMatchStage)(search, instructors, category, filterCategoryArray, filterLevel, filterTotalHours);
+                        const aggregationPipeline = [
+                            {
+                                $lookup: {
+                                    from: "categories",
+                                    localField: "category",
+                                    foreignField: "_id",
+                                    as: "category",
                                 },
                             },
-                            ratingCount: {
-                                $size: "$reviews"
-                            }
+                            {
+                                $match: Object.assign(Object.assign({}, matchStage), { verified: true }),
+                            },
+                            {
+                                $lookup: {
+                                    from: "reviewratings",
+                                    localField: "_id",
+                                    foreignField: "course",
+                                    as: "reviews",
+                                },
+                            },
+                            {
+                                $addFields: {
+                                    rating: {
+                                        $cond: {
+                                            if: { $gt: [{ $size: "$reviews" }, 0] },
+                                            then: { $avg: "$reviews.rating" },
+                                            else: 0,
+                                        },
+                                    },
+                                    ratingCount: {
+                                        $size: "$reviews",
+                                    },
+                                },
+                            },
+                            {
+                                $project: {
+                                    title: 1,
+                                    thumbnail: 1,
+                                    rating: 1,
+                                    ratingCount: 1,
+                                    level: 1,
+                                    createdAt: 1,
+                                    updatedAt: 1,
+                                    students: 1,
+                                    category: {
+                                        $cond: {
+                                            if: { $ifNull: ["$category", false] },
+                                            then: { $arrayElemAt: ["$category.title", 0] },
+                                            else: null,
+                                        },
+                                    },
+                                },
+                            },
+                        ];
+                        // const result: any = await CourseModel.aggregate(aggregationPipeline);
+                        if (sortValue === "student") {
+                            aggregationPipeline.push({
+                                $sort: {
+                                    studentsCount: -1,
+                                },
+                            });
+                        }
+                        else if (sortValue === "latest") {
+                            aggregationPipeline.push({
+                                $sort: {
+                                    createdAt: -1,
+                                },
+                            });
+                        }
+                        else if (sortValue === "updated") {
+                            aggregationPipeline.push({
+                                $sort: {
+                                    updatedAt: -1,
+                                },
+                            });
+                        }
+                        else if (sortValue === "rating") {
+                            aggregationPipeline.push({
+                                $sort: {
+                                    rating: -1,
+                                },
+                            });
+                        }
+                        aggregationPipeline.push({ $skip: skip }, { $limit: pageSize });
+                        const courses = yield course_1.default.aggregate(aggregationPipeline).exec();
+                        const totalCourses = yield course_1.default.countDocuments(matchStage);
+                        return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, {
+                            courses,
+                            totalCourses,
+                            currentPage: pageNumber,
+                            totalPages: Math.ceil(totalCourses / pageSize),
+                        });
+                    }
+                }
+                else {
+                    const pageNumber = parseInt(page) || 1;
+                    const pageSize = parseInt(limit) || 10;
+                    const skip = (pageNumber - 1) * pageSize;
+                    const filterCategoryArray = filterCategory
+                        ? filterCategory.split(",")
+                        : [];
+                    const matchStage = (0, allcoursePipelinebuilder_1.buildMatchStage)(search, instructors, category, filterCategoryArray, filterLevel, filterTotalHours);
+                    const aggregationPipeline = [
+                        {
+                            $lookup: {
+                                from: "categories",
+                                localField: "category",
+                                foreignField: "_id",
+                                as: "category",
+                            },
                         },
-                    },
-                    {
-                        $project: {
-                            title: 1,
-                            thumbnail: 1,
-                            rating: 1,
-                            ratingCount: 1,
-                            level: 1,
-                            createdAt: 1,
-                            updatedAt: 1,
-                            category: {
-                                $cond: {
-                                    if: { $ifNull: ["$category", false] },
-                                    then: { $arrayElemAt: ["$category.title", 0] },
-                                    else: null,
+                        {
+                            $match: Object.assign(Object.assign({}, matchStage), { verified: true }),
+                        },
+                        {
+                            $lookup: {
+                                from: "reviewratings",
+                                localField: "_id",
+                                foreignField: "course",
+                                as: "reviews",
+                            },
+                        },
+                        {
+                            $addFields: {
+                                rating: {
+                                    $cond: {
+                                        if: { $gt: [{ $size: "$reviews" }, 0] },
+                                        then: { $avg: "$reviews.rating" },
+                                        else: 0,
+                                    },
+                                },
+                                ratingCount: {
+                                    $size: "$reviews",
                                 },
                             },
                         },
-                    },
-                ];
-                const result = yield course_1.default.aggregate(aggregationPipeline);
-                console.log(result);
-                if (sortValue === "student") {
-                    aggregationPipeline.push({
-                        $sort: {
-                            studentsCount: -1,
+                        {
+                            $project: {
+                                title: 1,
+                                thumbnail: 1,
+                                rating: 1,
+                                ratingCount: 1,
+                                level: 1,
+                                createdAt: 1,
+                                updatedAt: 1,
+                                students: 1,
+                                category: {
+                                    $cond: {
+                                        if: { $ifNull: ["$category", false] },
+                                        then: { $arrayElemAt: ["$category.title", 0] },
+                                        else: null,
+                                    },
+                                },
+                            },
                         },
+                    ];
+                    // const result: any = await CourseModel.aggregate(aggregationPipeline);
+                    if (sortValue === "student") {
+                        aggregationPipeline.push({
+                            $sort: {
+                                studentsCount: -1,
+                            },
+                        });
+                    }
+                    else if (sortValue === "latest") {
+                        aggregationPipeline.push({
+                            $sort: {
+                                createdAt: -1,
+                            },
+                        });
+                    }
+                    else if (sortValue === "updated") {
+                        aggregationPipeline.push({
+                            $sort: {
+                                updatedAt: -1,
+                            },
+                        });
+                    }
+                    else if (sortValue === "rating") {
+                        aggregationPipeline.push({
+                            $sort: {
+                                rating: -1,
+                            },
+                        });
+                    }
+                    aggregationPipeline.push({ $skip: skip }, { $limit: pageSize });
+                    const courses = yield course_1.default.aggregate(aggregationPipeline).exec();
+                    const totalCourses = yield course_1.default.countDocuments(matchStage);
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, {
+                        courses,
+                        totalCourses,
+                        currentPage: pageNumber,
+                        totalPages: Math.ceil(totalCourses / pageSize),
                     });
                 }
-                else if (sortValue === "latest") {
-                    aggregationPipeline.push({
-                        $sort: {
-                            createdAt: -1,
-                        },
-                    });
-                }
-                else if (sortValue === "updated") {
-                    aggregationPipeline.push({
-                        $sort: {
-                            updatedAt: -1,
-                        },
-                    });
-                }
-                else if (sortValue === "rating") {
-                    aggregationPipeline.push({
-                        $sort: {
-                            rating: -1,
-                        },
-                    });
-                }
-                aggregationPipeline.push({ $skip: skip }, { $limit: pageSize });
-                const courses = yield course_1.default.aggregate(aggregationPipeline).exec();
-                const totalCourses = yield course_1.default.countDocuments(matchStage);
-                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, {
-                    courses,
-                    totalCourses,
-                    currentPage: pageNumber,
-                    totalPages: Math.ceil(totalCourses / pageSize),
-                });
             }
             catch (error) {
                 console.log(error);
