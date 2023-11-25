@@ -10,6 +10,8 @@ import UserService from "../../services/user";
 import { databaseLogger } from "../../utils/dbLogger";
 import { sendResponse } from "../../utils/response";
 import { sendValidationError } from "../../utils/sendValidationError";
+import mongoose from "mongoose";
+import { UserModel } from "../../models/user";
 const path = require("path");
 const fs = require("fs");
 dotEnv.config();
@@ -294,6 +296,166 @@ class UserControllerClass {
           RESPONSE_MESSAGE.NO_DATA
         );
       }
+
+      // const aggregationPipeline = [
+      //   {
+      //     $match: {
+      //       _id: user?._id,
+      //     },
+      //   },
+      //   {
+      //     $unwind: "$enrolledCourses",
+      //   },
+      //   {
+      //     $lookup: {
+      //       from: "courses",
+      //       localField: "enrolledCourses",
+      //       foreignField: "_id",
+      //       as: "enrolledCourses",
+      //     },
+      //   },
+      //   {
+      //     $unwind: "$enrolledCourses",
+      //   },
+      //   {
+      //     $lookup: {
+      //       from: "reviewratings",
+      //       localField: "enrolledCourses._id",
+      //       foreignField: "course",
+      //       as: "enrolledCourses.ratings",
+      //     },
+      //   },
+      //   {
+      //     $unwind: "$enrolledCourses.ratings",
+      //   },
+      //   {
+      //     $lookup: {
+      //       from: "userprogresses",
+      //       localField: "enrolledCourses._id",
+      //       foreignField: "course",
+      //       as: "enrolledCourses.progress",
+      //     },
+      //   },
+      //   {
+      //     $unwind: "$enrolledCourses.progress",
+      //   },
+      //   {
+      //     $lookup: {
+      //       from: "coursesections",
+      //       localField: "enrolledCourses._id",
+      //       foreignField: "course",
+      //       as: "enrolledCourses.sections",
+      //     },
+      //   },
+      //   {
+      //     $unwind: "$enrolledCourses.sections",
+      //   },
+      //   {
+      //     $lookup: {
+      //       from: "coursecontents",
+      //       localField: "enrolledCourses.sections.sectionContent",
+      //       foreignField: "_id",
+      //       as: "enrolledCourses.sections.sectionContent",
+      //     },
+      //   },
+      //   {
+      //     $unwind: "$enrolledCourses.sections.sectionContent",
+      //   },
+      //   {
+      //     $group: {
+      //       _id: "$enrolledCourses._id",
+      //       title: { $first: "$enrolledCourses.title" },
+      //       level: { $first: "$enrolledCourses.level" },
+      //       averageRating: { $avg: "$enrolledCourses.ratings.rating" },
+      //       ratingCount: { $sum: 1 },
+      //       progress: {
+      //         $sum: {
+      //           $cond: [
+      //             {
+      //               $or: [
+      //                 {
+      //                   $in: [
+      //                     "$enrolledCourses.sections.sectionContent._id",
+      //                     "$enrolledCourses.progress.completedLessons",
+      //                   ],
+      //                 },
+      //                 {
+      //                   $in: [
+      //                     "$enrolledCourses.sections.assignment",
+      //                     "$enrolledCourses.progress.completedLessons",
+      //                   ],
+      //                 },
+      //                 {
+      //                   $in: [
+      //                     "$enrolledCourses.sections.quiz",
+      //                     "$enrolledCourses.progress.completedLessons",
+      //                   ],
+      //                 },
+      //               ],
+      //             },
+      //             1,
+      //             0,
+      //           ],
+      //         },
+      //       },
+      //       totalContent: {
+      //         $sum: {
+      //           $add: [
+      //             {
+      //               $cond: [
+      //                 { $isArray: "$enrolledCourses.sections.sectionContent" },
+      //                 { $size: "$enrolledCourses.sections.sectionContent" },
+      //                 0,
+      //               ],
+      //             },
+      //             {
+      //               $cond: [
+      //                 {
+      //                   $ifNull: [
+      //                     "$enrolledCourses.sections.assignment",
+      //                     false,
+      //                   ],
+      //                 },
+      //                 1,
+      //                 0,
+      //               ],
+      //             },
+      //             {
+      //               $cond: [
+      //                 { $ifNull: ["$enrolledCourses.sections.quiz", false] },
+      //                 1,
+      //                 0,
+      //               ],
+      //             },
+      //           ],
+      //         },
+      //       },
+      //     },
+      //   },
+      //   {
+      //     $project: {
+      //       _id: 1,
+      //       title: 1,
+      //       level: 1,
+      //       thumbnail:1,
+      //       averageRating: 1,
+      //       ratingCount: 1,
+      //       progress: {
+      //         $cond: {
+      //           if: { $ne: ["$totalContent", 0] }, // Check if totalContent is not zero
+      //           then: {
+      //             $multiply: [{ $divide: ["$progress", "$totalContent"] }, 100],
+      //           }, // Perform division
+      //           else: 0, // Return 0 if totalContent is zero to avoid division by zero
+      //         },
+      //       },
+      //     },
+      //   },
+      // ];
+
+      // const myLearnings = await UserModel.aggregate(aggregationPipeline).exec();
+      // console.log(myLearnings);
+
       const myLearning = await UserService.getMyLearning(user._id);
       if (!myLearning.success) {
         return sendResponse(
@@ -307,7 +469,7 @@ class UserControllerClass {
         res,
         HTTP_STATUS.OK,
         RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA,
-        myLearning.data
+        myLearning
       );
     } catch (error: any) {
       console.log(error);

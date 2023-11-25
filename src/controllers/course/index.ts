@@ -79,7 +79,7 @@ class CourseControllerClass {
             _id: new mongoose.Types.ObjectId(courseId),
           },
         },
-       
+
         {
           $lookup: {
             from: "reviewratings",
@@ -88,7 +88,7 @@ class CourseControllerClass {
             as: "reviews",
           },
         },
-       
+
         {
           $lookup: {
             from: "users", // Assuming "users" is the collection for the User model
@@ -119,7 +119,7 @@ class CourseControllerClass {
             },
           },
         },
-       
+
         {
           $project: {
             title: 1,
@@ -132,16 +132,15 @@ class CourseControllerClass {
             students: 1,
             sub_title: 1,
             instructors: 1,
-            demoVideo:1,
-            description:1,
-            prerequisites:1,
-            benefits:1,  
-            category: 1
+            demoVideo: 1,
+            description: 1,
+            prerequisites: 1,
+            benefits: 1,
+            category: 1,
           },
         },
-       ];
+      ];
       const courses = await CourseModel.aggregate(aggregationPipeline).exec();
-      
 
       const course = await CourseModel.findOne({ _id: courseId })
         .populate("instructors")
@@ -478,8 +477,6 @@ class CourseControllerClass {
           },
         ];
 
-        // const result: any = await CourseModel.aggregate(aggregationPipeline);
-
         if (sortValue === "student") {
           aggregationPipeline.push({
             $sort: {
@@ -775,7 +772,33 @@ class CourseControllerClass {
   // async userEnrolledInCourse(req:Request,res:Response)
   async requestForCoursePublish(req: Request, res: Response) {
     try {
-    } catch (error) {}
+      databaseLogger(req.originalUrl);
+      const { courseId } = req.params;
+      const course = await CourseModel.findOneAndUpdate(
+        { _id: new mongoose.Types.ObjectId(courseId) },
+        { verified: false }
+      );
+      if (!course?.isModified) {
+        return sendResponse(
+          res,
+          HTTP_STATUS.BAD_REQUEST,
+          RESPONSE_MESSAGE.SOMETHING_WENT_WRONG
+        );
+      }
+      return sendResponse(
+        res,
+        HTTP_STATUS.BAD_REQUEST,
+        RESPONSE_MESSAGE.SUBMIT_REQUEST_COURSE_PUBLICATION
+      );
+    } catch (error: any) {
+      console.log(error);
+      databaseLogger(error.message);
+      return sendResponse(
+        res,
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR
+      );
+    }
   }
 
   async courseBoughtByStudent(req: Request, res: Response) {

@@ -94,4 +94,5 @@ exports.RESPONSE_MESSAGE = {
     COURSE_SECTION_ENABLED: "Course section enabled successfully",
     COURSE_SECTION_DISABLED: "Course section disabled successfully",
     USER_PROGRESS_UPDATED: "Progress updated successfully",
+    SUBMIT_REQUEST_COURSE_PUBLICATION: "Submitted for course publications"
 };

@@ -46,6 +46,11 @@ router
     "/upload/thumbnail/:courseId",
     upload.single("file_to_upload"),
     CourseController.uploadThumbnail
+  )
+  .patch(
+    "/submit/course-review/:courseId",
+    [tokenAuthorization, isInstructor],
+    CourseController.requestForCoursePublish
   );
 
 export default router;

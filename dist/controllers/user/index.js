@@ -201,11 +201,168 @@ class UserControllerClass {
                 if (!user) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.NO_DATA);
                 }
+                // const aggregationPipeline = [
+                //   {
+                //     $match: {
+                //       _id: user?._id,
+                //     },
+                //   },
+                //   {
+                //     $unwind: "$enrolledCourses",
+                //   },
+                //   {
+                //     $lookup: {
+                //       from: "courses",
+                //       localField: "enrolledCourses",
+                //       foreignField: "_id",
+                //       as: "enrolledCourses",
+                //     },
+                //   },
+                //   {
+                //     $unwind: "$enrolledCourses",
+                //   },
+                //   {
+                //     $lookup: {
+                //       from: "reviewratings",
+                //       localField: "enrolledCourses._id",
+                //       foreignField: "course",
+                //       as: "enrolledCourses.ratings",
+                //     },
+                //   },
+                //   {
+                //     $unwind: "$enrolledCourses.ratings",
+                //   },
+                //   {
+                //     $lookup: {
+                //       from: "userprogresses",
+                //       localField: "enrolledCourses._id",
+                //       foreignField: "course",
+                //       as: "enrolledCourses.progress",
+                //     },
+                //   },
+                //   {
+                //     $unwind: "$enrolledCourses.progress",
+                //   },
+                //   {
+                //     $lookup: {
+                //       from: "coursesections",
+                //       localField: "enrolledCourses._id",
+                //       foreignField: "course",
+                //       as: "enrolledCourses.sections",
+                //     },
+                //   },
+                //   {
+                //     $unwind: "$enrolledCourses.sections",
+                //   },
+                //   {
+                //     $lookup: {
+                //       from: "coursecontents",
+                //       localField: "enrolledCourses.sections.sectionContent",
+                //       foreignField: "_id",
+                //       as: "enrolledCourses.sections.sectionContent",
+                //     },
+                //   },
+                //   {
+                //     $unwind: "$enrolledCourses.sections.sectionContent",
+                //   },
+                //   {
+                //     $group: {
+                //       _id: "$enrolledCourses._id",
+                //       title: { $first: "$enrolledCourses.title" },
+                //       level: { $first: "$enrolledCourses.level" },
+                //       averageRating: { $avg: "$enrolledCourses.ratings.rating" },
+                //       ratingCount: { $sum: 1 },
+                //       progress: {
+                //         $sum: {
+                //           $cond: [
+                //             {
+                //               $or: [
+                //                 {
+                //                   $in: [
+                //                     "$enrolledCourses.sections.sectionContent._id",
+                //                     "$enrolledCourses.progress.completedLessons",
+                //                   ],
+                //                 },
+                //                 {
+                //                   $in: [
+                //                     "$enrolledCourses.sections.assignment",
+                //                     "$enrolledCourses.progress.completedLessons",
+                //                   ],
+                //                 },
+                //                 {
+                //                   $in: [
+                //                     "$enrolledCourses.sections.quiz",
+                //                     "$enrolledCourses.progress.completedLessons",
+                //                   ],
+                //                 },
+                //               ],
+                //             },
+                //             1,
+                //             0,
+                //           ],
+                //         },
+                //       },
+                //       totalContent: {
+                //         $sum: {
+                //           $add: [
+                //             {
+                //               $cond: [
+                //                 { $isArray: "$enrolledCourses.sections.sectionContent" },
+                //                 { $size: "$enrolledCourses.sections.sectionContent" },
+                //                 0,
+                //               ],
+                //             },
+                //             {
+                //               $cond: [
+                //                 {
+                //                   $ifNull: [
+                //                     "$enrolledCourses.sections.assignment",
+                //                     false,
+                //                   ],
+                //                 },
+                //                 1,
+                //                 0,
+                //               ],
+                //             },
+                //             {
+                //               $cond: [
+                //                 { $ifNull: ["$enrolledCourses.sections.quiz", false] },
+                //                 1,
+                //                 0,
+                //               ],
+                //             },
+                //           ],
+                //         },
+                //       },
+                //     },
+                //   },
+                //   {
+                //     $project: {
+                //       _id: 1,
+                //       title: 1,
+                //       level: 1,
+                //       thumbnail:1,
+                //       averageRating: 1,
+                //       ratingCount: 1,
+                //       progress: {
+                //         $cond: {
+                //           if: { $ne: ["$totalContent", 0] }, // Check if totalContent is not zero
+                //           then: {
+                //             $multiply: [{ $divide: ["$progress", "$totalContent"] }, 100],
+                //           }, // Perform division
+                //           else: 0, // Return 0 if totalContent is zero to avoid division by zero
+                //         },
+                //       },
+                //     },
+                //   },
+                // ];
+                // const myLearnings = await UserModel.aggregate(aggregationPipeline).exec();
+                // console.log(myLearnings);
                 const myLearning = yield user_2.default.getMyLearning(user._id);
                 if (!myLearning.success) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, []);
                 }
-                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, myLearning.data);
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.OK, responseMessage_1.RESPONSE_MESSAGE.SUCCESSFULLY_GET_ALL_DATA, myLearning);
             }
             catch (error) {
                 console.log(error);

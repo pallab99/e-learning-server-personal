@@ -38122,3 +38122,1461 @@ Cast to ObjectId failed for value "web devlopment" (type string) at path "catego
 
 /api/course-section/getSectionCourseById/655c1580429f642c2968cdbb  ( Time -> November 25, 2023 7:09 PM)
 
+/api/cart/details  ( Time -> November 25, 2023 8:52 PM)
+
+/api/wishlist/course-available/655c1580429f642c2968cdbb  ( Time -> November 25, 2023 8:52 PM)
+
+/api/user-progress/student/details/655c1580429f642c2968cdbb  ( Time -> November 25, 2023 8:52 PM)
+
+/api/course/student-bought/655c1580429f642c2968cdbb  ( Time -> November 25, 2023 8:52 PM)
+
+/api/course-section/getSectionCourseById/655c1580429f642c2968cdbb  ( Time -> November 25, 2023 8:52 PM)
+
+/api/review-rating/all/655c1580429f642c2968cdbb  ( Time -> November 25, 2023 8:52 PM)
+
+/api/course/getCourseById/655c1580429f642c2968cdbb  ( Time -> November 25, 2023 8:52 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 8:52 PM)
+
+/api/wishlist/course-available/655c1580429f642c2968cdbb  ( Time -> November 25, 2023 8:52 PM)
+
+/api/user-progress/student/details/655c1580429f642c2968cdbb  ( Time -> November 25, 2023 8:52 PM)
+
+/api/course/student-bought/655c1580429f642c2968cdbb  ( Time -> November 25, 2023 8:52 PM)
+
+/api/course-section/getSectionCourseById/655c1580429f642c2968cdbb  ( Time -> November 25, 2023 8:52 PM)
+
+/api/user/me  ( Time -> November 25, 2023 8:52 PM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 25, 2023 8:52 PM)
+
+/api/category/all  ( Time -> November 25, 2023 8:52 PM)
+
+/api/course/all?page=1&limit=10&filterCategory=web%20devlopment  ( Time -> November 25, 2023 8:53 PM)
+
+/api/course/all?page=1&limit=10&filterCategory=web%20devlopment,aws  ( Time -> November 25, 2023 8:53 PM)
+
+/api/course/all?page=1&limit=10&search=react&filterCategory=web%20devlopment,aws  ( Time -> November 25, 2023 8:53 PM)
+
+/api/course/all?page=1&limit=10&search=react&filterLevel=intermediate&filterCategory=web%20devlopment,aws  ( Time -> November 25, 2023 8:53 PM)
+
+/api/course/all?page=1&limit=10&search=react&filterLevel=intermediate&sortValue=rating&filterCategory=web%20devlopment,aws  ( Time -> November 25, 2023 8:53 PM)
+
+/api/course/all?page=1&limit=10&search=react&filterLevel=intermediate&filterCategory=web%20devlopment,aws  ( Time -> November 25, 2023 8:53 PM)
+
+/api/course/all?page=1&limit=10&search=react&filterCategory=web%20devlopment,aws  ( Time -> November 25, 2023 8:53 PM)
+
+/api/course/all?page=1&limit=10&search=react&filterCategory=web%20devlopment  ( Time -> November 25, 2023 8:53 PM)
+
+/api/course/all?page=1&limit=10&search=react  ( Time -> November 25, 2023 8:54 PM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 25, 2023 8:54 PM)
+
+/api/course-section/getSectionCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 8:54 PM)
+
+/api/review-rating/all/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 8:54 PM)
+
+/api/course/getCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 8:54 PM)
+
+/api/course-section/getSectionCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 8:54 PM)
+
+/api/review-rating/all/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 8:54 PM)
+
+/api/course-section/getSectionCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 8:54 PM)
+
+/api/course/getCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 8:54 PM)
+
+/api/course-section/getSectionCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 8:54 PM)
+
+/api/category/all  ( Time -> November 25, 2023 8:54 PM)
+
+/api/course/all?page=1&limit=3  ( Time -> November 25, 2023 8:54 PM)
+
+/api/course/all?page=2&limit=3  ( Time -> November 25, 2023 8:54 PM)
+
+/api/course/all?page=1&limit=3  ( Time -> November 25, 2023 8:54 PM)
+
+/api/course/all?page=2&limit=3  ( Time -> November 25, 2023 8:55 PM)
+
+/api/course/all?page=1&limit=3  ( Time -> November 25, 2023 8:55 PM)
+
+/api/course/all?page=1&limit=3&filterCategory=nodejs  ( Time -> November 25, 2023 8:55 PM)
+
+/api/course/all?page=1&limit=3  ( Time -> November 25, 2023 8:55 PM)
+
+/api/course/all?page=1&limit=3&filterCategory=expressjs  ( Time -> November 25, 2023 8:55 PM)
+
+/api/course/all?page=1&limit=3  ( Time -> November 25, 2023 8:55 PM)
+
+/api/category/all  ( Time -> November 25, 2023 8:55 PM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 25, 2023 8:55 PM)
+
+/api/review-rating/all/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 8:55 PM)
+
+/api/course-section/getSectionCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 8:55 PM)
+
+/api/course/getCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 8:55 PM)
+
+/api/course-section/getSectionCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 8:55 PM)
+
+/api/auth/sign-in  ( Time -> November 25, 2023 8:56 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 8:56 PM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 25, 2023 8:56 PM)
+
+/api/category/all  ( Time -> November 25, 2023 8:56 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 8:56 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 8:56 PM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 25, 2023 8:56 PM)
+
+/api/category/all  ( Time -> November 25, 2023 8:56 PM)
+
+/api/wishlist/course-available/655c623a2d48ce4e50e0ab44  ( Time -> November 25, 2023 8:56 PM)
+
+/api/course/student-bought/655c623a2d48ce4e50e0ab44  ( Time -> November 25, 2023 8:56 PM)
+
+/api/user-progress/student/details/655c623a2d48ce4e50e0ab44  ( Time -> November 25, 2023 8:56 PM)
+
+/api/course-section/getSectionCourseById/655c623a2d48ce4e50e0ab44  ( Time -> November 25, 2023 8:56 PM)
+
+/api/review-rating/all/655c623a2d48ce4e50e0ab44  ( Time -> November 25, 2023 8:56 PM)
+
+/api/course/getCourseById/655c623a2d48ce4e50e0ab44  ( Time -> November 25, 2023 8:56 PM)
+
+/api/wishlist/course-available/655c623a2d48ce4e50e0ab44  ( Time -> November 25, 2023 8:56 PM)
+
+/api/course-section/getSectionCourseById/655c623a2d48ce4e50e0ab44  ( Time -> November 25, 2023 8:56 PM)
+
+/api/user-progress/student/details/655c623a2d48ce4e50e0ab44  ( Time -> November 25, 2023 8:56 PM)
+
+/api/course/student-bought/655c623a2d48ce4e50e0ab44  ( Time -> November 25, 2023 8:56 PM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 25, 2023 8:56 PM)
+
+/api/category/all  ( Time -> November 25, 2023 8:56 PM)
+
+/api/wishlist/course-available/655d6209034e9088f0a93835  ( Time -> November 25, 2023 8:56 PM)
+
+/api/user-progress/student/details/655d6209034e9088f0a93835  ( Time -> November 25, 2023 8:56 PM)
+
+/api/course/student-bought/655d6209034e9088f0a93835  ( Time -> November 25, 2023 8:56 PM)
+
+/api/course-section/getSectionCourseById/655d6209034e9088f0a93835  ( Time -> November 25, 2023 8:56 PM)
+
+/api/review-rating/all/655d6209034e9088f0a93835  ( Time -> November 25, 2023 8:56 PM)
+
+/api/course/getCourseById/655d6209034e9088f0a93835  ( Time -> November 25, 2023 8:56 PM)
+
+/api/wishlist/course-available/655d6209034e9088f0a93835  ( Time -> November 25, 2023 8:56 PM)
+
+/api/user-progress/student/details/655d6209034e9088f0a93835  ( Time -> November 25, 2023 8:56 PM)
+
+/api/course-section/getSectionCourseById/655d6209034e9088f0a93835  ( Time -> November 25, 2023 8:56 PM)
+
+/api/course/student-bought/655d6209034e9088f0a93835  ( Time -> November 25, 2023 8:56 PM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 25, 2023 8:56 PM)
+
+/api/category/all  ( Time -> November 25, 2023 8:56 PM)
+
+/api/wishlist/course-available/65619601404663abb314f93d  ( Time -> November 25, 2023 8:56 PM)
+
+/api/course-section/getSectionCourseById/65619601404663abb314f93d  ( Time -> November 25, 2023 8:56 PM)
+
+/api/user-progress/student/details/65619601404663abb314f93d  ( Time -> November 25, 2023 8:56 PM)
+
+/api/course/student-bought/65619601404663abb314f93d  ( Time -> November 25, 2023 8:56 PM)
+
+/api/review-rating/all/65619601404663abb314f93d  ( Time -> November 25, 2023 8:56 PM)
+
+/api/course/getCourseById/65619601404663abb314f93d  ( Time -> November 25, 2023 8:56 PM)
+
+/api/wishlist/course-available/65619601404663abb314f93d  ( Time -> November 25, 2023 8:56 PM)
+
+/api/user-progress/student/details/65619601404663abb314f93d  ( Time -> November 25, 2023 8:56 PM)
+
+/api/course-section/getSectionCourseById/65619601404663abb314f93d  ( Time -> November 25, 2023 8:56 PM)
+
+/api/course/student-bought/65619601404663abb314f93d  ( Time -> November 25, 2023 8:56 PM)
+
+/api/review-rating/create/65619601404663abb314f93d  ( Time -> November 25, 2023 8:57 PM)
+
+/api/review-rating/all/65619601404663abb314f93d  ( Time -> November 25, 2023 8:57 PM)
+
+/api/cart/create  ( Time -> November 25, 2023 8:57 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 8:57 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 8:57 PM)
+
+/api/cart/update  ( Time -> November 25, 2023 8:57 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 8:57 PM)
+
+/api/wishlist/create  ( Time -> November 25, 2023 8:57 PM)
+
+/api/wishlist/course-available/65619601404663abb314f93d  ( Time -> November 25, 2023 8:57 PM)
+
+/api/wishlist/details  ( Time -> November 25, 2023 8:57 PM)
+
+/api/wishlist/update  ( Time -> November 25, 2023 8:57 PM)
+
+/api/wishlist/details  ( Time -> November 25, 2023 8:57 PM)
+
+/api/cart/create  ( Time -> November 25, 2023 8:57 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 8:57 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 8:57 PM)
+
+/api/subscription/create  ( Time -> November 25, 2023 8:57 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 8:57 PM)
+
+/api/auth/sign-in  ( Time -> November 25, 2023 8:57 PM)
+
+/api/course/all  ( Time -> November 25, 2023 8:58 PM)
+
+/api/course/all?type=verified&value=true  ( Time -> November 25, 2023 8:58 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 25, 2023 8:58 PM)
+
+/api/course/all?type=verified&value=true  ( Time -> November 25, 2023 8:58 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 25, 2023 8:58 PM)
+
+/api/course/all?type=disable  ( Time -> November 25, 2023 8:58 PM)
+
+/api/course/all?type=verified&value=all  ( Time -> November 25, 2023 8:58 PM)
+
+/api/subscription/all  ( Time -> November 25, 2023 8:58 PM)
+
+/api/subscription/accept-subscription/65620b65e7fb6e19ed732a84/65619601404663abb314f93d  ( Time -> November 25, 2023 8:59 PM)
+
+/api/subscription/all  ( Time -> November 25, 2023 8:59 PM)
+
+/api/user/students/all  ( Time -> November 25, 2023 8:59 PM)
+
+/api/user/instructor/all  ( Time -> November 25, 2023 8:59 PM)
+
+/api/auth/sign-in  ( Time -> November 25, 2023 8:59 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 8:59 PM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 25, 2023 8:59 PM)
+
+/api/category/all  ( Time -> November 25, 2023 8:59 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 8:59 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 8:59 PM)
+
+/api/user-progress/student/details/65619601404663abb314f93d  ( Time -> November 25, 2023 8:59 PM)
+
+/api/course/student-bought/65619601404663abb314f93d  ( Time -> November 25, 2023 8:59 PM)
+
+/api/course-section/getSectionCourseById/65619601404663abb314f93d  ( Time -> November 25, 2023 8:59 PM)
+
+/api/wishlist/course-available/65619601404663abb314f93d  ( Time -> November 25, 2023 8:59 PM)
+
+/api/review-rating/all/65619601404663abb314f93d  ( Time -> November 25, 2023 8:59 PM)
+
+/api/course/getCourseById/65619601404663abb314f93d  ( Time -> November 25, 2023 8:59 PM)
+
+/api/wishlist/course-available/65619601404663abb314f93d  ( Time -> November 25, 2023 8:59 PM)
+
+/api/user-progress/student/details/65619601404663abb314f93d  ( Time -> November 25, 2023 8:59 PM)
+
+/api/course/student-bought/65619601404663abb314f93d  ( Time -> November 25, 2023 8:59 PM)
+
+/api/course-section/getSectionCourseById/65619601404663abb314f93d  ( Time -> November 25, 2023 8:59 PM)
+
+/api/qna/all/details/65619601404663abb314f93d  ( Time -> November 25, 2023 8:59 PM)
+
+/api/user-progress/create  ( Time -> November 25, 2023 9:00 PM)
+
+/api/user-progress/student/details/65619601404663abb314f93d  ( Time -> November 25, 2023 9:00 PM)
+
+/api/user-progress/create  ( Time -> November 25, 2023 9:00 PM)
+
+/api/user-progress/student/details/65619601404663abb314f93d  ( Time -> November 25, 2023 9:00 PM)
+
+/api/review-rating/create/65619601404663abb314f93d  ( Time -> November 25, 2023 9:00 PM)
+
+/api/review-rating/all/65619601404663abb314f93d  ( Time -> November 25, 2023 9:00 PM)
+
+/api/review-rating/update/65620c17e7fb6e19ed732ae0  ( Time -> November 25, 2023 9:00 PM)
+
+/api/review-rating/all/65619601404663abb314f93d  ( Time -> November 25, 2023 9:00 PM)
+
+/api/review-rating/delete/65619601404663abb314f93d/65620c17e7fb6e19ed732ae0  ( Time -> November 25, 2023 9:01 PM)
+
+/api/review-rating/all/65619601404663abb314f93d  ( Time -> November 25, 2023 9:01 PM)
+
+/api/qna/all/details/65619601404663abb314f93d  ( Time -> November 25, 2023 9:01 PM)
+
+/api/qna/create/question  ( Time -> November 25, 2023 9:01 PM)
+
+/api/qna/all/details/65619601404663abb314f93d  ( Time -> November 25, 2023 9:01 PM)
+
+/api/course-section/getSectionCourseById/655c1580429f642c2968cdbb  ( Time -> November 25, 2023 9:01 PM)
+
+/api/review-rating/all/655c1580429f642c2968cdbb  ( Time -> November 25, 2023 9:01 PM)
+
+/api/course/getCourseById/655c1580429f642c2968cdbb  ( Time -> November 25, 2023 9:01 PM)
+
+/api/course-section/getSectionCourseById/655c1580429f642c2968cdbb  ( Time -> November 25, 2023 9:01 PM)
+
+/api/auth/sign-in  ( Time -> November 25, 2023 9:02 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 9:02 PM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 25, 2023 9:02 PM)
+
+/api/category/all  ( Time -> November 25, 2023 9:02 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 9:02 PM)
+
+/api/course-section/getSectionCourseById/655c1580429f642c2968cdbb  ( Time -> November 25, 2023 9:02 PM)
+
+/api/review-rating/all/655c1580429f642c2968cdbb  ( Time -> November 25, 2023 9:02 PM)
+
+/api/course/getCourseById/655c1580429f642c2968cdbb  ( Time -> November 25, 2023 9:02 PM)
+
+/api/course-section/getSectionCourseById/655c1580429f642c2968cdbb  ( Time -> November 25, 2023 9:02 PM)
+
+/api/auth/sign-in  ( Time -> November 25, 2023 9:02 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 9:02 PM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 25, 2023 9:02 PM)
+
+/api/category/all  ( Time -> November 25, 2023 9:02 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 9:02 PM)
+
+/api/auth/sign-in  ( Time -> November 25, 2023 9:03 PM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 25, 2023 9:03 PM)
+
+/api/category/all  ( Time -> November 25, 2023 9:03 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 9:03 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 9:03 PM)
+
+/api/wishlist/course-available/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/course-section/getSectionCourseById/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/course/student-bought/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/user-progress/student/details/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/review-rating/all/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/course/getCourseById/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/wishlist/course-available/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/course-section/getSectionCourseById/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/course/student-bought/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/user-progress/student/details/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/qna/all/details/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/wishlist/course-available/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/course/student-bought/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/course-section/getSectionCourseById/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/user-progress/student/details/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/review-rating/all/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/course/getCourseById/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/wishlist/course-available/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/course-section/getSectionCourseById/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/course/student-bought/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/user-progress/student/details/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/qna/all/details/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/qna/update/question/reply/65620c39e7fb6e19ed732af7  ( Time -> November 25, 2023 9:04 PM)
+
+/api/qna/all/details/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/qna/update/question/reply/65619601404663abb314f93d/65620c39e7fb6e19ed732af7/65620cfbe7fb6e19ed732b72  ( Time -> November 25, 2023 9:04 PM)
+
+/api/qna/all/details/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 9:04 PM)
+
+/api/wishlist/course-available/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/course-section/getSectionCourseById/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/user-progress/student/details/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/review-rating/all/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/course/getCourseById/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/course/student-bought/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 9:04 PM)
+
+/api/wishlist/course-available/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/user-progress/student/details/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/course-section/getSectionCourseById/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/course/student-bought/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/qna/all/details/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/qna/delete/question/65619601404663abb314f93d/65620c39e7fb6e19ed732af6/65620c39e7fb6e19ed732af7  ( Time -> November 25, 2023 9:04 PM)
+
+/api/qna/all/details/65619601404663abb314f93d  ( Time -> November 25, 2023 9:04 PM)
+
+/api/qna/all/details/65619601404663abb314f93d  ( Time -> November 25, 2023 9:05 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 9:05 PM)
+
+/api/wishlist/course-available/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:05 PM)
+
+/api/course/student-bought/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:05 PM)
+
+/api/course-section/getSectionCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:05 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:05 PM)
+
+/api/review-rating/all/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:05 PM)
+
+/api/course/getCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:05 PM)
+
+/api/course/student-bought/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:05 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:05 PM)
+
+/api/wishlist/course-available/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:05 PM)
+
+/api/assignment/submit/user/65598f18ae9434dd4701cef8/655d9bdf57ea185643bf48a5  ( Time -> November 25, 2023 9:05 PM)
+
+/api/assignment/details/course/section/assignment/65598f18ae9434dd4701cef8/6559c1b916670f659e81e3ee/655d9bdf57ea185643bf48a5  ( Time -> November 25, 2023 9:05 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 9:05 PM)
+
+/api/assignment/submit/user/65598f18ae9434dd4701cef8/655d9bdf57ea185643bf48a5  ( Time -> November 25, 2023 9:05 PM)
+
+/api/assignment/details/course/section/assignment/65598f18ae9434dd4701cef8/6559c1b916670f659e81e3ee/655d9bdf57ea185643bf48a5  ( Time -> November 25, 2023 9:05 PM)
+
+/api/assignment/submit/65598f18ae9434dd4701cef8/6559c1b916670f659e81e3ee/655d9bdf57ea185643bf48a5  ( Time -> November 25, 2023 9:06 PM)
+
+/api/assignment/submit/user/65598f18ae9434dd4701cef8/655d9bdf57ea185643bf48a5  ( Time -> November 25, 2023 9:06 PM)
+
+/api/assignment/details/course/section/assignment/65598f18ae9434dd4701cef8/6559c1b916670f659e81e3ee/655d9bdf57ea185643bf48a5  ( Time -> November 25, 2023 9:06 PM)
+
+/api/wishlist/course-available/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:06 PM)
+
+/api/course/student-bought/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:06 PM)
+
+/api/course-section/getSectionCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:06 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:06 PM)
+
+/api/review-rating/all/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:06 PM)
+
+/api/course/getCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:06 PM)
+
+/api/wishlist/course-available/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:06 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:06 PM)
+
+/api/course-section/getSectionCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:06 PM)
+
+/api/course/student-bought/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:06 PM)
+
+/api/auth/sign-in  ( Time -> November 25, 2023 9:06 PM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 25, 2023 9:06 PM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 25, 2023 9:06 PM)
+
+/api/assignment/all/course/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:06 PM)
+
+/api/assignment/submit/details/65598f18ae9434dd4701cef8/655d9bdf57ea185643bf48a5  ( Time -> November 25, 2023 9:06 PM)
+
+/api/assignment/assessment/create/655d9bdf57ea185643bf48a5/65620d5be7fb6e19ed732bdb  ( Time -> November 25, 2023 9:07 PM)
+
+/api/assignment/submit/details/65598f18ae9434dd4701cef8/655d9bdf57ea185643bf48a5  ( Time -> November 25, 2023 9:07 PM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 25, 2023 9:07 PM)
+
+/api/auth/sign-in  ( Time -> November 25, 2023 9:07 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 9:08 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 9:08 PM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 25, 2023 9:08 PM)
+
+/api/category/all  ( Time -> November 25, 2023 9:08 PM)
+
+/api/wishlist/course-available/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:08 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:08 PM)
+
+/api/course-section/getSectionCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:08 PM)
+
+/api/review-rating/all/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:08 PM)
+
+/api/course/student-bought/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:08 PM)
+
+/api/course/getCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:08 PM)
+
+/api/wishlist/course-available/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:08 PM)
+
+/api/course/student-bought/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:08 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:08 PM)
+
+/api/course-section/getSectionCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:08 PM)
+
+/api/assignment/submit/user/65598f18ae9434dd4701cef8/655d9bdf57ea185643bf48a5  ( Time -> November 25, 2023 9:08 PM)
+
+/api/assignment/details/course/section/assignment/65598f18ae9434dd4701cef8/6559c1b916670f659e81e3ee/655d9bdf57ea185643bf48a5  ( Time -> November 25, 2023 9:08 PM)
+
+/api/assignment/details/course/section/assignment/65598f18ae9434dd4701cef8/6559c1b916670f659e81e3ee/655d9bdf57ea185643bf48a5  ( Time -> November 25, 2023 9:08 PM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 25, 2023 9:08 PM)
+
+/api/category/all  ( Time -> November 25, 2023 9:08 PM)
+
+/api/wishlist/course-available/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:08 PM)
+
+/api/course/student-bought/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:08 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:08 PM)
+
+/api/course-section/getSectionCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:08 PM)
+
+/api/review-rating/all/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:08 PM)
+
+/api/course/getCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:08 PM)
+
+/api/wishlist/course-available/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:08 PM)
+
+/api/course/student-bought/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:08 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:08 PM)
+
+/api/course-section/getSectionCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:08 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 9:09 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 9:09 PM)
+
+/api/quiz-submit/submit/6559c1d716670f659e81e3f4  ( Time -> November 25, 2023 9:09 PM)
+
+/api/user/me  ( Time -> November 25, 2023 9:09 PM)
+
+/api/user/update  ( Time -> November 25, 2023 9:09 PM)
+
+/api/user/me  ( Time -> November 25, 2023 9:09 PM)
+
+/api/user/me  ( Time -> November 25, 2023 9:09 PM)
+
+/api/user/me  ( Time -> November 25, 2023 9:10 PM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 25, 2023 9:10 PM)
+
+/api/category/all  ( Time -> November 25, 2023 9:10 PM)
+
+/api/wishlist/course-available/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:10 PM)
+
+/api/course-section/getSectionCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:10 PM)
+
+/api/course/student-bought/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:10 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:10 PM)
+
+/api/review-rating/all/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:10 PM)
+
+/api/course/getCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:10 PM)
+
+/api/course/student-bought/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:10 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:10 PM)
+
+/api/wishlist/course-available/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:10 PM)
+
+/api/course-section/getSectionCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:10 PM)
+
+/api/user-progress/create  ( Time -> November 25, 2023 9:10 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:10 PM)
+
+/api/user-progress/create  ( Time -> November 25, 2023 9:10 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:10 PM)
+
+/api/user-progress/create  ( Time -> November 25, 2023 9:10 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:10 PM)
+
+/api/user-progress/create  ( Time -> November 25, 2023 9:10 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:10 PM)
+
+/api/user-progress/create  ( Time -> November 25, 2023 9:10 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:10 PM)
+
+/api/user-progress/create  ( Time -> November 25, 2023 9:10 PM)
+
+/api/user-progress/create  ( Time -> November 25, 2023 9:10 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:10 PM)
+
+/api/user-progress/create  ( Time -> November 25, 2023 9:11 PM)
+
+/api/user-progress/create  ( Time -> November 25, 2023 9:11 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:11 PM)
+
+/api/user-progress/create  ( Time -> November 25, 2023 9:11 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:11 PM)
+
+/api/user-progress/create  ( Time -> November 25, 2023 9:11 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:11 PM)
+
+/api/user-progress/create  ( Time -> November 25, 2023 9:11 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:11 PM)
+
+/api/user-progress/create  ( Time -> November 25, 2023 9:11 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:12 PM)
+
+/api/user-progress/create  ( Time -> November 25, 2023 9:12 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:12 PM)
+
+/api/user-progress/create  ( Time -> November 25, 2023 9:12 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:12 PM)
+
+/api/qna/all/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:12 PM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 25, 2023 9:12 PM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 25, 2023 9:12 PM)
+
+/api/course/all/instructor?searchTerm=react  ( Time -> November 25, 2023 9:13 PM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 25, 2023 9:13 PM)
+
+/api/category/all  ( Time -> November 25, 2023 9:13 PM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 25, 2023 9:14 PM)
+
+/api/category/all  ( Time -> November 25, 2023 9:14 PM)
+
+/api/course-section/getSectionCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:14 PM)
+
+/api/review-rating/all/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:14 PM)
+
+/api/course/getCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:14 PM)
+
+/api/course-section/getSectionCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 9:14 PM)
+
+/api/course/create  ( Time -> November 25, 2023 9:15 PM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 25, 2023 9:15 PM)
+
+/api/course/getCourseById/65620f95e7fb6e19ed732d57  ( Time -> November 25, 2023 9:15 PM)
+
+/api/category/all  ( Time -> November 25, 2023 9:15 PM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 25, 2023 9:15 PM)
+
+/api/category/all  ( Time -> November 25, 2023 9:15 PM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 25, 2023 9:15 PM)
+
+/api/category/all  ( Time -> November 25, 2023 9:15 PM)
+
+/api/course/getCourseById/65620f95e7fb6e19ed732d57  ( Time -> November 25, 2023 9:16 PM)
+
+/api/course/getCourseById/65620f95e7fb6e19ed732d57  ( Time -> November 25, 2023 9:16 PM)
+
+/api/course-section/getSectionCourseById/65620f95e7fb6e19ed732d57  ( Time -> November 25, 2023 9:16 PM)
+
+/api/course-section/create/65620f95e7fb6e19ed732d57  ( Time -> November 25, 2023 9:17 PM)
+
+/api/course-section/getSectionCourseById/65620f95e7fb6e19ed732d57  ( Time -> November 25, 2023 9:17 PM)
+
+/api/course-section/getSectionCourseById/65620f95e7fb6e19ed732d57  ( Time -> November 25, 2023 9:17 PM)
+
+/api/course-content/create/65620f95e7fb6e19ed732d57/65620feee7fb6e19ed732d73  ( Time -> November 25, 2023 9:18 PM)
+
+/api/course-section/getSectionCourseById/65620f95e7fb6e19ed732d57  ( Time -> November 25, 2023 9:18 PM)
+
+/api/auth/sign-in  ( Time -> November 25, 2023 9:19 PM)
+
+/api/course/all  ( Time -> November 25, 2023 9:19 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 25, 2023 9:19 PM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 25, 2023 9:19 PM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 25, 2023 9:19 PM)
+
+/api/category/all  ( Time -> November 25, 2023 9:19 PM)
+
+/api/review-rating/all/655c1580429f642c2968cdbb  ( Time -> November 25, 2023 9:21 PM)
+
+/api/course-section/getSectionCourseById/655c1580429f642c2968cdbb  ( Time -> November 25, 2023 9:21 PM)
+
+/api/course/getCourseById/655c1580429f642c2968cdbb  ( Time -> November 25, 2023 9:21 PM)
+
+/api/course-section/getSectionCourseById/655c1580429f642c2968cdbb  ( Time -> November 25, 2023 9:21 PM)
+
+/api/category/all  ( Time -> November 25, 2023 9:21 PM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 25, 2023 9:21 PM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 25, 2023 9:23 PM)
+
+/api/category/all  ( Time -> November 25, 2023 9:23 PM)
+
+/api/course/all?page=1&limit=10&search=react  ( Time -> November 25, 2023 9:28 PM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 25, 2023 10:16 PM)
+
+/api/category/all  ( Time -> November 25, 2023 10:16 PM)
+
+/api/auth/sign-in  ( Time -> November 25, 2023 10:16 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 10:16 PM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 25, 2023 10:16 PM)
+
+/api/category/all  ( Time -> November 25, 2023 10:16 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 10:16 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 10:17 PM)
+
+/api/auth/sign-in  ( Time -> November 25, 2023 10:25 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 10:25 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 10:27 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 10:27 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 10:28 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 10:28 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 10:35 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 10:37 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 10:39 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 10:41 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 10:41 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 10:43 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 10:43 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 10:43 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 10:49 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 10:53 PM)
+
+PlanExecutor error during aggregation :: caused by :: $in requires an array as a second argument, found: missing  ( Time -> November 25, 2023 10:53 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 10:53 PM)
+
+PlanExecutor error during aggregation :: caused by :: $in requires an array as a second argument, found: missing  ( Time -> November 25, 2023 10:53 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 10:57 PM)
+
+/api/wishlist/course-available/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 10:58 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 10:58 PM)
+
+/api/course/student-bought/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 10:58 PM)
+
+/api/course/getCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 10:58 PM)
+
+/api/course-section/getSectionCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 10:58 PM)
+
+/api/review-rating/all/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 10:58 PM)
+
+/api/wishlist/course-available/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 10:58 PM)
+
+/api/course/student-bought/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 10:58 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 10:58 PM)
+
+/api/course-section/getSectionCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 10:58 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 10:58 PM)
+
+/api/review-rating/all/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/course/getCourseById/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/course/student-bought/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/course-section/getSectionCourseById/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/wishlist/course-available/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/user-progress/student/details/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/wishlist/course-available/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/course/student-bought/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/user-progress/student/details/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/course-section/getSectionCourseById/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/user/me  ( Time -> November 25, 2023 10:58 PM)
+
+/api/wishlist/course-available/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/course-section/getSectionCourseById/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/user-progress/student/details/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/course/student-bought/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/review-rating/all/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/course/getCourseById/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/wishlist/course-available/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/course/student-bought/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/user-progress/student/details/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/course-section/getSectionCourseById/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/auth/sign-in  ( Time -> November 25, 2023 10:58 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 10:58 PM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 25, 2023 10:58 PM)
+
+/api/category/all  ( Time -> November 25, 2023 10:58 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 10:58 PM)
+
+/api/wishlist/course-available/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/course/student-bought/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/course-section/getSectionCourseById/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/user-progress/student/details/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/review-rating/all/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/course/getCourseById/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/wishlist/course-available/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/course/student-bought/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/user-progress/student/details/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/course-section/getSectionCourseById/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 10:58 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 10:59 PM)
+
+/api/wishlist/course-available/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 10:59 PM)
+
+/api/course/student-bought/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 10:59 PM)
+
+/api/course-section/getSectionCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 10:59 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 10:59 PM)
+
+/api/review-rating/all/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 10:59 PM)
+
+/api/course/getCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 10:59 PM)
+
+/api/wishlist/course-available/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 10:59 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 10:59 PM)
+
+/api/course/student-bought/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 10:59 PM)
+
+/api/course-section/getSectionCourseById/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 10:59 PM)
+
+/api/user-progress/create  ( Time -> November 25, 2023 11:00 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 11:00 PM)
+
+/api/user-progress/create  ( Time -> November 25, 2023 11:00 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 11:00 PM)
+
+/api/user-progress/create  ( Time -> November 25, 2023 11:00 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 11:00 PM)
+
+/api/user-progress/create  ( Time -> November 25, 2023 11:00 PM)
+
+/api/user-progress/create  ( Time -> November 25, 2023 11:00 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 11:00 PM)
+
+/api/user-progress/create  ( Time -> November 25, 2023 11:00 PM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 25, 2023 11:00 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 11:02 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 11:05 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 11:08 PM)
+
+PlanExecutor error during aggregation :: caused by :: The argument to $size must be an array, but was of type: object  ( Time -> November 25, 2023 11:08 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 11:11 PM)
+
+PlanExecutor error during aggregation :: caused by :: The argument to $size must be an array, but was of type: object  ( Time -> November 25, 2023 11:11 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 11:15 PM)
+
+PlanExecutor error during aggregation :: caused by :: The argument to $size must be an array, but was of type: object  ( Time -> November 25, 2023 11:15 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 11:18 PM)
+
+PlanExecutor error during aggregation :: caused by :: The argument to $size must be an array, but was of type: object  ( Time -> November 25, 2023 11:18 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 11:21 PM)
+
+The $add accumulator is a unary operator  ( Time -> November 25, 2023 11:21 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 11:23 PM)
+
+PlanExecutor error during aggregation :: caused by :: The argument to $size must be an array, but was of type: object  ( Time -> November 25, 2023 11:23 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 11:27 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 11:30 PM)
+
+PlanExecutor error during aggregation :: caused by :: The argument to $size must be an array, but was of type: object  ( Time -> November 25, 2023 11:30 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 11:32 PM)
+
+PlanExecutor error during aggregation :: caused by :: can't $divide by zero  ( Time -> November 25, 2023 11:32 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 11:33 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 11:34 PM)
+
+/api/wishlist/course-available/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 11:34 PM)
+
+/api/course-section/getSectionCourseById/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 11:34 PM)
+
+/api/user-progress/student/details/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 11:34 PM)
+
+/api/review-rating/all/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 11:34 PM)
+
+/api/course/student-bought/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 11:34 PM)
+
+/api/course/getCourseById/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 11:34 PM)
+
+/api/wishlist/course-available/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 11:34 PM)
+
+/api/course/student-bought/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 11:34 PM)
+
+/api/course-section/getSectionCourseById/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 11:34 PM)
+
+/api/user-progress/student/details/6559fd32b4ece5754bd8b3ee  ( Time -> November 25, 2023 11:34 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 11:35 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 11:35 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 11:35 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 11:35 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 11:35 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 11:35 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 11:35 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 11:35 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 11:35 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 11:36 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 11:36 PM)
+
+/api/cart/details  ( Time -> November 25, 2023 11:36 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 11:36 PM)
+
+/api/user/students/my-learning  ( Time -> November 25, 2023 11:37 PM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:03 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:03 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:03 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:03 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:03 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:03 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:04 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:04 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:04 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:05 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:05 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:05 AM)
+
+/api/auth/sign-in  ( Time -> November 26, 2023 12:05 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:05 AM)
+
+/api/category/all  ( Time -> November 26, 2023 12:05 AM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 26, 2023 12:05 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:05 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:05 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:06 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:06 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:06 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:06 AM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 26, 2023 12:07 AM)
+
+/api/category/all  ( Time -> November 26, 2023 12:07 AM)
+
+/api/wishlist/course-available/65598f18ae9434dd4701cef8  ( Time -> November 26, 2023 12:07 AM)
+
+/api/course-section/getSectionCourseById/65598f18ae9434dd4701cef8  ( Time -> November 26, 2023 12:07 AM)
+
+/api/review-rating/all/65598f18ae9434dd4701cef8  ( Time -> November 26, 2023 12:07 AM)
+
+/api/course/student-bought/65598f18ae9434dd4701cef8  ( Time -> November 26, 2023 12:07 AM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 26, 2023 12:07 AM)
+
+/api/course/getCourseById/65598f18ae9434dd4701cef8  ( Time -> November 26, 2023 12:07 AM)
+
+/api/wishlist/course-available/65598f18ae9434dd4701cef8  ( Time -> November 26, 2023 12:07 AM)
+
+/api/course/student-bought/65598f18ae9434dd4701cef8  ( Time -> November 26, 2023 12:07 AM)
+
+/api/course-section/getSectionCourseById/65598f18ae9434dd4701cef8  ( Time -> November 26, 2023 12:07 AM)
+
+/api/user-progress/student/details/65598f18ae9434dd4701cef8  ( Time -> November 26, 2023 12:07 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:07 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:07 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:07 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:07 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:07 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:08 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:08 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:08 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:08 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:08 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:08 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:08 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:08 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:08 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:08 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:08 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:09 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:09 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:09 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:09 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:09 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:09 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:09 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:09 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:10 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:10 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:10 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:10 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:10 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:10 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:10 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:10 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:11 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:11 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:11 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:11 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:11 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:11 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:11 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:11 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:12 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:12 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:12 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:14 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:14 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:14 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:14 AM)
+
+/api/wishlist/course-available/65619601404663abb314f93d  ( Time -> November 26, 2023 12:14 AM)
+
+/api/course-section/getSectionCourseById/65619601404663abb314f93d  ( Time -> November 26, 2023 12:14 AM)
+
+/api/course/getCourseById/65619601404663abb314f93d  ( Time -> November 26, 2023 12:14 AM)
+
+/api/course/student-bought/65619601404663abb314f93d  ( Time -> November 26, 2023 12:14 AM)
+
+/api/review-rating/all/65619601404663abb314f93d  ( Time -> November 26, 2023 12:14 AM)
+
+/api/user-progress/student/details/65619601404663abb314f93d  ( Time -> November 26, 2023 12:14 AM)
+
+/api/wishlist/course-available/65619601404663abb314f93d  ( Time -> November 26, 2023 12:14 AM)
+
+/api/course/student-bought/65619601404663abb314f93d  ( Time -> November 26, 2023 12:14 AM)
+
+/api/user-progress/student/details/65619601404663abb314f93d  ( Time -> November 26, 2023 12:14 AM)
+
+/api/course-section/getSectionCourseById/65619601404663abb314f93d  ( Time -> November 26, 2023 12:14 AM)
+
+/api/user/students/my-learning  ( Time -> November 26, 2023 12:14 AM)
+
+/api/wishlist/course-available/65619601404663abb314f93d  ( Time -> November 26, 2023 12:15 AM)
+
+/api/course-section/getSectionCourseById/65619601404663abb314f93d  ( Time -> November 26, 2023 12:15 AM)
+
+/api/user-progress/student/details/65619601404663abb314f93d  ( Time -> November 26, 2023 12:15 AM)
+
+/api/review-rating/all/65619601404663abb314f93d  ( Time -> November 26, 2023 12:15 AM)
+
+/api/course/student-bought/65619601404663abb314f93d  ( Time -> November 26, 2023 12:15 AM)
+
+/api/course/getCourseById/65619601404663abb314f93d  ( Time -> November 26, 2023 12:15 AM)
+
+/api/wishlist/course-available/65619601404663abb314f93d  ( Time -> November 26, 2023 12:15 AM)
+
+/api/course/student-bought/65619601404663abb314f93d  ( Time -> November 26, 2023 12:15 AM)
+
+/api/user-progress/student/details/65619601404663abb314f93d  ( Time -> November 26, 2023 12:15 AM)
+
+/api/course-section/getSectionCourseById/65619601404663abb314f93d  ( Time -> November 26, 2023 12:15 AM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 26, 2023 12:15 AM)
+
+/api/category/all  ( Time -> November 26, 2023 12:15 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:15 AM)
+
+/api/auth/sign-in  ( Time -> November 26, 2023 12:16 AM)
+
+/api/auth/sign-in  ( Time -> November 26, 2023 12:16 AM)
+
+/api/course/all  ( Time -> November 26, 2023 12:16 AM)
+
+/api/course/all?type=verified&value=true  ( Time -> November 26, 2023 12:19 AM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 26, 2023 12:19 AM)
+
+/api/course/all?type=disable  ( Time -> November 26, 2023 12:19 AM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 26, 2023 12:20 AM)
+
+/api/course/all?type=verified&value=true  ( Time -> November 26, 2023 12:20 AM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 26, 2023 12:20 AM)
+
+/api/course/all?type=verified&value=true  ( Time -> November 26, 2023 12:20 AM)
+
+/api/user/students/all  ( Time -> November 26, 2023 12:20 AM)
+
+/api/user/students/all  ( Time -> November 26, 2023 12:21 AM)
+
+/api/user/students/all  ( Time -> November 26, 2023 12:23 AM)
+
+/api/user/students/all  ( Time -> November 26, 2023 12:23 AM)
+
+/api/user/students/all  ( Time -> November 26, 2023 12:23 AM)
+
+/api/user/students/all  ( Time -> November 26, 2023 12:24 AM)
+
+/api/user/students/all  ( Time -> November 26, 2023 12:25 AM)
+
+/api/user/students/all  ( Time -> November 26, 2023 12:25 AM)
+
+/api/user/students/all  ( Time -> November 26, 2023 12:25 AM)
+
+/api/user/students/all  ( Time -> November 26, 2023 12:25 AM)
+
+/api/user/students/all  ( Time -> November 26, 2023 12:26 AM)
+
+/api/subscription/all  ( Time -> November 26, 2023 12:27 AM)
+
+/api/user/students/all  ( Time -> November 26, 2023 12:29 AM)
+
+/api/user/students/all  ( Time -> November 26, 2023 12:29 AM)
+
+/api/user/instructor/all  ( Time -> November 26, 2023 12:29 AM)
+
+/api/user/instructor/all  ( Time -> November 26, 2023 12:31 AM)
+
+/api/user/instructor/all  ( Time -> November 26, 2023 12:31 AM)
+
+/api/auth/sign-in  ( Time -> November 26, 2023 12:32 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 12:32 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 12:32 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 12:34 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 12:34 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 12:34 AM)
+
+/api/category/all  ( Time -> November 26, 2023 12:35 AM)
+
+/api/course/getCourseById/65598f18ae9434dd4701cef8  ( Time -> November 26, 2023 12:35 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 12:35 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 12:35 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 12:37 AM)
+
+/api/auth/sign-in  ( Time -> November 26, 2023 12:39 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:39 AM)
+
+/api/category/all  ( Time -> November 26, 2023 12:39 AM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 26, 2023 12:39 AM)
+
+/api/cart/details  ( Time -> November 26, 2023 12:39 AM)
+
+/api/auth/sign-in  ( Time -> November 26, 2023 12:39 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 12:39 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 12:42 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 12:42 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 12:43 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 12:46 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 12:46 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 12:46 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 12:46 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 12:47 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 12:47 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 12:48 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 12:59 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:00 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:00 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:00 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:00 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:00 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:00 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:00 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:00 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:00 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:01 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:01 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:05 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:06 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:06 AM)
+
+/api/category/all  ( Time -> November 26, 2023 1:08 AM)
+
+/api/course/create  ( Time -> November 26, 2023 1:10 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:10 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:11 AM)
+
+/api/category/all  ( Time -> November 26, 2023 1:12 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:12 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:12 AM)
+
+/api/course/submit/course-review/6562469fcd596e52b2fafa36  ( Time -> November 26, 2023 1:13 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:13 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:14 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:14 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:15 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:16 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:17 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:17 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:17 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:17 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:17 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:18 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:18 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:18 AM)
+
+/api/course/getCourseById/6562469fcd596e52b2fafa36  ( Time -> November 26, 2023 1:21 AM)
+
+/api/category/all  ( Time -> November 26, 2023 1:21 AM)
+
+/api/course/getCourseById/6562469fcd596e52b2fafa36  ( Time -> November 26, 2023 1:21 AM)
+
+/api/course/getCourseById/6562469fcd596e52b2fafa36  ( Time -> November 26, 2023 1:21 AM)
+
+/api/course/getCourseById/6562469fcd596e52b2fafa36  ( Time -> November 26, 2023 1:22 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:22 AM)
+
+/api/category/all  ( Time -> November 26, 2023 1:22 AM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 26, 2023 1:22 AM)
+
+/api/auth/sign-in  ( Time -> November 26, 2023 1:23 AM)
+
+/api/course/all  ( Time -> November 26, 2023 1:23 AM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 26, 2023 1:23 AM)
+
+/api/course/all?type=verified&value=false  ( Time -> November 26, 2023 1:23 AM)
+
+/api/course/all?type=verified&value=all  ( Time -> November 26, 2023 1:23 AM)
+
+/api/course/all  ( Time -> November 26, 2023 1:23 AM)
+
+/api/course/all?page=1&limit=10  ( Time -> November 26, 2023 1:24 AM)
+
+/api/category/all  ( Time -> November 26, 2023 1:24 AM)
+
+/api/auth/sign-in  ( Time -> November 26, 2023 1:24 AM)
+
+/api/course/all/instructor?searchTerm=  ( Time -> November 26, 2023 1:24 AM)
+

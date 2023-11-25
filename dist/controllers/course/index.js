@@ -128,7 +128,7 @@ class CourseControllerClass {
                             description: 1,
                             prerequisites: 1,
                             benefits: 1,
-                            category: 1
+                            category: 1,
                         },
                     },
                 ];
@@ -366,7 +366,6 @@ class CourseControllerClass {
                             },
                         },
                     ];
-                    // const result: any = await CourseModel.aggregate(aggregationPipeline);
                     if (sortValue === "student") {
                         aggregationPipeline.push({
                             $sort: {
@@ -543,8 +542,19 @@ class CourseControllerClass {
     requestForCoursePublish(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                (0, dbLogger_1.databaseLogger)(req.originalUrl);
+                const { courseId } = req.params;
+                const course = yield course_1.default.findOneAndUpdate({ _id: new mongoose_1.default.Types.ObjectId(courseId) }, { verified: false });
+                if (!(course === null || course === void 0 ? void 0 : course.isModified)) {
+                    return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
+                }
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SUBMIT_REQUEST_COURSE_PUBLICATION);
             }
-            catch (error) { }
+            catch (error) {
+                console.log(error);
+                (0, dbLogger_1.databaseLogger)(error.message);
+                return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.INTERNAL_SERVER_ERROR, responseMessage_1.RESPONSE_MESSAGE.INTERNAL_SERVER_ERROR);
+            }
         });
     }
     courseBoughtByStudent(req, res) {
