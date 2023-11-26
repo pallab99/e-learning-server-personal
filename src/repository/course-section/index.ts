@@ -37,7 +37,10 @@ class CourseSectionClassRepository {
         path: "sectionContent",
         match: { disable: { $eq: false } },
       })
-      .populate("assignment")
+      .populate({
+        path: "assignment",
+        match: { disabled: { $eq: false } },
+      })
       .populate("quiz");
   }
 
@@ -50,7 +53,11 @@ class CourseSectionClassRepository {
         match: { disable: { $eq: false } },
         select: "-contentUrl",
       })
-      .populate("assignment", "-assignmentFileURL -point -instructions")
+      .populate({
+        path: "assignment",
+        match: { disabled: { $eq: false } },
+        select:"-assignmentFileURL -point -instructions"
+      })
       .populate("quiz", "-questions");
   }
 }
