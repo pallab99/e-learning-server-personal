@@ -25,7 +25,13 @@ const user_2 = __importDefault(require("../../services/user"));
 const dbLogger_1 = require("../../utils/dbLogger");
 const response_1 = require("../../utils/response");
 const sendValidationError_1 = require("../../utils/sendValidationError");
+const mail_1 = require("../../configs/mail");
 const jwt = require("jsonwebtoken");
+const { promisify } = require("util");
+const ejs = require("ejs");
+const ejsRenderFile = promisify(ejs.renderFile);
+const path = require("path");
+const adminEmail = process.env.ADMIN_EMAIL;
 const bucketName = process.env.S3_BUCKET_NAME;
 class CourseControllerClass {
     createCourse(req, res) {
@@ -538,8 +544,8 @@ class CourseControllerClass {
             }
         });
     }
-    // async userEnrolledInCourse(req:Request,res:Response)
     requestForCoursePublish(req, res) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
@@ -548,6 +554,18 @@ class CourseControllerClass {
                 if (!(course === null || course === void 0 ? void 0 : course.isModified)) {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
                 }
+                const courseName = yield course_1.default.findById(courseId);
+                const htmlBody = yield ejsRenderFile(path.join(__dirname, "..", "..", "..", "src", "views", "course-publication.ejs"), {
+                    name: "Admin",
+                    user: `${(_a = req === null || req === void 0 ? void 0 : req.user) === null || _a === void 0 ? void 0 : _a.name}`,
+                    course: `${courseName === null || courseName === void 0 ? void 0 : courseName.title}`
+                });
+                const result = yield mail_1.transporter.sendMail({
+                    from: "book-heaven@system.com",
+                    to: `Admin Admin ${adminEmail}`,
+                    subject: "Course Publication Request",
+                    html: htmlBody,
+                });
                 return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SUBMIT_REQUEST_COURSE_PUBLICATION);
             }
             catch (error) {

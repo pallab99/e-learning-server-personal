@@ -52,7 +52,7 @@ class SubscriptionControllerClass {
                 const result = yield mail_1.transporter.sendMail({
                     from: "book-heaven@system.com",
                     to: `Admin Admin ${adminEmail}`,
-                    subject: "Verify Account",
+                    subject: "Request for course subscription",
                     html: htmlBody,
                 });
                 const removeCart = yield cart_1.default.removeCart(cartId);

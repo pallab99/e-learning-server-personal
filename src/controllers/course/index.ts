@@ -12,7 +12,13 @@ import UserService from "../../services/user";
 import { databaseLogger } from "../../utils/dbLogger";
 import { sendResponse } from "../../utils/response";
 import { sendValidationError } from "../../utils/sendValidationError";
+import { transporter } from "../../configs/mail";
 const jwt = require("jsonwebtoken");
+const { promisify } = require("util");
+const ejs = require("ejs");
+const ejsRenderFile = promisify(ejs.renderFile);
+const path = require("path");
+const adminEmail = process.env.ADMIN_EMAIL as string;
 const bucketName = process.env.S3_BUCKET_NAME;
 class CourseControllerClass {
   async createCourse(req: Request, res: Response) {
@@ -769,7 +775,6 @@ class CourseControllerClass {
     }
   }
 
-  // async userEnrolledInCourse(req:Request,res:Response)
   async requestForCoursePublish(req: Request, res: Response) {
     try {
       databaseLogger(req.originalUrl);
@@ -785,6 +790,29 @@ class CourseControllerClass {
           RESPONSE_MESSAGE.SOMETHING_WENT_WRONG
         );
       }
+      const courseName=await CourseModel.findById(courseId)
+      const htmlBody = await ejsRenderFile(
+        path.join(
+          __dirname,
+          "..",
+          "..",
+          "..",
+          "src",
+          "views",
+          "course-publication.ejs"
+        ),
+        {
+          name: "Admin",
+          user: `${req?.user?.name}`,
+          course:`${courseName?.title}`
+        }
+      );
+      const result = await transporter.sendMail({
+        from: "book-heaven@system.com",
+        to: `Admin Admin ${adminEmail}`,
+        subject: "Course Publication Request",
+        html: htmlBody,
+      });
       return sendResponse(
         res,
         HTTP_STATUS.BAD_REQUEST,

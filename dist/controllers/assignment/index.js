@@ -79,6 +79,7 @@ class AssignmentControllerClass {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.NOT_FOUND, responseMessage_1.RESPONSE_MESSAGE.COURSE_SECTION_NOT_FOUND);
                 }
                 let data = Object.assign({}, req.body);
+                console.log(file);
                 if (file) {
                     const saveFileOnServer = yield assignment_1.default.saveFileOnServer(file, course.data.title, courseSection.data.title);
                     data = Object.assign(Object.assign({}, data), { assignmentFileURL: saveFileOnServer.data });

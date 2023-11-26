@@ -125,7 +125,8 @@ class AssignmentControllerClass {
       }
 
       let data = { ...req.body };
-
+      console.log(file);
+      
       if (file) {
         const saveFileOnServer = await AssignmentService.saveFileOnServer(
           file,

@@ -297,165 +297,59 @@ class UserControllerClass {
         );
       }
 
-      // const aggregationPipeline = [
-      //   {
-      //     $match: {
-      //       _id: user?._id,
-      //     },
-      //   },
-      //   {
-      //     $unwind: "$enrolledCourses",
-      //   },
-      //   {
-      //     $lookup: {
-      //       from: "courses",
-      //       localField: "enrolledCourses",
-      //       foreignField: "_id",
-      //       as: "enrolledCourses",
-      //     },
-      //   },
-      //   {
-      //     $unwind: "$enrolledCourses",
-      //   },
-      //   {
-      //     $lookup: {
-      //       from: "reviewratings",
-      //       localField: "enrolledCourses._id",
-      //       foreignField: "course",
-      //       as: "enrolledCourses.ratings",
-      //     },
-      //   },
-      //   {
-      //     $unwind: "$enrolledCourses.ratings",
-      //   },
-      //   {
-      //     $lookup: {
-      //       from: "userprogresses",
-      //       localField: "enrolledCourses._id",
-      //       foreignField: "course",
-      //       as: "enrolledCourses.progress",
-      //     },
-      //   },
-      //   {
-      //     $unwind: "$enrolledCourses.progress",
-      //   },
-      //   {
-      //     $lookup: {
-      //       from: "coursesections",
-      //       localField: "enrolledCourses._id",
-      //       foreignField: "course",
-      //       as: "enrolledCourses.sections",
-      //     },
-      //   },
-      //   {
-      //     $unwind: "$enrolledCourses.sections",
-      //   },
-      //   {
-      //     $lookup: {
-      //       from: "coursecontents",
-      //       localField: "enrolledCourses.sections.sectionContent",
-      //       foreignField: "_id",
-      //       as: "enrolledCourses.sections.sectionContent",
-      //     },
-      //   },
-      //   {
-      //     $unwind: "$enrolledCourses.sections.sectionContent",
-      //   },
-      //   {
-      //     $group: {
-      //       _id: "$enrolledCourses._id",
-      //       title: { $first: "$enrolledCourses.title" },
-      //       level: { $first: "$enrolledCourses.level" },
-      //       averageRating: { $avg: "$enrolledCourses.ratings.rating" },
-      //       ratingCount: { $sum: 1 },
-      //       progress: {
-      //         $sum: {
-      //           $cond: [
-      //             {
-      //               $or: [
-      //                 {
-      //                   $in: [
-      //                     "$enrolledCourses.sections.sectionContent._id",
-      //                     "$enrolledCourses.progress.completedLessons",
-      //                   ],
-      //                 },
-      //                 {
-      //                   $in: [
-      //                     "$enrolledCourses.sections.assignment",
-      //                     "$enrolledCourses.progress.completedLessons",
-      //                   ],
-      //                 },
-      //                 {
-      //                   $in: [
-      //                     "$enrolledCourses.sections.quiz",
-      //                     "$enrolledCourses.progress.completedLessons",
-      //                   ],
-      //                 },
-      //               ],
-      //             },
-      //             1,
-      //             0,
-      //           ],
-      //         },
-      //       },
-      //       totalContent: {
-      //         $sum: {
-      //           $add: [
-      //             {
-      //               $cond: [
-      //                 { $isArray: "$enrolledCourses.sections.sectionContent" },
-      //                 { $size: "$enrolledCourses.sections.sectionContent" },
-      //                 0,
-      //               ],
-      //             },
-      //             {
-      //               $cond: [
-      //                 {
-      //                   $ifNull: [
-      //                     "$enrolledCourses.sections.assignment",
-      //                     false,
-      //                   ],
-      //                 },
-      //                 1,
-      //                 0,
-      //               ],
-      //             },
-      //             {
-      //               $cond: [
-      //                 { $ifNull: ["$enrolledCourses.sections.quiz", false] },
-      //                 1,
-      //                 0,
-      //               ],
-      //             },
-      //           ],
-      //         },
-      //       },
-      //     },
-      //   },
-      //   {
-      //     $project: {
-      //       _id: 1,
-      //       title: 1,
-      //       level: 1,
-      //       thumbnail:1,
-      //       averageRating: 1,
-      //       ratingCount: 1,
-      //       progress: {
-      //         $cond: {
-      //           if: { $ne: ["$totalContent", 0] }, // Check if totalContent is not zero
-      //           then: {
-      //             $multiply: [{ $divide: ["$progress", "$totalContent"] }, 100],
-      //           }, // Perform division
-      //           else: 0, // Return 0 if totalContent is zero to avoid division by zero
-      //         },
-      //       },
-      //     },
-      //   },
-      // ];
-
-      // const myLearnings = await UserModel.aggregate(aggregationPipeline).exec();
-      // console.log(myLearnings);
-
+      const aggregationPipeline = [
+        {$match:{
+          _id:new mongoose.Types.ObjectId(user?._id)
+        }},
+        {
+          $lookup: {
+            from: "reviewratings",
+            localField: "_id",
+            foreignField: "course",
+            as: "reviews",
+          },
+        },
+        {
+          $lookup: {
+            from: "userprogresses",
+            localField: "_id",
+            foreignField: "course",
+            as: "progress",
+          },
+        },
+        {
+          $unwind: "$reviews",
+        },
+        {
+          $group: {
+            _id: "$_id",
+            title: { $first: "$title" },
+            level: { $first: "$level" },
+            thumbnail: { $first: "$thumbnail" },
+            averageRating: { $avg: "$reviews.rating" },
+            totalLessons: { $sum: 1 },
+            completedLessons: { $sum: "$progress.completedLessons.length" },
+          },
+        },
+        {
+          $project: {
+            title: 1,
+            level: 1,
+            thumbnail: 1,
+            averageRating: 1,
+            overallProgress: {
+              $multiply: [
+                { $divide: ["$completedLessons", "$totalLessons"] },
+                100,
+              ],
+            },
+          },
+        },
+       ];
+        
+       const myLearnings = await UserModel.aggregate(aggregationPipeline).explain();
+       console.log(myLearnings);
+       
       const myLearning = await UserService.getMyLearning(user._id);
       if (!myLearning.success) {
         return sendResponse(

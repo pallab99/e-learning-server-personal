@@ -63,7 +63,7 @@ class SubscriptionControllerClass {
       const result = await transporter.sendMail({
         from: "book-heaven@system.com",
         to: `Admin Admin ${adminEmail}`,
-        subject: "Verify Account",
+        subject: "Request for course subscription",
         html: htmlBody,
       });
       const removeCart = await CartService.removeCart(cartId);
