@@ -135,6 +135,7 @@ class CourseControllerClass {
                             prerequisites: 1,
                             benefits: 1,
                             category: 1,
+                            verified: 1
                         },
                     },
                 ];
