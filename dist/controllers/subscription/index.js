@@ -19,9 +19,9 @@ const cart_1 = __importDefault(require("../../services/cart"));
 const course_1 = __importDefault(require("../../services/course"));
 const purchase_history_1 = __importDefault(require("../../services/purchase-history"));
 const subscription_1 = __importDefault(require("../../services/subscription"));
+const user_1 = __importDefault(require("../../services/user"));
 const dbLogger_1 = require("../../utils/dbLogger");
 const response_1 = require("../../utils/response");
-const user_1 = __importDefault(require("../../services/user"));
 const { promisify } = require("util");
 const ejs = require("ejs");
 const ejsRenderFile = promisify(ejs.renderFile);
@@ -104,7 +104,6 @@ class SubscriptionControllerClass {
         });
     }
     acceptSubscription(req, res) {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 (0, dbLogger_1.databaseLogger)(req.originalUrl);
@@ -131,7 +130,7 @@ class SubscriptionControllerClass {
                     return (0, response_1.sendResponse)(res, statusCode_1.HTTP_STATUS.BAD_REQUEST, responseMessage_1.RESPONSE_MESSAGE.SOMETHING_WENT_WRONG);
                 }
                 const htmlBody = yield ejsRenderFile(path.join(__dirname, "..", "..", "..", "src", "views", "subscription-accepted.ejs"), {
-                    name: `${(_a = subscription.data.cart) === null || _a === void 0 ? void 0 : _a.user.name}`,
+                    name: `${subscription.data.user.name}`,
                     courseName: `${course.data.title}`,
                 });
                 const result = yield mail_1.transporter.sendMail({

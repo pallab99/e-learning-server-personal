@@ -6,9 +6,9 @@ import CartService from "../../services/cart";
 import CourseService from "../../services/course";
 import PurchaseHistoryService from "../../services/purchase-history";
 import SubscriptionService from "../../services/subscription";
+import UserService from "../../services/user";
 import { databaseLogger } from "../../utils/dbLogger";
 import { sendResponse } from "../../utils/response";
-import UserService from "../../services/user";
 const { promisify } = require("util");
 const ejs = require("ejs");
 const ejsRenderFile = promisify(ejs.renderFile);
@@ -231,7 +231,7 @@ class SubscriptionControllerClass {
           "subscription-accepted.ejs"
         ),
         {
-          name: `${subscription.data.cart?.user.name}`,
+          name: `${subscription.data.user.name}`,
           courseName: `${course.data.title}`,
         }
       );
